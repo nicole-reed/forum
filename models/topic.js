@@ -3,7 +3,7 @@ import { Schema, model, models } from 'mongoose'
 
 const TopicSchema = new Schema({
     title: { type: String },
-    body: { type: String }
+    description: { type: String }
 })
 
 

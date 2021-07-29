@@ -19,9 +19,9 @@ const handler = async (req, res) => {
             console.log('inside POST posts/postId/comments')
             const validatedRequest = createCommentRunType.check(req)
             const { postId } = validatedRequest.query
-            const { body, commentId } = validatedRequest.body
+            const { body, replyTo } = validatedRequest.body
 
-            const comment = new Comment({ postId, body, replyTo: commentId, replyCount: 0 })
+            const comment = new Comment({ postId, body, replyTo, replyCount: 0 })
 
             await comment.save()
 

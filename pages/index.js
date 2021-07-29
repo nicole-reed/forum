@@ -1,10 +1,10 @@
-import { useSession, signIn, signOut } from 'next-auth/client'
-import Header from '../components/header'
+import Layout from '../components/layout'
 
 export default function Home() {
+
   return (
     <div>
-      <Header />
+      <Layout />
     </div>
   )
 }

@@ -20,7 +20,7 @@ const handler = async (req, res) => {
             res.send({ replies })
         } catch (error) {
             console.log(error)
-            res.send(error.message)
+            res.status(500).send(error.message)
         }
 
     } else {

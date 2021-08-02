@@ -25,8 +25,12 @@ const handler = async (req, res) => {
 
             await comment.save()
 
+            if (replyTo) {
+                await Comment.findOneAndUpdate({ _id: replyTo }, { $inc: { replyCount: 1 } })
+            }
+
             console.log('sucessfully saved comment')
-            res.send({ message: `successfully added comment to post ${postId}` })
+            res.send({ comment })
         } catch (error) {
             console.log(error)
             res.status(500).send(error.message)

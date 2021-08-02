@@ -30,6 +30,16 @@ const handler = async (req, res) => {
             res.status(500).send(error.message)
         }
 
+    } else if (req.method === 'GET') {
+        try {
+            const topics = await Topic.find()
+
+            res.send(topics)
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error.message)
+        }
+
     } else {
         res.status(400).send(`no endpoint ${req.method} /topic`)
     }

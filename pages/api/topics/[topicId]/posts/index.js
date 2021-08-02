@@ -12,6 +12,12 @@ const createPostRunType = Record({
     })
 })
 
+const getPostsRunType = Record({
+    query: Record({
+        topicId: String
+    })
+})
+
 const handler = async (req, res) => {
 
     if (req.method === 'POST') {
@@ -27,6 +33,20 @@ const handler = async (req, res) => {
 
             console.log('sucessfully saved post')
             res.send({ message: `successfully created post ${post.title}` })
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(error.message)
+        }
+
+    } else if (req.method === 'GET') {
+        try {
+            console.log('inside GET topics/topicId/posts')
+            const validatedRequest = getPostsRunType.check(req)
+            const { topicId } = validatedRequest.query
+
+            const posts = await Post.find({ topicId }).sort({ _id: -1 })
+
+            res.send({ posts })
         } catch (error) {
             console.log(error)
             res.status(500).send(error.message)

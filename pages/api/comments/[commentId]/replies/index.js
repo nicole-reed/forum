@@ -2,7 +2,7 @@ import { Record, String, Optional, Union, Literal, ValidationError } from 'runty
 import { Comment } from '../../../../../models/comment'
 import connectDB from '../../../../../middleware/mongodb'
 
-const getReplyRunType = Record({
+const getRepliesRunType = Record({
     query: Record({
         commentId: String,
     })
@@ -12,8 +12,7 @@ const handler = async (req, res) => {
 
     if (req.method === 'GET') {
         try {
-            console.log('inside GET comments/commentId/replies')
-            const validatedRequest = getReplyRunType.check(req)
+            const validatedRequest = getRepliesRunType.check(req)
             const { commentId } = validatedRequest.query
 
             const replies = await Comment.find({ replyTo: commentId })
@@ -21,7 +20,7 @@ const handler = async (req, res) => {
             res.send({ replies })
         } catch (error) {
             console.log(error)
-            res.status(500).send(error.message)
+            res.send(error.message)
         }
 
     } else {

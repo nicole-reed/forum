@@ -34,7 +34,7 @@ const handler = async (req, res) => {
         try {
             const topics = await Topic.find()
 
-            res.send(topics)
+            res.send({ topics })
         } catch (error) {
             console.log(error)
             res.status(500).send(error.message)

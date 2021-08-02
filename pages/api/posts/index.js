@@ -7,7 +7,7 @@ const handler = async (req, res) => {
         try {
             const posts = await Post.find({}).sort({ _id: -1 }) //sorts by date newest to oldest
 
-            res.send(posts)
+            res.send({ posts })
         } catch (error) {
             console.log(error)
             res.status(500).send(error.message)

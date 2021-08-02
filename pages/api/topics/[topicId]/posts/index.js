@@ -46,7 +46,7 @@ const handler = async (req, res) => {
 
             const posts = await Post.find({ topicId }).sort({ _id: -1 })
 
-            res.send(posts)
+            res.send({ posts })
         } catch (error) {
             console.log(error)
             res.status(500).send(error.message)

@@ -29,7 +29,7 @@ const handler = async (req, res) => {
 
             await Post.deleteOne({ _id: postId })
 
-            res.send('successfully deleted post')
+            res.send({ message: 'successfully deleted post' })
         } catch (error) {
 
         }

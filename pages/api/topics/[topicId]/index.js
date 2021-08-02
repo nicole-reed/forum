@@ -29,7 +29,7 @@ const handler = async (req, res) => {
 
             await Topic.deleteOne({ _id: topicId })
 
-            res.send('successfully deleted topic')
+            res.send({ message: 'successfully deleted topic' })
         } catch (error) {
 
         }

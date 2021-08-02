@@ -29,7 +29,7 @@ const handler = async (req, res) => {
 
             await Comment.deleteOne({ _id: commentId })
 
-            res.send('successfully deleted comment')
+            res.send({ message: 'successfully deleted comment' })
         } catch (error) {
 
         }

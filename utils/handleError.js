@@ -15,7 +15,7 @@ export default function handleError(error, res) {
         res.status(401).send({ message: error.message })
 
     } else if (error instanceof ValidationError) {
-        res.status(401).send({ message: error.message, details: error.details })
+        res.status(400).send({ message: error.message, details: error.details })
 
     } else {
         res.status(500).send({ message: error.message || 'Unexpected error has occured.' })

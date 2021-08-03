@@ -1,6 +1,6 @@
-import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Post } from '../../../models/post'
 import connectDB from '../../../middleware/mongodb'
+import handleError from '../../../utils/handleError'
 
 const handler = async (req, res) => {
     if (req.method === 'GET') {
@@ -9,8 +9,7 @@ const handler = async (req, res) => {
 
             res.send({ posts })
         } catch (error) {
-            console.log(error)
-            res.status(500).send(error.message)
+            handleError(error, res)
         }
 
     } else {

@@ -1,6 +1,7 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Topic } from '../../../../models/topic'
 import connectDB from '../../../../middleware/mongodb'
+import handleError from '../../../../utils/handleError'
 
 const getTopicByIdRunType = Record({
     query: Record({
@@ -18,8 +19,7 @@ const handler = async (req, res) => {
 
             res.send({ topic })
         } catch (error) {
-            console.log(error)
-            res.status(500).send(error.message)
+            handleError(error, res)
         }
 
     } else if (req.method === 'DELETE') {
@@ -31,7 +31,7 @@ const handler = async (req, res) => {
 
             res.send({ message: 'successfully deleted topic' })
         } catch (error) {
-
+            handleError(error, res)
         }
     } else {
         res.status(400).send(`no endpoint ${req.method} /topicId`)

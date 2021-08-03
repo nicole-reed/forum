@@ -1,6 +1,7 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Comment } from '../../../../../models/comment'
 import connectDB from '../../../../../middleware/mongodb'
+import handleError from '../../../../../utils/handleError'
 
 const getRepliesRunType = Record({
     query: Record({
@@ -19,8 +20,7 @@ const handler = async (req, res) => {
 
             res.send({ replies })
         } catch (error) {
-            console.log(error)
-            res.status(500).send(error.message)
+            handleError(error, res)
         }
 
     } else {

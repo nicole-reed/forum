@@ -2,6 +2,8 @@ import { Record, String, Optional, Union, Literal, ValidationError } from 'runty
 import { Post } from '../../../../../models/post'
 import jwt from 'next-auth/jwt'
 import connectDB from '../../../../../middleware/mongodb'
+import { UnauthorizedError } from '../../../../../errors/unauthorized.error'
+import handleError from '../../../../../utils/handleError'
 
 const secret = process.env.JWT_SECRET
 
@@ -27,7 +29,7 @@ const handler = async (req, res) => {
         try {
             const token = await jwt.getToken({ req, secret })
             if (!token) {
-                return res.status(403).send('Forbidden')
+                throw new UnauthorizedError('Unauthorized')
             }
             const validatedRequest = createPostRunType.check(req)
             const { topicId } = validatedRequest.query
@@ -40,13 +42,11 @@ const handler = async (req, res) => {
             console.log('sucessfully saved post')
             res.send({ message: `successfully created post ${post.title}` })
         } catch (error) {
-            console.log(error)
-            res.status(500).send(error.message)
+            handleError(error, res)
         }
 
     } else if (req.method === 'GET') {
         try {
-            console.log('inside GET topics/topicId/posts')
             const validatedRequest = getPostsRunType.check(req)
             const { topicId } = validatedRequest.query
 
@@ -54,8 +54,7 @@ const handler = async (req, res) => {
 
             res.send({ posts })
         } catch (error) {
-            console.log(error)
-            res.status(500).send(error.message)
+            handleError(error, res)
         }
 
     } else {

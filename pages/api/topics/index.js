@@ -1,6 +1,8 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Topic } from '../../../models/topic'
-import jwt from 'next/auth'
+import handleError from '../../../utils/handleError'
+import jwt from 'next-auth/jwt'
+import { UnauthorizedError } from '../../../errors/unauthorized.error'
 import connectDB from '../../../middleware/mongodb'
 
 const secret = process.env.JWT_SECRET
@@ -18,7 +20,7 @@ const handler = async (req, res) => {
         try {
             const token = await jwt.getToken({ req, secret })
             if (!token) {
-                res.status(403).send('Forbidden')
+                throw new UnauthorizedError('Unauthorized')
             }
 
             const validatedRequest = reqRunType.check(req)
@@ -32,18 +34,15 @@ const handler = async (req, res) => {
 
             res.send(`successfully created topic ${topic.title}`)
         } catch (error) {
-            console.log(error)
-            res.status(500).send(error.message)
+            handleError(error, res)
         }
-
     } else if (req.method === 'GET') {
         try {
             const topics = await Topic.find()
 
             res.send({ topics })
         } catch (error) {
-            console.log(error)
-            res.status(500).send(error.message)
+            handleError(error, res)
         }
 
     } else {

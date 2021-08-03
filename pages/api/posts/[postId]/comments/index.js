@@ -1,7 +1,9 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Comment } from '../../../../../models/comment'
-import jwt from 'next/auth'
+import jwt from 'next-auth/jwt'
 import connectDB from '../../../../../middleware/mongodb'
+import { UnauthorizedError } from '../../../../../errors/unauthorized.error'
+import handleError from '../../../../../utils/handleError'
 
 const secret = process.env.JWT_SECRET
 
@@ -21,7 +23,7 @@ const handler = async (req, res) => {
         try {
             const token = await jwt.getToken({ req, secret })
             if (!token) {
-                return res.status(403).send('Forbidden')
+                throw new UnauthorizedError('Unauthorized')
             }
             const validatedRequest = createCommentRunType.check(req)
             const { postId } = validatedRequest.query
@@ -38,8 +40,7 @@ const handler = async (req, res) => {
             console.log('sucessfully saved comment')
             res.send({ comment })
         } catch (error) {
-            console.log(error)
-            res.status(500).send(error.message)
+            handleError(error, res)
         }
 
     } else {

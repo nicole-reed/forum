@@ -3,7 +3,9 @@ import { Topic } from '../../../models/topic'
 import handleError from '../../../utils/handleError'
 import jwt from 'next-auth/jwt'
 import { UnauthorizedError } from '../../../errors/unauthorized.error'
+import { ForbiddenError } from '../../../errors/forbidden.error'
 import connectDB from '../../../middleware/mongodb'
+import { ForbiddenError } from '../../../errors/forbidden.error'
 
 const secret = process.env.JWT_SECRET
 
@@ -18,9 +20,15 @@ const handler = async (req, res) => {
 
     if (req.method === 'POST') {
         try {
+
             const token = await jwt.getToken({ req, secret })
+
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')
+            }
+
+            if (token.email !== 'nickreed033@gmail.com') {
+                throw new ForbiddenError('Forbidden')
             }
 
             const validatedRequest = reqRunType.check(req)
@@ -30,7 +38,6 @@ const handler = async (req, res) => {
             const topic = new Topic({ title, description })
 
             await topic.save()
-
 
             res.send(`successfully created topic ${topic.title}`)
         } catch (error) {

@@ -2,6 +2,7 @@ import { Schema, model, models } from 'mongoose'
 
 
 const CommentSchema = new Schema({
+    userId: { type: String },
     postId: { type: String },
     body: { type: String },
     replyTo: { type: String },

@@ -3,6 +3,7 @@ import { Post } from '../../../../models/post'
 import connectDB from '../../../../middleware/mongodb'
 import handleError from '../../../../utils/handleError'
 
+
 const getPostByIdRunType = Record({
     query: Record({
         postId: String

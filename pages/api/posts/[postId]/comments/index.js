@@ -29,7 +29,7 @@ const handler = async (req, res) => {
             const { postId } = validatedRequest.query
             const { body, replyTo } = validatedRequest.body
 
-            const comment = new Comment({ postId, body, replyTo, replyCount: 0 })
+            const comment = new Comment({ postId, user: token.email, body, replyTo, replyCount: 0 })
 
             await comment.save()
 

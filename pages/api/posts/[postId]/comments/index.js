@@ -1,6 +1,9 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Comment } from '../../../../../models/comment'
+import jwt from 'next/auth'
 import connectDB from '../../../../../middleware/mongodb'
+
+const secret = process.env.JWT_SECRET
 
 const createCommentRunType = Record({
     query: Record({
@@ -16,7 +19,10 @@ const handler = async (req, res) => {
 
     if (req.method === 'POST') {
         try {
-            console.log('inside POST posts/postId/comments')
+            const token = await jwt.getToken({ req, secret })
+            if (!token) {
+                return res.status(403).send('Forbidden')
+            }
             const validatedRequest = createCommentRunType.check(req)
             const { postId } = validatedRequest.query
             const { body, replyTo } = validatedRequest.body

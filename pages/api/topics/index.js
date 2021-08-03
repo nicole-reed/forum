@@ -1,6 +1,9 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Topic } from '../../../models/topic'
+import jwt from 'next/auth'
 import connectDB from '../../../middleware/mongodb'
+
+const secret = process.env.JWT_SECRET
 
 const reqRunType = Record({
     body: Record({
@@ -13,7 +16,10 @@ const handler = async (req, res) => {
 
     if (req.method === 'POST') {
         try {
-            console.log('inside createTopic')
+            const token = await jwt.getToken({ req, secret })
+            if (!token) {
+                res.status(403).send('Forbidden')
+            }
 
             const validatedRequest = reqRunType.check(req)
             const { title, description } = validatedRequest.body

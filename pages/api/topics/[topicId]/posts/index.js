@@ -1,6 +1,9 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Post } from '../../../../../models/post'
+import jwt from 'next-auth/jwt'
 import connectDB from '../../../../../middleware/mongodb'
+
+const secret = process.env.JWT_SECRET
 
 const createPostRunType = Record({
     query: Record({
@@ -22,7 +25,10 @@ const handler = async (req, res) => {
 
     if (req.method === 'POST') {
         try {
-            console.log('inside POST topics/topicId/posts')
+            const token = await jwt.getToken({ req, secret })
+            if (!token) {
+                return res.status(403).send('Forbidden')
+            }
             const validatedRequest = createPostRunType.check(req)
             const { topicId } = validatedRequest.query
             const { title, body } = validatedRequest.body

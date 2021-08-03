@@ -37,7 +37,6 @@ const handler = async (req, res) => {
             if (token.email !== 'nickreed033@gmail.com') {
                 throw new ForbiddenError('Forbidden')
             }
-
             const validatedRequest = getTopicByIdRunType.check(req)
             const { topicId } = validatedRequest.query
 

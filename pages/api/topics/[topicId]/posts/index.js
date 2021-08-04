@@ -27,15 +27,19 @@ const handler = async (req, res) => {
 
     if (req.method === 'POST') {
         try {
+
             const token = await jwt.getToken({ req, secret })
+            console.log('token', token)
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')
             }
+            console.log('token.name', token.name)
+            const name = token.name
             const validatedRequest = createPostRunType.check(req)
             const { topicId } = validatedRequest.query
             const { title, body } = validatedRequest.body
 
-            const post = new Post({ topicId, userId: token.sub, title, body, createdAt: new Date() })
+            const post = new Post({ topicId, userId: token.sub, title, body, createdAt: new Date(), createdBy: name })
 
             await post.save()
 

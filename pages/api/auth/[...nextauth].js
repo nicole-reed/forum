@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
+import jwt from 'jsonwebtoken'
 
 export default NextAuth({
     providers: [
@@ -43,8 +44,18 @@ export default NextAuth({
         // encryption: true,
         // You can define your own encode/decode functions for signing and encryption
         // if you want to override the default behaviour.
-        // encode: async ({ secret, token, maxAge }) => {},
-        // decode: async ({ secret, token, maxAge }) => {},
+        // encode: async ({ secret, token, maxAge }) => {
+        //     const encodedToken = jwt.sign({
+        //         ...token,
+        //         iat: Date.now() / 1000,
+        //         exp: Math.floor(Date.now() / 1000) + maxAge
+        //     }, process.env.JWT_SECRET)
+        //     return encodedToken
+        // },
+        // decode: async ({ secret, token, maxAge }) => {
+        //     const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
+        //     return decodedToken
+        // },
     },
 
     callbacks: {

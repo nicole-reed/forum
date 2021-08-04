@@ -1,5 +1,6 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Comment } from '../../../../../models/comment'
+import { Post } from '../../../../../models/post'
 import jwt from 'next-auth/jwt'
 import connectDB from '../../../../../middleware/mongodb'
 import { UnauthorizedError } from '../../../../../errors/unauthorized.error'
@@ -29,13 +30,15 @@ const handler = async (req, res) => {
             const { postId } = validatedRequest.query
             const { body, replyTo } = validatedRequest.body
 
-            const comment = new Comment({ postId, user: token.email, body, replyTo, replyCount: 0 })
+            const comment = new Comment({ postId, userId: token.sub, body, replyTo, replyCount: 0 })
 
             await comment.save()
 
             if (replyTo) {
                 await Comment.findOneAndUpdate({ _id: replyTo }, { $inc: { replyCount: 1 } })
             }
+
+            await Post.findOneAndUpdate({ _id: postId }, { updatedAt: new Date() })
 
             console.log('sucessfully saved comment')
             res.send({ comment })

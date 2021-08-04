@@ -3,7 +3,6 @@ import { Topic } from '../../../models/topic'
 import handleError from '../../../utils/handleError'
 import jwt from 'next-auth/jwt'
 import { UnauthorizedError } from '../../../errors/unauthorized.error'
-import { ForbiddenError } from '../../../errors/forbidden.error'
 import connectDB from '../../../middleware/mongodb'
 import { ForbiddenError } from '../../../errors/forbidden.error'
 

@@ -2,7 +2,7 @@ import { Schema, model, models } from 'mongoose'
 
 
 const PostSchema = new Schema({
-    user: { type: String },
+    userId: { type: String },
     topicId: { type: String },
     createdAt: { type: Date },
     updatedAt: { type: Date },

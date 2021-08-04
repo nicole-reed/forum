@@ -35,7 +35,7 @@ const handler = async (req, res) => {
             const { topicId } = validatedRequest.query
             const { title, body } = validatedRequest.body
 
-            const post = new Post({ topicId, user: token.email, title, body, createdAt: new Date() })
+            const post = new Post({ topicId, userId: token.sub, title, body, createdAt: new Date() })
 
             await post.save()
 

@@ -26,11 +26,12 @@ const handler = async (req, res) => {
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')
             }
+            const name = token.name
             const validatedRequest = createCommentRunType.check(req)
             const { postId } = validatedRequest.query
             const { body, replyTo } = validatedRequest.body
 
-            const comment = new Comment({ postId, userId: token.sub, body, replyTo, replyCount: 0 })
+            const comment = new Comment({ postId, userId: token.sub, body, replyTo, replyCount: 0, createdBy: name })
 
             await comment.save()
 

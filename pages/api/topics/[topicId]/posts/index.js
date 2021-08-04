@@ -27,6 +27,7 @@ const handler = async (req, res) => {
 
     if (req.method === 'POST') {
         try {
+            console.log('in createPOst endpoint')
             const token = await jwt.getToken({ req, secret })
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')

@@ -1,6 +1,7 @@
 import Layout from '../components/layout'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Posts from '../components/posts'
 import Head from 'next/head'
 import axios from 'axios'
 
@@ -12,7 +13,7 @@ export default function Home() {
     try {
       const res = await axios.get('/api/posts')
 
-      setPosts(res.data)
+      setPosts(res.data.posts)
     } catch (error) {
       console.log(error.message)
     }
@@ -38,7 +39,7 @@ export default function Home() {
         </p>
 
         <div className="grid">
-          {/* <Posts posts={posts} setPosts={setPosts} /> */}
+          <Posts posts={posts} setPosts={setPosts} />
 
           {/* <Link href="/profile">
             <a className="card">

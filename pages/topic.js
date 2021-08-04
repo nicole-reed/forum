@@ -11,13 +11,7 @@ export default function Topic() {
 
     const saveTopic = async event => {
         try {
-            const res = await axios.post(
-                '/api/topics',
-                { title: event.target.title.value, description: event.target.description.value },
-                { headers: { authorization: session.user } }
-            )
-            window.location.href = '/'
-            res.send({ message: 'Successfully saved topic.' })
+            const res = await axios.post('/api/topics', { title: event.target.title.value, description: event.target.description.value })
         } catch (error) {
             toastr.error(error.response.data)
         }

@@ -8,12 +8,11 @@ import { useState, useEffect } from 'react'
 export default function Topic() {
     const [session, loading] = useSession()
 
-
     const saveTopic = async event => {
         try {
             const res = await axios.post('/api/topics', { title: event.target.title.value, description: event.target.description.value })
         } catch (error) {
-            toastr.error(error.response.data)
+            console.log(error)
         }
     }
 

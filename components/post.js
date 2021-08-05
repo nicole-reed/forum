@@ -8,7 +8,8 @@ const Post = ({ post }) => {
 
             <p>{post.body}</p>
 
-            {/* <p>created by {post.userId} on {post.createdAt}</p> */}
+
+            <p>by {post.createdBy}</p>
 
         </div>
     )

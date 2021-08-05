@@ -7,7 +7,8 @@ const PostSchema = new Schema({
     createdAt: { type: Date },
     updatedAt: { type: Date },
     title: { type: String },
-    body: { type: String }
+    body: { type: String },
+    createdBy: { type: String }
 })
 
 

@@ -6,7 +6,8 @@ const CommentSchema = new Schema({
     postId: { type: String },
     body: { type: String },
     replyTo: { type: String },
-    replyCount: { type: Number }
+    replyCount: { type: Number },
+    createdBy: { type: String }
 })
 
 

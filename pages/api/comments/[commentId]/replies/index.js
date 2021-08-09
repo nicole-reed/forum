@@ -1,5 +1,6 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Comment } from '../../../../../models/comment'
+import { User } from '../../../../../models/user'
 import connectDB from '../../../../../middleware/mongodb'
 import handleError from '../../../../../utils/handleError'
 
@@ -17,8 +18,14 @@ const handler = async (req, res) => {
             const { commentId } = validatedRequest.query
 
             const replies = await Comment.find({ replyTo: commentId })
-
-            res.send({ replies })
+            const repliesWithUsername = await Promise.all(replies.map(async (reply) => {
+                const user = await User.findOne({ _id: comment.userId })
+                return {
+                    ...reply._doc,
+                    createdBy: user.name
+                }
+            }))
+            res.send({ replies: repliesWithUsername })
         } catch (error) {
             handleError(error, res)
         }

@@ -1,5 +1,6 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Post } from '../../../../../models/post'
+import { User } from '../../../../../models/user'
 import jwt from 'next-auth/jwt'
 import connectDB from '../../../../../middleware/mongodb'
 import { UnauthorizedError } from '../../../../../errors/unauthorized.error'
@@ -33,12 +34,11 @@ const handler = async (req, res) => {
                 throw new UnauthorizedError('Unauthorized')
             }
 
-            const name = token.name
             const validatedRequest = createPostRunType.check(req)
             const { topicId } = validatedRequest.query
             const { title, body } = validatedRequest.body
 
-            const post = new Post({ topicId, userId: token.sub, title, body, createdAt: new Date(), createdBy: name })
+            const post = new Post({ topicId, userId: token.sub, title, body, createdAt: new Date() })
 
             await post.save()
 
@@ -54,8 +54,15 @@ const handler = async (req, res) => {
             const { topicId } = validatedRequest.query
 
             const posts = await Post.find({ topicId }).sort({ _id: -1 })
+            const postsWithUsername = await Promise.all(posts.map(async (post) => {
+                const user = await User.findOne({ _id: post.userId })
+                return {
+                    ...post._doc,
+                    createdBy: user.name
+                }
+            }))
+            res.send({ posts: postsWithUsername })
 
-            res.send({ posts })
         } catch (error) {
             handleError(error, res)
         }

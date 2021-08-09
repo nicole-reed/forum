@@ -1,5 +1,6 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Post } from '../../../../models/post'
+import { User } from '../../../../models/user'
 import connectDB from '../../../../middleware/mongodb'
 import handleError from '../../../../utils/handleError'
 
@@ -17,8 +18,10 @@ const handler = async (req, res) => {
             const { postId } = validatedRequest.query
 
             const post = await Post.findOne({ _id: postId })
+            const user = await User.findOne({ _id: post.userId })
+            const postWithUsername = { ...post._doc, createdBy: user.name }
 
-            res.send({ post })
+            res.send({ post: postWithUsername })
         } catch (error) {
             handleError(error, res)
         }

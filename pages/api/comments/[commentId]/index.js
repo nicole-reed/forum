@@ -1,5 +1,6 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Comment } from '../../../../models/comment'
+import { User } from '../../../../models/user'
 import connectDB from '../../../../middleware/mongodb'
 import handleError from '../../../../utils/handleError'
 
@@ -16,8 +17,10 @@ const handler = async (req, res) => {
             const { commentId } = validatedRequest.query
 
             const comment = await Comment.findOne({ _id: commentId })
+            const user = await User.findOne({ _id: comment.userId })
+            const commentWithUsername = { ...comment._doc, createdBy: user.name }
 
-            res.send({ comment })
+            res.send({ comment: commentWithUsername })
         } catch (error) {
             handleError(error, res)
         }

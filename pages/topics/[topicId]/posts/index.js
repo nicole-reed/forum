@@ -87,7 +87,7 @@ export default function PostsByTopic() {
                     <h1>Create A Post</h1>
                     <form onSubmit={savePost}>
                         <label htmlFor="name">Post Title: </label>
-                        <input id='title' name='title' type="text" placeholder='Post' required />
+                        <input id='title' name='title' type="text" placeholder='title' required />
                         <br></br>
                         <label htmlFor="name">Body: </label>
                         <input id='body' name='body' type="text" placeholder='body' required />

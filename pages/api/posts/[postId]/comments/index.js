@@ -1,6 +1,7 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Comment } from '../../../../../models/comment'
 import { Post } from '../../../../../models/post'
+import { User } from '../../../../../models/user'
 import jwt from 'next-auth/jwt'
 import connectDB from '../../../../../middleware/mongodb'
 import { UnauthorizedError } from '../../../../../errors/unauthorized.error'
@@ -15,6 +16,14 @@ const createCommentRunType = Record({
     body: Record({
         body: String,
         replyTo: Optional(String)
+    })
+})
+
+const getCommentsRunType = Record({
+    query: Record({
+        postId: String,
+        page: Optional(String),
+        size: Optional(String)
     })
 })
 
@@ -43,6 +52,29 @@ const handler = async (req, res) => {
 
             console.log('sucessfully saved comment')
             res.send({ comment })
+        } catch (error) {
+            handleError(error, res)
+        }
+
+    } else if (req.method === 'GET') {
+        try {
+            const validatedRequest = getCommentsRunType.check(req)
+            const { postId, page = 1, size = 10 } = validatedRequest.query
+
+            const limit = parseInt(size)
+            const skip = (page - 1) * size
+
+            const comments = await Comment.find({ postId }).sort({ _id: -1 }).limit(limit).skip(skip)
+
+            const commentsWithUsername = await Promise.all(comments.map(async (comment) => {
+                const user = await User.findOne({ _id: comment.userId })
+                return {
+                    ...comment._doc,
+                    createdBy: user.name
+                }
+            }))
+
+            res.send({ comments: commentsWithUsername })
         } catch (error) {
             handleError(error, res)
         }

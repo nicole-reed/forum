@@ -7,7 +7,7 @@ const Post = ({ post }) => {
             <a href={`/posts/${post._id}`}>
                 <h3>{post.title}</h3>
             </a>
-            <p>{post.body.slice(0, 175)}...</p>
+            <p>{post.body}</p>
             <br></br>
             <p>{post.createdBy}</p>
         </div>

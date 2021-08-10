@@ -5,7 +5,7 @@ import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-export default function Post() {
+export default function createPost() {
     const [session, loading] = useSession()
 
     const savePost = async event => {

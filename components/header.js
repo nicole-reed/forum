@@ -56,7 +56,7 @@ export default function Header() {
                     <li className={styles.navItem}><Link href="/"><a>Home</a></Link></li>
                     <li className={styles.navItem}><Link href="/profile"><a>Profile</a></Link></li>
                     <li className={styles.navItem}><Link href="/topics"><a>Topics</a></Link></li>
-                    <li className={styles.navItem}><Link href="/post"><a>Post</a></Link></li>
+                    <li className={styles.navItem}><Link href="/create-post"><a>Create-Post</a></Link></li>
                 </ul>
             </nav>
         </header>

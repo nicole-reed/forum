@@ -58,13 +58,12 @@ const handler = async (req, res) => {
         try {
             const validatedRequest = getCommentsRunType.check(req)
             const { postId } = validatedRequest.query
-            // const { page = 1, size = 10 } = req.query
+            const { page = 1, size = 10 } = req.query
 
-            // const limit = parseInt(size)
-            // const skip = (page - 1) * size
+            const limit = parseInt(size)
+            const skip = (page - 1) * size
 
-            const comments = await Comment.find({ postId }).sort({ _id: -1 })
-            // .limit(limit).skip(skip)
+            const comments = await Comment.find({ postId }).sort({ _id: -1 }).limit(limit).skip(skip)
 
             const commentsWithUsername = await Promise.all(comments.map(async (comment) => {
                 const user = await User.findOne({ _id: comment.userId })

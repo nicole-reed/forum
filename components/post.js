@@ -2,7 +2,6 @@ import postStyles from '../styles/post.module.css'
 
 
 const Post = ({ post }) => {
-    console.log('post', post)
     return (
         <div className={postStyles.card}>
             <a href={`/posts/${post._id}`}>

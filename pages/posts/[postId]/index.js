@@ -43,7 +43,7 @@ export default function PostById() {
 
     const saveComment = async event => {
         try {
-            event.preventDefault()
+            // event.preventDefault()
             const res = await axios.post(`/api/posts/${postId}/comments`, { body: event.target.body.value })
 
         } catch (error) {

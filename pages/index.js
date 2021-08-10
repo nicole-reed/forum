@@ -8,10 +8,12 @@ import axios from 'axios'
 export default function Home() {
 
   const [posts, setPosts] = useState([])
+  const [pageNumber, setPageNumber] = useState(1)
 
-  const getPosts = async () => {
+
+  const getPosts = async (page) => {
     try {
-      const res = await axios.get('/api/posts')
+      const res = await axios.get('/api/posts', { params: { page } })
 
       setPosts(res.data.posts)
     } catch (error) {
@@ -19,8 +21,29 @@ export default function Home() {
     }
   }
   useEffect(() => {
-    getPosts()
+    getPosts(pageNumber)
   }, [])
+
+  const onClickNext = () => {
+    try {
+      const newPageNumber = pageNumber + 1
+      getPosts(newPageNumber)
+      setPageNumber(newPageNumber)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  const onClickBack = () => {
+    try {
+      const newPageNumber = pageNumber - 1
+      getPosts(newPageNumber)
+      setPageNumber(newPageNumber)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
 
   return <div>
     <Head>
@@ -39,21 +62,13 @@ export default function Home() {
         </p>
 
         <div className="grid">
+
+
+
           <Posts posts={posts} setPosts={setPosts} />
+          {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
 
-          {/* <Link href="/profile">
-            <a className="card">
-              <h3>My Profile &rarr;</h3>
-              <p>See all of your polls.</p>
-            </a>
-          </Link>
-
-          <Link href='/create'>
-            <a className="card">
-              <h3>Create A Poll &rarr;</h3>
-              <p>Click here to create a new poll.</p>
-            </a>
-          </Link> */}
+          {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
 
         </div>
 

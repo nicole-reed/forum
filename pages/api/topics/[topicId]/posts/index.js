@@ -52,14 +52,7 @@ const handler = async (req, res) => {
         try {
             const validatedRequest = getPostsRunType.check(req)
             const { topicId } = validatedRequest.query
-
-            let { page, size } = req.query
-            if (!page) {
-                page = 1
-            }
-            if (!size) {
-                size = 10
-            }
+            const { page = 1, size = 10 } = req.query
 
             const limit = parseInt(size)
             const skip = (page - 1) * size

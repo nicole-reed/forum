@@ -20,7 +20,9 @@ const createPostRunType = Record({
 
 const getPostsRunType = Record({
     query: Record({
-        topicId: String
+        topicId: String,
+        page: Optional(String),
+        size: Optional(String)
     })
 })
 
@@ -51,8 +53,7 @@ const handler = async (req, res) => {
     } else if (req.method === 'GET') {
         try {
             const validatedRequest = getPostsRunType.check(req)
-            const { topicId } = validatedRequest.query
-            const { page = 1, size = 10 } = req.query
+            const { topicId, page = 1, size = 10 } = validatedRequest.query
 
             const limit = parseInt(size)
             const skip = (page - 1) * size

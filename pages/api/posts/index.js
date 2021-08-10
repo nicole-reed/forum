@@ -1,12 +1,22 @@
 import { Post } from '../../../models/post'
 import { User } from '../../../models/user'
+import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import connectDB from '../../../middleware/mongodb'
 import handleError from '../../../utils/handleError'
+
+const getPostsRunType = Record({
+    query: Record({
+        page: Optional(String),
+        size: Optional(String)
+    })
+})
 
 const handler = async (req, res) => {
     if (req.method === 'GET') {
         try {
-            const { page = 1, size = 10 } = req.query
+            const validatedRequest = getPostsRunType.check(req)
+            const { page = 1, size = 10 } = validatedRequest.query
+
             const limit = parseInt(size)
             const skip = (page - 1) * size
 

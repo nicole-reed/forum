@@ -21,7 +21,9 @@ const createCommentRunType = Record({
 
 const getCommentsRunType = Record({
     query: Record({
-        postId: String
+        postId: String,
+        page: Optional(String),
+        size: Optional(String)
     })
 })
 
@@ -57,8 +59,7 @@ const handler = async (req, res) => {
     } else if (req.method === 'GET') {
         try {
             const validatedRequest = getCommentsRunType.check(req)
-            const { postId } = validatedRequest.query
-            const { page = 1, size = 10 } = req.query
+            const { postId, page = 1, size = 10 } = validatedRequest.query
 
             const limit = parseInt(size)
             const skip = (page - 1) * size

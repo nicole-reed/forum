@@ -53,7 +53,19 @@ const handler = async (req, res) => {
             const validatedRequest = getPostsRunType.check(req)
             const { topicId } = validatedRequest.query
 
-            const posts = await Post.find({ topicId }).sort({ _id: -1 })
+            let { page, size } = req.query
+            if (!page) {
+                page = 1
+            }
+            if (!size) {
+                size = 10
+            }
+
+            const limit = parseInt(size)
+            const skip = (page - 1) * size
+
+            const posts = await Post.find({ topicId }).sort({ _id: -1 }).limit(limit).skip(skip)
+
             const postsWithUsername = await Promise.all(posts.map(async (post) => {
                 const user = await User.findOne({ _id: post.userId })
                 return {
@@ -61,8 +73,8 @@ const handler = async (req, res) => {
                     createdBy: user.name
                 }
             }))
-            res.send({ posts: postsWithUsername })
 
+            res.send({ posts: postsWithUsername })
         } catch (error) {
             handleError(error, res)
         }

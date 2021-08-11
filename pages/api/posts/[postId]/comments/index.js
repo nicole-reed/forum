@@ -64,7 +64,7 @@ const handler = async (req, res) => {
             const limit = parseInt(size)
             const skip = (page - 1) * size
 
-            const comments = await Comment.find({ postId }).sort({ _id: -1 }).limit(limit).skip(skip)
+            const comments = await Comment.find({ postId, replyTo: { $exists: false } }).sort({ _id: -1 }).limit(limit).skip(skip)
 
             const commentsWithUsername = await Promise.all(comments.map(async (comment) => {
                 const user = await User.findOne({ _id: comment.userId })

@@ -42,3 +42,9 @@ button:hover{
   background-color: black;
   color: white;
 }
+
+input{
+  width: 80%;
+  border-width: 1px;
+  border-radius: 8px;
+}

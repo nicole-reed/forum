@@ -19,7 +19,7 @@ const handler = async (req, res) => {
 
             const replies = await Comment.find({ replyTo: commentId })
             const repliesWithUsername = await Promise.all(replies.map(async (reply) => {
-                const user = await User.findOne({ _id: comment.userId })
+                const user = await User.findOne({ _id: reply.userId })
                 return {
                     ...reply._doc,
                     createdBy: user.name

@@ -24,7 +24,9 @@ export default function PostById() {
         }
     }
     useEffect(() => {
-        getPost()
+        if (router.isReady) {
+            getPost()
+        }
     }, [postId])
 
     const getComments = async () => {
@@ -40,6 +42,22 @@ export default function PostById() {
     useEffect(() => {
         getComments()
     }, [postId])
+
+    // const getReplies = async () => {
+    //     try {
+    //         const res = await axios.get(`/api/comments/${commentId}/replies`)
+    //         console.log('res', res)
+
+    //         setReplies(res.data.replies)
+    //     } catch (error) {
+    //         console.log(error.message)
+    //     }
+    // }
+    // useEffect(() => {
+    //     getReplies()
+    // }, [commentId])
+
+
 
     const saveComment = async event => {
         try {
@@ -72,7 +90,10 @@ export default function PostById() {
                         </form>
                     </>}
                 </div>
-                <Comments comments={comments} />
+                <div>
+                    <Comments comments={comments} />
+                    {/* <Replies replies={replies} setReplies={setReplies} /> */}
+                </div>
             </main>
         </div>
     )

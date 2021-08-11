@@ -6,7 +6,8 @@ const UserSchema = new Schema({
     email: { type: String },
     image: { type: String },
     createdAt: { type: Date },
-    updatedAt: { type: Date }
+    updatedAt: { type: Date },
+    likedTopics: { type: Array }
 })
 
 

@@ -35,9 +35,9 @@ const Comment = ({ comment }) => {
 
     return (
         <div className={postStyles.card}>
+            <p>{comment.createdBy}</p>
             <p>{comment.body}</p>
             <br />
-            <p>{comment.createdBy}</p>
             <button onClick={getReplies}>{comment.replyCount} replies</button>
             <button onClick={hideReplies}>hide replies</button>
             <div>

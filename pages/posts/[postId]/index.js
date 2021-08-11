@@ -42,16 +42,6 @@ export default function PostById() {
         getComments()
     }, [postId])
 
-    const saveComment = async event => {
-        try {
-            // event.preventDefault()
-            const res = await axios.post(`/api/posts/${postId}/comments`, { body: event.target.body.value })
-
-        } catch (error) {
-            console.log(error.message)
-        }
-    }
-
     return (
         <div >
             <Head>
@@ -62,21 +52,8 @@ export default function PostById() {
             <main>
 
                 <FullPost post={post} setPost={setPost} />
+                <Comments comments={comments} />
 
-                <div>
-                    {session && <>
-                        <h3>Add A Comment</h3>
-                        <form onSubmit={saveComment}>
-                            <input id='body' name='body' type="text" placeholder='body' required />
-                            <br></br>
-                            <button type="submit"> Add Comment </button>
-                        </form>
-                    </>}
-                </div>
-                <div>
-                    <Comments comments={comments} />
-                    {/* <Replies replies={replies} setReplies={setReplies} /> */}
-                </div>
             </main>
         </div>
     )

@@ -7,6 +7,7 @@ import { useState } from 'react'
 const Comment = ({ comment }) => {
     const [session, loading] = useSession({})
     const [replies, setReplies] = useState([])
+
     const getReplies = async () => {
         try {
             const res = await axios.get(`/api/comments/${comment._id}/replies`)
@@ -16,6 +17,10 @@ const Comment = ({ comment }) => {
         } catch (error) {
             console.log('error getting replies', error)
         }
+    }
+
+    const hideReplies = async () => {
+        setReplies([])
     }
 
     const saveReply = async event => {
@@ -34,11 +39,11 @@ const Comment = ({ comment }) => {
             <br />
             <p>{comment.createdBy}</p>
             <button onClick={getReplies}>{comment.replyCount} replies</button>
+            <button onClick={hideReplies}>hide replies</button>
             <div>
                 {session && <>
-                    <h3>Add A Reply</h3>
                     <form onSubmit={saveReply}>
-                        <input id='body' name='body' type="text" placeholder='body' required />
+                        <input id='body' name='body' type="text" placeholder='add a reply' required />
                         <br></br>
                         <button type="submit"> Add reply </button>
                     </form>

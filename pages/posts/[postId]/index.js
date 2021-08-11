@@ -24,13 +24,14 @@ export default function PostById() {
         }
     }
     useEffect(() => {
-        getPost()
+        if (router.isReady) {
+            getPost()
+        }
     }, [postId])
 
     const getComments = async () => {
         try {
             const res = await axios.get(`/api/posts/${postId}/comments`)
-            console.log('res', res)
 
             setComments(res.data.comments)
         } catch (error) {
@@ -72,7 +73,10 @@ export default function PostById() {
                         </form>
                     </>}
                 </div>
-                <Comments comments={comments} />
+                <div>
+                    <Comments comments={comments} />
+                    {/* <Replies replies={replies} setReplies={setReplies} /> */}
+                </div>
             </main>
         </div>
     )

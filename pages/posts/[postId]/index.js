@@ -32,7 +32,6 @@ export default function PostById() {
     const getComments = async () => {
         try {
             const res = await axios.get(`/api/posts/${postId}/comments`)
-            console.log('res', res)
 
             setComments(res.data.comments)
         } catch (error) {
@@ -42,22 +41,6 @@ export default function PostById() {
     useEffect(() => {
         getComments()
     }, [postId])
-
-    // const getReplies = async () => {
-    //     try {
-    //         const res = await axios.get(`/api/comments/${commentId}/replies`)
-    //         console.log('res', res)
-
-    //         setReplies(res.data.replies)
-    //     } catch (error) {
-    //         console.log(error.message)
-    //     }
-    // }
-    // useEffect(() => {
-    //     getReplies()
-    // }, [commentId])
-
-
 
     const saveComment = async event => {
         try {

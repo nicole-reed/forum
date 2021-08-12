@@ -44,7 +44,7 @@ export default function PostsByTopic() {
 
     const savePost = async event => {
         try {
-            event.preventDefault()
+            // event.preventDefault()
             const res = await axios.post(`/api/topics/${topicId}/posts`, { title: event.target.title.value, body: event.target.body.value })
 
         } catch (error) {
@@ -80,21 +80,23 @@ export default function PostsByTopic() {
             <Layout />
 
             <main>
-                <h2>{topic.title}</h2>
-                <h3>{topic.description}</h3>
+                <h1>{topic.title}</h1>
+                <h2>{topic.description}</h2>
+
 
                 {session && <>
-                    <h1>Create A Post</h1>
+                    <h3>Create A Post</h3>
                     <form onSubmit={savePost}>
-                        <label htmlFor="name">Post Title: </label>
+                        {/* <label htmlFor="name">Post Title: </label> */}
                         <input id='title' name='title' type="text" placeholder='title' required />
                         <br></br>
-                        <label htmlFor="name">Body: </label>
-                        <input id='body' name='body' type="text" placeholder='body' required />
+                        {/* <label htmlFor="name">Body: </label> */}
+                        <textarea id='body' name='body' type="text" placeholder='body' required />
                         <br></br>
                         <button type="submit"> Add Post </button>
                     </form>
                 </>}
+
 
 
                 <Posts posts={posts} setPosts={setPosts} />

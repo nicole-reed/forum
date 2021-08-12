@@ -25,7 +25,7 @@ const Post = ({ post }) => {
             <p>{post.body}</p>
             <br></br>
             {session && <>
-                <h3>Add A Comment</h3>
+                <p>Add A Comment</p>
                 <form onSubmit={saveComment}>
                     <input id='body' name='body' type="text" placeholder='body' required />
                     <br></br>

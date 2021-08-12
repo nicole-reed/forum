@@ -1,8 +1,12 @@
 import Topic from './topic'
+import { useSession } from 'next-auth/client'
+import { useState } from 'react'
 import postStyles from '../styles/post.module.css'
 
 
 const LikedTopics = ({ topics }) => {
+    const [session, loading] = useSession({})
+
 
     return (
         <div >

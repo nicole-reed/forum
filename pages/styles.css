@@ -17,6 +17,7 @@ h2{
   font-weight: lighter;
 }
 
+
 a {
   color: inherit;
   text-decoration: none;
@@ -34,8 +35,8 @@ button {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
-  background-color: white;
-  border-radius: 5px;
+  background-color: inherit;
+  border: none;
 }
 
 button:hover{
@@ -43,8 +44,21 @@ button:hover{
   color: white;
 }
 
-input{
+/* input{
   width: 80%;
   border-width: 1px;
   border-radius: 8px;
+  background-color: inherit;
 }
+
+textarea{
+  width: 80%;
+  border-width: 1px;
+  border-radius: 8px;
+  border-color: black;
+  resize: none;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+    background-color: inherit;
+} */

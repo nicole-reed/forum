@@ -25,9 +25,10 @@ const Comment = ({ comment }) => {
 
     const saveReply = async event => {
         try {
-            // event.preventDefault()
+            event.preventDefault()
             const res = await axios.post(`/api/posts/${comment.postId}/comments`, { body: event.target.body.value, replyTo: comment._id })
 
+            getReplies()
         } catch (error) {
             console.log(error.message)
         }

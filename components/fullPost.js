@@ -8,7 +8,7 @@ const Post = ({ post }) => {
 
     const saveComment = async event => {
         try {
-            // event.preventDefault()
+            event.preventDefault()
             const res = await axios.post(`/api/posts/${post._id}/comments`, { body: event.target.body.value })
 
         } catch (error) {

@@ -36,6 +36,15 @@
     sans-serif;
 }
 
+.card h4{
+  font-size: .8rem;
+}
+
+.card h3:hover{
+color: white;
+transition: .15s ease;
+}
+
 .card p {
   margin: 0;
   font-size: 1rem;
@@ -44,6 +53,11 @@
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
 }
+
+.body{
+   white-space: pre-line;
+}
+
 
 .card button {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
@@ -57,6 +71,7 @@
 .card button:hover {
   background-color: black;
   color: white;
+  transition: .15s ease;
 }
 
 .card ul {

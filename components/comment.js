@@ -2,11 +2,18 @@ import postStyles from '../styles/post.module.css'
 import Comments from '../components/comments'
 import axios from 'axios'
 import { useSession } from 'next-auth/client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import moment from 'moment'
 
 const Comment = ({ comment }) => {
     const [session, loading] = useSession({})
     const [replies, setReplies] = useState([])
+    const [replyBody, setReplyBody] = useState('')
+    const [showReplies, setShowReplies] = useState(false)
+
+    const onReplyBodyChange = (event) => {
+        setReplyBody(event.target.value)
+    }
 
     const getReplies = async () => {
         try {
@@ -18,17 +25,21 @@ const Comment = ({ comment }) => {
             console.log('error getting replies', error)
         }
     }
+    useEffect(() => {
+        getReplies()
+    }, [])
 
-    const hideReplies = async () => {
-        setReplies([])
+    const toggleShowReplies = () => {
+        setShowReplies(!showReplies)
     }
 
     const saveReply = async event => {
         try {
             event.preventDefault()
-            const res = await axios.post(`/api/posts/${comment.postId}/comments`, { body: event.target.body.value, replyTo: comment._id })
+            const res = await axios.post(`/api/posts/${comment.postId}/comments`, { body: replyBody, replyTo: comment._id })
 
             getReplies()
+            setReplyBody('')
         } catch (error) {
             console.log(error.message)
         }
@@ -36,21 +47,23 @@ const Comment = ({ comment }) => {
 
     return (
         <div className={postStyles.card}>
-            <p>{comment.createdBy}</p>
+            <h4>{comment.createdBy} {moment(comment.createdAt).fromNow()}</h4>
             <p>{comment.body}</p>
             <br />
-            <button onClick={getReplies}>{comment.replyCount} replies</button>
-            <button onClick={hideReplies}>hide replies</button>
+            <button onClick={toggleShowReplies}>{replies.length} replies</button>
             <div>
                 {session && <>
                     <form onSubmit={saveReply}>
-                        <input id='body' name='body' type="text" placeholder='add a reply' required />
+                        <input id='body' name='body' value={replyBody} onChange={onReplyBodyChange} type="text" placeholder='add a reply' required />
                         <br></br>
                         <button type="submit"> Add reply </button>
                     </form>
                 </>}
             </div>
-            <Comments comments={replies} />
+            {showReplies &&
+                <Comments comments={replies} />
+            }
+
         </div>
     )
 }

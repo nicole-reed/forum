@@ -1,6 +1,4 @@
 import Topic from './topic'
-import postStyles from '../styles/post.module.css'
-
 
 const Topics = ({ topics }) => {
 

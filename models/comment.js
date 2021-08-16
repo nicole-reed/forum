@@ -7,7 +7,9 @@ const CommentSchema = new Schema({
     body: { type: String },
     replyTo: { type: String },
     replyCount: { type: Number },
-    createdBy: { type: String }
+    createdBy: { type: String },
+    createdAt: { type: Date },
+    likes: { type: Number }
 })
 
 

@@ -35,6 +35,7 @@ button {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
+    font-weight: lighter;
   background-color: inherit;
   border: none;
 }
@@ -44,11 +45,12 @@ button:hover{
   color: white;
 }
 
-/* input{
-  width: 80%;
+
+ input{
+  width: 25%;
   border-width: 1px;
   border-radius: 8px;
-  background-color: inherit;
+  background-color: #d1dff0;
 }
 
 textarea{
@@ -56,9 +58,10 @@ textarea{
   border-width: 1px;
   border-radius: 8px;
   border-color: black;
-  resize: none;
+  /* resize: none; */
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
-    background-color: inherit;
-} */
+    background-color: #d1dff0;
+    
+}

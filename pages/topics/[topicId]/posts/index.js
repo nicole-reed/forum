@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import { useSession } from 'next-auth/client'
 import Posts from '../../../../components/posts'
 import Layout from '../../../../components/layout'
@@ -9,7 +8,6 @@ import axios from 'axios'
 
 export default function PostsByTopic() {
     const [session, loading] = useSession()
-
     const router = useRouter()
     const { topicId } = router.query
     const [topic, setTopic] = useState({})

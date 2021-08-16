@@ -1,12 +1,25 @@
-import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
+import { Record, String, Optional, Boolean } from 'runtypes'
 import { Comment } from '../../../../models/comment'
 import { User } from '../../../../models/user'
 import connectDB from '../../../../middleware/mongodb'
 import handleError from '../../../../utils/handleError'
+import { UnauthorizedError } from '../../../../errors/unauthorized.error'
+import jwt from 'next-auth/jwt'
+
+const secret = process.env.JWT_SECRET
 
 const getCommentByIdRunType = Record({
     query: Record({
         commentId: String
+    })
+})
+
+const updateCommentByIdRunType = Record({
+    query: Record({
+        commentId: String
+    }),
+    body: Record({
+        liked: Optional(Boolean)
     })
 })
 
@@ -25,6 +38,31 @@ const handler = async (req, res) => {
             handleError(error, res)
         }
 
+    } else if (req.method === 'PATCH') {
+        try {
+            const validatedRequest = updateCommentByIdRunType.check(req)
+            const { commentId } = validatedRequest.query
+            const { liked } = validatedRequest.body
+            const token = await jwt.getToken({ req, secret })
+
+            if (!token) {
+                throw new UnauthorizedError('Unauthorized')
+            }
+
+            const userId = token.sub
+
+            if ('liked' in validatedRequest.body) {
+                if (liked) {
+                    await Comment.findOneAndUpdate({ _id: commentId }, { [`likedBy.${userId}`]: new Date() })
+                } else {
+                    await Comment.findOneAndUpdate({ _id: commentId }, { $unset: { [`likedBy.${userId}`]: '' } })
+                }
+            }
+
+            res.send({ message: `successfully liked comment` })
+        } catch (error) {
+            handleError(error, res)
+        }
     } else if (req.method === 'DELETE') {
         try {
             const validatedRequest = getCommentByIdRunType.check(req)

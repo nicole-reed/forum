@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: 700px;
   margin-top: 1rem;
 }
 
@@ -64,6 +64,7 @@ transition: .15s ease;
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
   background-color: transparent;
+  font-size: 1rem;
   border-width: .5px;
   border-radius: 5px;
 }

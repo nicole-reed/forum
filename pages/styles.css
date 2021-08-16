@@ -4,7 +4,7 @@ body {
   font-weight: lighter;
   /* max-width: 680px; */
   margin: 5 auto;
-  background: #B0C4DE;
+  background: #eaecee;
   /* background: linear-gradient(90deg, #777780 0%, #8a928d 100%); */
   /* background: rgb(32, 31, 56); */
   color: white;
@@ -17,6 +17,9 @@ h2{
   font-weight: lighter;
 }
 
+.topic{
+  text-decoration: underline;
+}
 
 a {
   color: inherit;
@@ -45,12 +48,15 @@ button:hover{
   color: white;
 }
 
+span{
+  font-size: 1rem;
+}
 
  input{
   width: 25%;
   border-width: 1px;
   border-radius: 8px;
-  background-color: #d1dff0;
+  background-color: #d1d6db;
 }
 
 textarea{

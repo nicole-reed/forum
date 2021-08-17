@@ -79,12 +79,10 @@ const Comment = ({ comment: commentProp }) => {
             <p>{comment.body}</p>
             <br />
             <button onClick={toggleShowReplies}>{replies.length} replies</button>
-            {userHasLikedComment &&
-                <button onClick={onLike}>&#9829;</button>
-            }
-            {!userHasLikedComment &&
-                <button onClick={onLike}>&#9825;</button>
-            }
+            {/* {userHasLikedComment ? <button onClick={onLike}>&#9829;</button> : <button onClick={onLike}>&#9825;</button>} */}
+
+            <button onClick={onLike}>{userHasLikedComment ? '♥' : '♡'}</button>
+
             <span>{comment.likedBy ? Object.keys(comment.likedBy).length : 0} likes</span>
             <div>
                 {session && <>

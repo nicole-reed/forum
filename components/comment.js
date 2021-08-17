@@ -1,5 +1,6 @@
 import postStyles from '../styles/post.module.css'
 import Comments from '../components/comments'
+import Link from 'next/link'
 import axios from 'axios'
 import { useSession } from 'next-auth/client'
 import { useState, useEffect } from 'react'
@@ -75,7 +76,11 @@ const Comment = ({ comment: commentProp }) => {
 
     return (
         <div className={postStyles.card}>
-            <h4>{comment.createdBy} {moment(comment.createdAt).fromNow()}</h4>
+
+            <div>
+                <Link href={`/users/${comment.userId}`}>{comment.createdBy}</Link>
+                <h4>{moment(comment.createdAt).fromNow()}</h4>
+            </div>
             <p>{comment.body}</p>
             <br />
             <button onClick={toggleShowReplies}>{replies.length} replies</button>

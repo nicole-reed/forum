@@ -43,23 +43,26 @@ const Post = ({ post }) => {
     }
 
     return (
-        <div>
-            <div className={postStyles.card}>
+        <div className={postStyles.card}>
+            <div>
                 <h1>{post.title}</h1>
-                <h4>{post.createdBy} {moment(post.createdAt).fromNow()}</h4>
+                <a href={`/users/${post.userId}`}>{post.createdBy}</a>
+                <h4>{moment(post.createdAt).fromNow()}</h4>
                 <br></br>
                 <p className={postStyles.body}>{post.body}</p>
                 <br></br>
+                {/* <p>{comments.length} comments</p> */}
                 {session && <>
-                    <p>Add A Comment</p>
                     <form onSubmit={saveComment} >
-                        <input id='body' name='body' type="text" value={commentBody} onChange={onCommentBodyChange} placeholder='body' required />
+                        <input id='body' name='body' type="text" value={commentBody} onChange={onCommentBodyChange} placeholder='add a comment' required />
                         <br></br>
-                        <button type="submit"> Add Comment </button>
+                        <button type="submit"> Add Comment 💬</button>
                     </form>
                 </>}
             </div>
-            <Comments comments={comments}></Comments>
+
+            <Comments comments={comments} />
+
         </div>
     )
 

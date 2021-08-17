@@ -5,11 +5,14 @@ import { useSession } from 'next-auth/client'
 import { useState, useEffect } from 'react'
 import moment from 'moment'
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment: commentProp }) => {
     const [session, loading] = useSession({})
     const [replies, setReplies] = useState([])
+    const [comment, setComment] = useState(commentProp)
     const [replyBody, setReplyBody] = useState('')
     const [showReplies, setShowReplies] = useState(false)
+    const [userHasLikedComment, setUserHasLikedComment] = useState(false)
+
 
     const onReplyBodyChange = (event) => {
         setReplyBody(event.target.value)
@@ -18,7 +21,6 @@ const Comment = ({ comment }) => {
     const getReplies = async () => {
         try {
             const res = await axios.get(`/api/comments/${comment._id}/replies`)
-            console.log('res', res)
 
             setReplies(res.data.replies)
         } catch (error) {
@@ -27,11 +29,37 @@ const Comment = ({ comment }) => {
     }
     useEffect(() => {
         getReplies()
-    }, [])
+        if (session) {
+            setUserHasLikedComment(comment.likedBy && comment.likedBy.hasOwnProperty(session.user.id))
+        }
+    }, [session, comment])
 
     const toggleShowReplies = () => {
         setShowReplies(!showReplies)
     }
+
+    const getComment = async () => {
+        try {
+            const res = await axios.get(`/api/comments/${comment._id}`)
+
+            setComment(res.data.comment)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    const onLike = async () => {
+        try {
+
+            await axios.patch(`/api/comments/${comment._id}`, { liked: !userHasLikedComment })
+
+            getComment()
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
 
     const saveReply = async event => {
         try {
@@ -51,6 +79,11 @@ const Comment = ({ comment }) => {
             <p>{comment.body}</p>
             <br />
             <button onClick={toggleShowReplies}>{replies.length} replies</button>
+            {/* {userHasLikedComment ? <button onClick={onLike}>&#9829;</button> : <button onClick={onLike}>&#9825;</button>} */}
+
+            <button onClick={onLike}>{userHasLikedComment ? '♥' : '♡'}</button>
+
+            <span>{comment.likedBy ? Object.keys(comment.likedBy).length : 0} likes</span>
             <div>
                 {session && <>
                     <form onSubmit={saveReply}>

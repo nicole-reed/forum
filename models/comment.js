@@ -9,7 +9,7 @@ const CommentSchema = new Schema({
     replyCount: { type: Number },
     createdBy: { type: String },
     createdAt: { type: Date },
-    likes: { type: Number }
+    likedBy: { type: Map, of: String }
 })
 
 

@@ -75,9 +75,8 @@ export default function PostsByTopic() {
             <Head>
                 <title>Posts</title>
             </Head>
-            <Layout />
+            <Layout>
 
-            <main>
                 <h1>{topic.title}</h1>
                 <h3>{topic.description}</h3>
 
@@ -102,7 +101,7 @@ export default function PostsByTopic() {
 
                 {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
 
-            </main>
+            </Layout>
         </div>
     )
 }

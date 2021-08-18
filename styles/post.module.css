@@ -22,6 +22,11 @@
     sans-serif;
 }
 
+.card a{
+  font-size: .8rem;
+  font-weight: bolder;
+}
+
 /* .card:focus, */
 .card:hover,
 .card:active {
@@ -31,6 +36,7 @@
 .card h3 {
   margin: 0 0 1rem 0;
   font-size: 1rem;
+  font-weight: bolder;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
@@ -38,6 +44,7 @@
 
 .card h4{
   font-size: .8rem;
+  font-weight: lighter;
 }
 
 .card h3:hover{

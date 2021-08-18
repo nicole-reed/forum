@@ -79,11 +79,11 @@ export default function PostsByTopic() {
 
             <main>
                 <h1>{topic.title}</h1>
-                <h2>{topic.description}</h2>
+                <h3>{topic.description}</h3>
 
 
                 {session && <>
-                    <h3>Create A Post</h3>
+                    <h4>Create A Post For This Topic</h4>
                     <form onSubmit={savePost}>
                         {/* <label htmlFor="name">Post Title: </label> */}
                         <input id='title' name='title' type="text" placeholder='title' required />

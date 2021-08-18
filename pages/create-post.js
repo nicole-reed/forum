@@ -22,9 +22,7 @@ export default function createPost() {
             <Head>
                 <title>Post</title>
             </Head>
-            <Layout />
-
-            <main>
+            <Layout>
                 {session && <>
                     <h1>Create A Post</h1>
                     <form onSubmit={savePost}>
@@ -40,13 +38,7 @@ export default function createPost() {
                         <button type="submit"> Add Post </button>
                     </form>
                 </>}
-
-                {/* <button onClick={callTopicApi}>call APi</button> */}
-
-
-            </main>
-
-
+            </Layout>
         </div>
     )
 }

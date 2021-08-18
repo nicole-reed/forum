@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import Posts from '../../../components/posts'
+import NotFound from '../../../components/notfound'
+import Loading from '../../../components/loading'
 import Layout from '../../../components/layout'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -11,11 +13,13 @@ export default function PostsByUserId() {
     const [user, setUser] = useState({})
     const [posts, setPosts] = useState([])
     const [pageNumber, setPageNumber] = useState(1)
+    const [loading, setLoading] = useState(true)
+    const [loadingError, setLoadingError] = useState(false)
 
     const getUser = async (id) => {
         try {
-            const res = await axios.get(`/api/users/${id}`)
 
+            const res = await axios.get(`/api/users/${id}`)
             return res.data.user
         } catch (error) {
             console.log(error.message)
@@ -25,11 +29,15 @@ export default function PostsByUserId() {
 
     const getAndSetUser = async (id) => {
         try {
+            setLoading(true)
             const user = await getUser(id)
 
             setUser(user)
+            setLoading(false)
         } catch (error) {
             console.log(error.message)
+            setLoadingError(true)
+            setLoading(false)
         }
     }
 
@@ -87,25 +95,16 @@ export default function PostsByUserId() {
             <Head>
                 <title>Profile</title>
             </Head>
-            <Layout />
-
-            <main>
-                {user ?
-                    <h2>Posts by {user.name}</h2> :
-                    <>
-                        <h2>User Does Not Exist</h2>
-                        <p>The link may be broken, or the page may have been removed.
-                        Check to see if the link you're trying to open is correct.
-                        </p>
-                    </>
-                }
+            <Layout>
+                {loadingError ? <NotFound /> : loading ? '' : <h2>Posts by {user.name}</h2>}
 
                 <Posts posts={posts} setPosts={setPosts} />
+
                 {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
 
                 {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
 
-            </main>
+            </Layout>
         </div>
     )
 }

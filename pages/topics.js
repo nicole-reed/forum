@@ -39,9 +39,7 @@ export default function Topic() {
             <Head>
                 <title>Topic</title>
             </Head>
-            <Layout />
-
-            <main>
+            <Layout>
                 {session && <>
                     <h1>Create A Topic</h1>
                     <form onSubmit={saveTopic}>
@@ -54,13 +52,8 @@ export default function Topic() {
                         <button type="submit"> Add Topic </button>
                     </form>
                 </>}
-
-                {/* <button onClick={callTopicApi}>call APi</button> */}
-
                 <Topics topics={topics} />
-            </main>
-
-
+            </Layout>
         </div>
     )
 }

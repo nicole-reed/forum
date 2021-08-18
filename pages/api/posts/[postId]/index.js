@@ -1,8 +1,9 @@
-import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
+import { Record, String } from 'runtypes'
 import { Post } from '../../../../models/post'
 import { User } from '../../../../models/user'
 import connectDB from '../../../../middleware/mongodb'
 import handleError from '../../../../utils/handleError'
+import { NotFoundError } from '../../../../errors/notFound.error'
 
 
 const getPostByIdRunType = Record({
@@ -18,6 +19,9 @@ const handler = async (req, res) => {
             const { postId } = validatedRequest.query
 
             const post = await Post.findOne({ _id: postId })
+            if (!post) {
+                throw new NotFoundError('post not found')
+            }
             const user = await User.findOne({ _id: post.userId })
             const postWithUsername = { ...post._doc, createdBy: user.name }
 

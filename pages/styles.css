@@ -71,3 +71,13 @@ textarea{
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
 }
+
+.loader{
+  position: absolute;
+  background-color: #eaecee;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 99;
+}

@@ -1,6 +1,5 @@
 import Layout from '../components/layout'
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
 import Posts from '../components/posts'
 import Head from 'next/head'
 import axios from 'axios'
@@ -49,10 +48,10 @@ export default function Home() {
     <Head>
       <title>Home</title>
     </Head>
-    <Layout />
+    <Layout>
 
-    <div className="container">
-      <main>
+      <div className="container">
+
         <h1 className="title">
           Digital Nomad Forum
         </h1>
@@ -63,21 +62,13 @@ export default function Home() {
 
         <div className="grid">
 
-
-
           <Posts posts={posts} setPosts={setPosts} />
           {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
 
           {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
 
         </div>
-
-      </main>
-    </div>
-
-    <footer>
-
-    </footer>
-
+      </div>
+    </Layout>
   </div>
 }

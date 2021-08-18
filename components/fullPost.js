@@ -59,10 +59,8 @@ const Post = ({ post }) => {
                         <button type="submit"> Add Comment 💬</button>
                     </form>
                 </>}
+                <Comments comments={comments} />
             </div>
-
-            <Comments comments={comments} />
-
         </div>
     )
 

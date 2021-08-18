@@ -64,8 +64,7 @@ export default function PostsByUserId() {
     const onClickNext = async () => {
         try {
             const newPageNumber = pageNumber + 1
-            const posts = await getPosts(userId, newPageNumber)
-            setPosts(posts)
+            getAndSetPosts(userId, pageNumber)
             setPageNumber(newPageNumber)
         } catch (error) {
             console.log(error.message)
@@ -75,8 +74,7 @@ export default function PostsByUserId() {
     const onClickBack = async () => {
         try {
             const newPageNumber = pageNumber - 1
-            const posts = await getPosts(userId, newPageNumber)
-            setPosts(posts)
+            getAndSetPosts(userId, pageNumber)
             setPageNumber(newPageNumber)
         } catch (error) {
             console.log(error.message)
@@ -92,7 +90,16 @@ export default function PostsByUserId() {
             <Layout />
 
             <main>
-                <h2>Posts by {user.name}</h2>
+                {user ?
+                    <h2>Posts by {user.name}</h2> :
+                    <>
+                        <h2>User Does Not Exist</h2>
+                        <p>The link may be broken, or the page may have been removed.
+                        Check to see if the link you're trying to open is correct.
+                        </p>
+                    </>
+                }
+
                 <Posts posts={posts} setPosts={setPosts} />
                 {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
 

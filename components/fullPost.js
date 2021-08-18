@@ -9,6 +9,7 @@ const Post = ({ post }) => {
     const [session, loading] = useSession({})
     const [comments, setComments] = useState([])
     const [commentBody, setCommentBody] = useState('')
+    const [showComments, setShowComments] = useState(true)
 
     const onCommentBodyChange = (event) => {
         setCommentBody(event.target.value)
@@ -42,6 +43,10 @@ const Post = ({ post }) => {
         }
     }
 
+    const toggleShowComments = () => {
+        setShowComments(!showComments)
+    }
+
     return (
         <div className={postStyles.card}>
             <div>
@@ -51,7 +56,7 @@ const Post = ({ post }) => {
                 <br></br>
                 <p className={postStyles.body}>{post.body}</p>
                 <br></br>
-                {/* <p>{comments.length} comments</p> */}
+                <button onClick={toggleShowComments}>{comments.length} comments</button>
                 {session && <>
                     <form onSubmit={saveComment} >
                         <input id='body' name='body' type="text" value={commentBody} onChange={onCommentBodyChange} placeholder='add a comment' required />
@@ -59,7 +64,9 @@ const Post = ({ post }) => {
                         <button type="submit"> Add Comment 💬</button>
                     </form>
                 </>}
-                <Comments comments={comments} />
+                {showComments &&
+                    <Comments comments={comments} />
+                }
             </div>
         </div>
     )

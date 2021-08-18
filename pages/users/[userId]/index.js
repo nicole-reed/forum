@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Posts from '../../../components/posts'
 import NotFound from '../../../components/notfound'
-import Loading from '../../../components/loading'
 import Layout from '../../../components/layout'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'

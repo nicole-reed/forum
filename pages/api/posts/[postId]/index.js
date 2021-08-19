@@ -1,14 +1,25 @@
-import { Record, String } from 'runtypes'
+import { Record, String, Optional, Boolean } from 'runtypes'
 import { Post } from '../../../../models/post'
 import { User } from '../../../../models/user'
 import connectDB from '../../../../middleware/mongodb'
 import handleError from '../../../../utils/handleError'
 import { NotFoundError } from '../../../../errors/notFound.error'
+import jwt from 'next-auth/jwt'
 
+const secret = process.env.JWT_SECRET
 
 const getPostByIdRunType = Record({
     query: Record({
         postId: String
+    })
+})
+
+const updatePostByIdRunType = Record({
+    query: Record({
+        postId: String
+    }),
+    body: Record({
+        liked: Optional(Boolean)
     })
 })
 
@@ -30,6 +41,31 @@ const handler = async (req, res) => {
             handleError(error, res)
         }
 
+    } else if (req.method === 'PATCH') {
+        try {
+            const validatedRequest = updatePostByIdRunType.check(req)
+            const { postId } = validatedRequest.query
+            const { liked } = validatedRequest.body
+            const token = await jwt.getToken({ req, secret })
+
+            if (!token) {
+                throw new UnauthorizedError('Unauthorized')
+            }
+
+            const userId = token.sub
+
+            if ('liked' in validatedRequest.body) {
+                if (liked) {
+                    await Post.findOneAndUpdate({ _id: postId }, { [`likedBy.${userId}`]: new Date() })
+                } else {
+                    await Post.findOneAndUpdate({ _id: postId }, { $unset: { [`likedBy.${userId}`]: '' } })
+                }
+            }
+
+            res.send({ message: `successfully liked post` })
+        } catch (error) {
+            handleError(error, res)
+        }
     } else if (req.method === 'DELETE') {
         try {
             const validatedRequest = getPostByIdRunType.check(req)

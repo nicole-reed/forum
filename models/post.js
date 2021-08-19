@@ -8,7 +8,8 @@ const PostSchema = new Schema({
     updatedAt: { type: Date },
     title: { type: String },
     body: { type: String },
-    createdBy: { type: String }
+    createdBy: { type: String },
+    likedBy: { type: Map, of: String }
 })
 
 

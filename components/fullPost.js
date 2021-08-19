@@ -5,11 +5,13 @@ import Comments from '../components/comments'
 import { useSession } from 'next-auth/client'
 import { useState, useEffect } from 'react'
 
-const Post = ({ post }) => {
+const Post = ({ post: postProp }) => {
     const [session, loading] = useSession({})
     const [comments, setComments] = useState([])
     const [commentBody, setCommentBody] = useState('')
     const [showComments, setShowComments] = useState(true)
+    const [post, setPost] = useState(postProp)
+    const [userHasLikedPost, setUserHasLikedPost] = useState(false)
 
     const onCommentBodyChange = (event) => {
         setCommentBody(event.target.value)
@@ -28,8 +30,20 @@ const Post = ({ post }) => {
         if (post._id) {
             getComments()
         }
-    }, [post._id])
+        if (session) {
+            setUserHasLikedPost(post.likedBy && post.likedBy.hasOwnProperty(session.user.id))
+        }
+    }, [post._id, session, post])
 
+    const getPost = async () => {
+        try {
+            const res = await axios.get(`/api/posts/${post._id}`)
+
+            setPost(res.data.post)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
 
     const saveComment = async event => {
         try {
@@ -42,6 +56,19 @@ const Post = ({ post }) => {
             console.log(error.message)
         }
     }
+
+    const onLike = async () => {
+        try {
+
+            await axios.patch(`/api/posts/${post._id}`, { liked: !userHasLikedPost })
+
+            getPost()
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
 
     const toggleShowComments = () => {
         setShowComments(!showComments)
@@ -56,6 +83,10 @@ const Post = ({ post }) => {
                 <br></br>
                 <p className={postStyles.body}>{post.body}</p>
                 <br></br>
+
+                <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
+                <button onClick={onLike}>{userHasLikedPost ? '♥' : '♡'}</button>
+
                 <button onClick={toggleShowComments}>{comments.length} comments</button>
                 {session && <>
                     <form onSubmit={saveComment} >

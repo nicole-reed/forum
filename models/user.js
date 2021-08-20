@@ -7,7 +7,7 @@ const UserSchema = new Schema({
     image: { type: String },
     createdAt: { type: Date },
     updatedAt: { type: Date },
-    likedTopics: { type: Array }
+    likedTopics: { type: Map, of: String }
 })
 
 

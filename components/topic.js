@@ -7,10 +7,9 @@ const Topic = ({ topic }) => {
         <div className={postStyles.card}>
             <a href={`/topics/${topic._id}/posts`}>
                 <h1>{topic.title}</h1>
+
             </a>
             <p>{topic.description}</p>
-
-
 
         </div>
     )

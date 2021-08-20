@@ -13,6 +13,7 @@ export default function PostsByTopic() {
     const [topic, setTopic] = useState({})
     const [posts, setPosts] = useState([])
     const [pageNumber, setPageNumber] = useState(1)
+    const [userHasLikedTopic, setUserHasLikedTopic] = useState(false)
 
     const getTopic = async () => {
         try {
@@ -24,8 +25,25 @@ export default function PostsByTopic() {
         }
     }
     useEffect(() => {
-        getTopic()
-    }, [topicId])
+        if (topicId) {
+            getTopic()
+        }
+
+        if (session) {
+            setUserHasLikedTopic(topic.likedBy && topic.likedBy.hasOwnProperty(session.user.id))
+        }
+    }, [topicId, session])
+
+    const onLike = async () => {
+        try {
+            await axios.patch(`/api/topics/${topic._id}`, { liked: !userHasLikedTopic })
+
+            getTopic()
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
 
     const getPosts = async (page) => {
         try {
@@ -38,7 +56,10 @@ export default function PostsByTopic() {
     }
     useEffect(() => {
         getPosts(pageNumber)
-    }, [topicId])
+        if (session) {
+            setUserHasLikedTopic(topic.likedBy && topic.likedBy.hasOwnProperty(session.user.id))
+        }
+    }, [topicId, session, topic])
 
     const savePost = async event => {
         try {
@@ -79,7 +100,7 @@ export default function PostsByTopic() {
 
                 <h1>{topic.title}</h1>
                 <h3>{topic.description}</h3>
-
+                {session && <button onClick={onLike}>{userHasLikedTopic ? '♥' : '♡'}</button>}
 
                 {session && <>
                     <h4>Create A Post For This Topic</h4>

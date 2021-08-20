@@ -13,7 +13,7 @@ export default function Topic() {
     const getTopics = async () => {
         try {
             const res = await axios.get('/api/topics')
-            console.log(res.data.topics)
+
             setTopics(res.data.topics)
         } catch (error) {
             console.log(error.message)

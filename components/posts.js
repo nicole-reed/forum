@@ -1,7 +1,6 @@
 import Post from './post'
 
 const Posts = ({ posts }) => {
-
     return (
         <div >
             {posts.map((post) => (
@@ -12,3 +11,4 @@ const Posts = ({ posts }) => {
 }
 
 export default Posts
+

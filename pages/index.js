@@ -1,11 +1,12 @@
 import Layout from '../components/layout'
 import React, { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/client'
 import Posts from '../components/posts'
 import Head from 'next/head'
 import axios from 'axios'
 
 export default function Home() {
-
+  const [session, loading] = useSession()
   const [posts, setPosts] = useState([])
   const [pageNumber, setPageNumber] = useState(1)
 
@@ -21,6 +22,7 @@ export default function Home() {
   }
   useEffect(() => {
     getPosts(pageNumber)
+
   }, [])
 
   const onClickNext = () => {

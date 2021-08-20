@@ -3,6 +3,9 @@ import { User } from '../../../models/user'
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import connectDB from '../../../middleware/mongodb'
 import handleError from '../../../utils/handleError'
+import jwt from 'next-auth/jwt'
+
+const secret = process.env.JWT_SECRET
 
 const getPostsRunType = Record({
     query: Record({
@@ -16,11 +19,16 @@ const handler = async (req, res) => {
         try {
             const validatedRequest = getPostsRunType.check(req)
             const { page = 1, size = 10 } = validatedRequest.query
-
             const limit = parseInt(size)
             const skip = (page - 1) * size
 
-            const posts = await Post.find({}).sort({ _id: -1 }).limit(limit).skip(skip) //sorts by date newest to oldest,
+            const token = await jwt.getToken({ req, secret })
+            const userId = token.sub
+            const userDoc = await User.findOne({ _id: userId })
+            const likedTopics = Array.from(userDoc.likedTopics.keys())
+
+            const posts = token && likedTopics.length > 0 ? await Post.find({ 'topicId': { $in: likedTopics } }).sort({ _id: -1 }).limit(limit).skip(skip) : await Post.find({}).sort({ _id: -1 }).limit(limit).skip(skip)
+
             const postsWithUsername = await Promise.all(posts.map(async (post) => {
                 const user = await User.findOne({ _id: post.userId })
                 return {

@@ -81,3 +81,26 @@ textarea{
   width: 100%;
   z-index: 99;
 }
+
+.checkbox{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  color: black;
+}
+
+.react-toggle {
+  height: 15px !important;
+  width: 40px !important;
+}
+
+.react-toggle-track {
+  top: 1px !important;
+  width: 38px !important;
+  height: 14px !important;
+}
+
+.react-toggle-thumb{
+  width: 12px !important;
+  height: 12px !important;
+}

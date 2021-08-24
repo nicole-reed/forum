@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const Post = ({ post }) => {
+
     const [topic, setTopic] = useState({})
-    const [loading, setLoading] = useState(true)
+    const [isloading, setLoading] = useState(true)
 
     const getTopic = async () => {
         try {
@@ -24,7 +25,7 @@ const Post = ({ post }) => {
 
     return (
         <div className={postStyles.card}>
-            {loading ? '' :
+            {isloading ? '' :
                 <>
                     <a href={`/posts/${post._id}`}>
                         <h3>{topic.title}: {post.title}</h3>

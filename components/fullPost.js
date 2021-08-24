@@ -87,12 +87,12 @@ const Post = ({ post: postProp }) => {
                 <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
                 <button onClick={onLike}>{userHasLikedPost ? '♥' : '♡'}</button>
 
-                <button onClick={toggleShowComments}>{comments.length} comments</button>
+                <button onClick={toggleShowComments}>{comments.length} 💬</button>
                 {session && <>
                     <form onSubmit={saveComment} >
                         <input id='body' name='body' type="text" value={commentBody} onChange={onCommentBodyChange} placeholder='add a comment' required />
                         <br></br>
-                        <button type="submit"> Add Comment 💬</button>
+                        <button type="submit"> Add Comment</button>
                     </form>
                 </>}
                 {showComments &&

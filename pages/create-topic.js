@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Layout from '../components/layout'
 import NotFound from '../components/notfound'
 import { useSession } from 'next-auth/client'
-import React, { useState } from 'react'
+import React from 'react'
 import axios from 'axios'
 
 export default function createTopic() {

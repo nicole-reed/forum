@@ -17,7 +17,6 @@ export default function PostsByUserId() {
 
     const getUser = async (id) => {
         try {
-
             const res = await axios.get(`/api/users/${id}`)
             return res.data.user
         } catch (error) {

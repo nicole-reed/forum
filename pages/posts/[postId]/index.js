@@ -13,22 +13,30 @@ export default function PostById() {
     const router = useRouter()
     const { postId } = router.query
 
-    const getPost = async () => {
+    const getPost = async (id) => {
+        try {
+            const res = await axios.get(`/api/posts/${id}`)
+
+            return res.data.post
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    const getAndSetPost = async (id) => {
         try {
             setLoading(true)
-            const res = await axios.get(`/api/posts/${postId}`)
+            const post = await getPost(id)
 
-            setPost(res.data.post)
+            setPost(post)
             setLoading(false)
         } catch (error) {
             console.log(error.message)
-            setLoadingError(true)
-            setLoading(false)
         }
     }
     useEffect(() => {
         if (router.isReady) {
-            getPost()
+            getAndSetPost(postId)
         }
     }, [postId])
 

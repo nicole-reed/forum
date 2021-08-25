@@ -70,7 +70,7 @@ export default function Home() {
         {session &&
           <div className='checkbox'>
             <Toggle type='checkbox' icons={false} checked={showLikedTopicsOnly} onChange={onShowLikedTopicsOnlyChanged} />
-            <span>Filter By Liked Topics</span>
+            {showLikedTopicsOnly ? <span>My Topics</span> : <span>All Topics</span>}
           </div>
         }
 

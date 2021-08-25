@@ -62,7 +62,6 @@ const handler = async (req, res) => {
                         User.findOneAndUpdate({ _id: userId }, { $unset: { [`likedTopics.${topicId}`]: '' } }),
                         Topic.findOneAndUpdate({ _id: topicId }, { $unset: { [`likedBy.${userId}`]: '' } })
                     ])
-
                 }
             }
 

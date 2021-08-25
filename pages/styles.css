@@ -82,6 +82,13 @@ textarea{
   z-index: 99;
 }
 
+/* .post-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: baseline;
+} */
+
 .checkbox{
   display: flex;
   flex-direction: row;
@@ -103,4 +110,14 @@ textarea{
 .react-toggle-thumb{
   width: 12px !important;
   height: 12px !important;
+}
+
+/* .react-toggle--checked .react-toggle-track {
+  background-color: #5c6e65 !important;
+} */
+
+@media (max-width: 600px) {
+  .checkbox {
+   justify-content: center;
+  }
 }

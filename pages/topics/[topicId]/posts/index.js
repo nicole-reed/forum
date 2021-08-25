@@ -24,6 +24,7 @@ export default function PostsByTopic() {
             console.log(error.message)
         }
     }
+
     useEffect(() => {
         if (topicId) {
             getTopic()

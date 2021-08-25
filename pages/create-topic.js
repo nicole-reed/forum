@@ -2,11 +2,28 @@ import Head from 'next/head'
 import Layout from '../components/layout'
 import NotFound from '../components/notfound'
 import { useSession } from 'next-auth/client'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 export default function createTopic() {
     const [session, loading] = useSession()
+    const [user, setUser] = useState({})
+
+    const getUser = async () => {
+        try {
+            const res = await axios.get(`/api/users/${session.user.id}`)
+            setUser(res.data.user)
+        } catch (error) {
+            console.log(error.message)
+            throw error
+        }
+    }
+    useEffect(async () => {
+        if (session) {
+            getUser()
+            setUser(session.user.id)
+        }
+    }, [session])
 
     const saveTopic = async event => {
         try {
@@ -22,7 +39,8 @@ export default function createTopic() {
                 <title>Create Topic</title>
             </Head>
             <Layout>
-                {session && session.user.id === '61014828a77ac5b1aa245447' ?
+                {session && user.isAdmin ?
+
                     <>
                         <h1>Create A Topic</h1>
                         <form onSubmit={saveTopic}>

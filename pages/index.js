@@ -13,7 +13,6 @@ export default function Home() {
   const [showLikedTopicsOnly, setShowLikedTopicsOnly] = useState(true)
   const [pageNumber, setPageNumber] = useState(1)
 
-
   const getPosts = async (page, likedTopicsOnly) => {
     try {
       const res = await axios.get('/api/posts', { params: { page, likedTopicsOnly: likedTopicsOnly ? 'true' : 'false' } })

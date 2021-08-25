@@ -12,16 +12,23 @@ export default function createTopic() {
     const getUser = async () => {
         try {
             const res = await axios.get(`/api/users/${session.user.id}`)
-            setUser(res.data.user)
+            return res.data.user
         } catch (error) {
             console.log(error.message)
             throw error
         }
     }
+    const getAndSetUser = async () => {
+        try {
+            const user = await getUser()
+            setUser(user)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
     useEffect(async () => {
         if (session) {
-            getUser()
-            setUser(session.user.id)
+            getAndSetUser()
         }
     }, [session])
 

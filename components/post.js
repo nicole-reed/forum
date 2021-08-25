@@ -31,9 +31,10 @@ const Post = ({ post }) => {
                         <h3>{topic.title}: {post.title}</h3>
                     </a>
                     <p>{post.body.slice(0, 175)}...</p>
-                    <br></br>
-                    <p>{post.createdBy}</p>
+                    {/* <div className='post-info'> */}
+                    {/* <h4>{post.createdBy} </h4> */}
                     <h4>{moment(post.createdAt).fromNow()}</h4>
+                    {/* </div> */}
                 </>
             }
         </div>

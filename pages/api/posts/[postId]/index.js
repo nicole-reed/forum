@@ -79,6 +79,10 @@ const handler = async (req, res) => {
 
             const post = await Post.findOne({ _id: postId })
 
+            if (!post) {
+                throw new NotFoundError('Not Found')
+            }
+
             if (token.sub !== post.userId) {
                 throw new ForbiddenError('Forbidden')
             }

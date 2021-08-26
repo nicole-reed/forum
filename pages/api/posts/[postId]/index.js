@@ -5,6 +5,7 @@ import connectDB from '../../../../middleware/mongodb'
 import handleError from '../../../../utils/handleError'
 import { NotFoundError } from '../../../../errors/notFound.error'
 import jwt from 'next-auth/jwt'
+import { ForbiddenError } from '../../../../errors/forbidden.error'
 
 const secret = process.env.JWT_SECRET
 
@@ -70,6 +71,21 @@ const handler = async (req, res) => {
         try {
             const validatedRequest = getPostByIdRunType.check(req)
             const { postId } = validatedRequest.query
+            const token = await jwt.getToken({ req, secret })
+
+            if (!token) {
+                throw new UnauthorizedError('Unauthorized')
+            }
+
+            const post = await Post.findOne({ _id: postId })
+
+            if (!post) {
+                throw new NotFoundError('Not Found')
+            }
+
+            if (token.sub !== post.userId) {
+                throw new ForbiddenError('Forbidden')
+            }
 
             await Post.deleteOne({ _id: postId })
 

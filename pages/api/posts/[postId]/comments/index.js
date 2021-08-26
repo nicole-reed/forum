@@ -50,7 +50,6 @@ const handler = async (req, res) => {
 
             await Post.findOneAndUpdate({ _id: postId }, { updatedAt: new Date() })
 
-            console.log('sucessfully saved comment')
             res.send({ comment })
         } catch (error) {
             handleError(error, res)

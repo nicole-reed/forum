@@ -44,7 +44,6 @@ const handler = async (req, res) => {
 
             await post.save()
 
-            console.log('sucessfully saved post')
             res.send({ message: `successfully created post ${post.title}` })
         } catch (error) {
             handleError(error, res)

@@ -5,7 +5,7 @@ import Comments from '../components/comments'
 import { useSession } from 'next-auth/client'
 import { useState, useEffect } from 'react'
 
-const Post = ({ post: postProp }) => {
+const Post = ({ post: postProp, showDelete }) => {
     const [session, loading] = useSession({})
     const [comments, setComments] = useState([])
     const [commentBody, setCommentBody] = useState('')
@@ -74,8 +74,20 @@ const Post = ({ post: postProp }) => {
         setShowComments(!showComments)
     }
 
+    const deletePost = async () => {
+        try {
+            await axios.delete(`/api/posts/${post._id}`)
+
+            res.send('successfully deleted post')
+            window.location.href = '/'
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
     return (
         <div className={postStyles.card}>
+            {showDelete && <button onClick={() => deletePost(post._id)}>Delete Post</button>}
             <div>
                 <h1>{post.title}</h1>
                 <a href={`/users/${post.userId}`}>{post.createdBy}</a>

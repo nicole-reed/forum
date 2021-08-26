@@ -70,8 +70,18 @@ const handler = async (req, res) => {
         try {
             const validatedRequest = getPostByIdRunType.check(req)
             const { postId } = validatedRequest.query
+            const token = await jwt.getToken({ req, secret })
 
-            await Post.deleteOne({ _id: postId })
+            if (!token) {
+                throw new UnauthorizedError('Unauthorized')
+            }
+
+            const post = await Post.findOne({ _id: postId })
+
+            if (token.sub === post.userId) {
+                await Post.deleteOne({ _id: postId })
+            }
+
 
             res.send({ message: 'successfully deleted post' })
         } catch (error) {

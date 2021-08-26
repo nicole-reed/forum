@@ -14,7 +14,6 @@ const Comment = ({ comment: commentProp }) => {
     const [showReplies, setShowReplies] = useState(false)
     const [userHasLikedComment, setUserHasLikedComment] = useState(false)
 
-
     const onReplyBodyChange = (event) => {
         setReplyBody(event.target.value)
     }
@@ -74,9 +73,19 @@ const Comment = ({ comment: commentProp }) => {
         }
     }
 
+    const deleteComment = async () => {
+        try {
+            await axios.delete(`/api/comments/${comment._id}`)
+
+            window.location.href = '/'
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
     return (
         <div className={postStyles.card}>
-
+            {session.user.id === comment.userId && <button onClick={() => deleteComment()}>delete</button>}
             <div>
                 <Link href={`/users/${comment.userId}`}>{comment.createdBy}</Link>
                 <h4>{moment(comment.createdAt).fromNow()}</h4>

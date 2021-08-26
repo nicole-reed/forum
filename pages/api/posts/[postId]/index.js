@@ -83,10 +83,7 @@ const handler = async (req, res) => {
                 throw new ForbiddenError('Forbidden')
             }
 
-            if (token.sub === post.userId) {
-                await Post.deleteOne({ _id: postId })
-            }
-
+            await Post.deleteOne({ _id: postId })
 
             res.send({ message: 'successfully deleted post' })
         } catch (error) {

@@ -96,7 +96,7 @@ export default function PostsByUserId() {
             <Layout>
                 {loadingError ? <NotFound /> : loading ? '' : <h2>Posts by {user.name}</h2>}
 
-                <Posts posts={posts} setPosts={setPosts} showDelete={true} />
+                <Posts posts={posts} setPosts={setPosts} />
 
                 {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
 

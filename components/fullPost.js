@@ -78,7 +78,6 @@ const Post = ({ post: postProp, showDelete }) => {
         try {
             await axios.delete(`/api/posts/${post._id}`)
 
-            res.send('successfully deleted post')
             window.location.href = '/'
         } catch (error) {
             console.log(error.message)

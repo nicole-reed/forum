@@ -86,7 +86,7 @@ const Post = ({ post: postProp, showDelete }) => {
 
     return (
         <div className={postStyles.card}>
-            {showDelete && <button onClick={() => deletePost(post._id)}>Delete Post</button>}
+            {showDelete && <button onClick={() => deletePost()}>Delete Post</button>}
             <div>
                 <h1>{post.title}</h1>
                 <a href={`/users/${post.userId}`}>{post.createdBy}</a>

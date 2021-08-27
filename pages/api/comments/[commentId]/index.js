@@ -5,6 +5,8 @@ import connectDB from '../../../../middleware/mongodb'
 import handleError from '../../../../utils/handleError'
 import { UnauthorizedError } from '../../../../errors/unauthorized.error'
 import jwt from 'next-auth/jwt'
+import { NotFoundError } from '../../../../errors/notFound.error'
+import { ForbiddenError } from '../../../../errors/forbidden.error'
 
 const secret = process.env.JWT_SECRET
 
@@ -67,6 +69,21 @@ const handler = async (req, res) => {
         try {
             const validatedRequest = getCommentByIdRunType.check(req)
             const { commentId } = validatedRequest.query
+            const token = await jwt.getToken({ req, secret })
+
+            if (!token) {
+                throw new UnauthorizedError('Unauthorized')
+            }
+
+            const comment = await Comment.findOne({ _id: commentId })
+
+            if (!comment) {
+                throw new NotFoundError('Not Found')
+            }
+
+            if (token.sub !== comment.userId) {
+                throw new ForbiddenError('Forbidden')
+            }
 
             await Comment.deleteOne({ _id: commentId })
 

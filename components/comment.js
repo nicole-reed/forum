@@ -6,14 +6,13 @@ import { useSession } from 'next-auth/client'
 import { useState, useEffect } from 'react'
 import moment from 'moment'
 
-const Comment = ({ comment: commentProp }) => {
+const Comment = ({ comment: commentProp, refreshComments }) => {
     const [session, loading] = useSession({})
     const [replies, setReplies] = useState([])
     const [comment, setComment] = useState(commentProp)
     const [replyBody, setReplyBody] = useState('')
     const [showReplies, setShowReplies] = useState(false)
     const [userHasLikedComment, setUserHasLikedComment] = useState(false)
-
 
     const onReplyBodyChange = (event) => {
         setReplyBody(event.target.value)
@@ -74,9 +73,19 @@ const Comment = ({ comment: commentProp }) => {
         }
     }
 
+    const deleteComment = async () => {
+        try {
+            await axios.delete(`/api/comments/${comment._id}`)
+
+            refreshComments()
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
     return (
         <div className={postStyles.card}>
-
+            {session.user.id === comment.userId && <button onClick={() => deleteComment()}>delete</button>}
             <div>
                 <Link href={`/users/${comment.userId}`}>{comment.createdBy}</Link>
                 <h4>{moment(comment.createdAt).fromNow()}</h4>
@@ -97,7 +106,7 @@ const Comment = ({ comment: commentProp }) => {
                 </>}
             </div>
             {showReplies &&
-                <Comments comments={replies} />
+                <Comments comments={replies} refreshComments={getReplies} />
             }
 
         </div>

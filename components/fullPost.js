@@ -109,7 +109,7 @@ const Post = ({ post: postProp }) => {
                 </>}
                 {showComments &&
 
-                    <Comments comments={comments} />
+                    <Comments comments={comments} refreshComments={getComments} />
                 }
             </div>
         </div>

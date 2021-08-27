@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/client'
 import { useState, useEffect } from 'react'
 import moment from 'moment'
 
-const Comment = ({ comment: commentProp }) => {
+const Comment = ({ comment: commentProp, refreshComments }) => {
     const [session, loading] = useSession({})
     const [replies, setReplies] = useState([])
     const [comment, setComment] = useState(commentProp)
@@ -77,7 +77,7 @@ const Comment = ({ comment: commentProp }) => {
         try {
             await axios.delete(`/api/comments/${comment._id}`)
 
-            window.location.href = '/'
+            refreshComments()
         } catch (error) {
             console.log(error.message)
         }

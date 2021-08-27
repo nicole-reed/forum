@@ -106,7 +106,7 @@ const Comment = ({ comment: commentProp, refreshComments }) => {
                 </>}
             </div>
             {showReplies &&
-                <Comments comments={replies} />
+                <Comments comments={replies} refreshComments={getReplies} />
             }
 
         </div>

@@ -1,15 +1,12 @@
-import postStyles from '../styles/post.module.css'
-
 
 const Topic = ({ topic }) => {
 
     return (
-        <div className={postStyles.card}>
+        <div className='topic'>
             <a href={`/topics/${topic._id}/posts`}>
-                <h1>{topic.title}</h1>
-
+                <h1 className='topicTitle'>{topic.title}</h1>
             </a>
-            <p>{topic.description}</p>
+            {/* <p>{topic.description}</p> */}
 
         </div>
     )

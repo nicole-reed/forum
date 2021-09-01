@@ -1,17 +1,18 @@
-.grid {
+/* .grid {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   max-width: 700px;
   margin-top: 1rem;
-}
+} */
 
 .card {
   margin: .5rem;
   flex-basis: 45%;
   padding: .5rem;
   text-align: left;
+  background-color: white;
   color: black;
   text-decoration: none;
   border: 1px solid #eaeaea;
@@ -20,6 +21,7 @@
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
+    box-shadow: 0px 2px 9px 5px rgba(0,0,0,0.05);
 }
 
 .card a{
@@ -48,7 +50,7 @@
 }
 
 .card h3:hover{
-color: white;
+color: rgb(44, 148, 245);
 transition: .15s ease;
 }
 
@@ -98,15 +100,6 @@ transition: .15s ease;
   display: flex;
   justify-content: center;
   
-}
-
-.buttonAndScore {
-  display: flex;
-
-}
-
-.logo {
-  height: 1em;
 }
 
 @media (max-width: 600px) {

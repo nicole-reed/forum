@@ -51,14 +51,6 @@ export default function Header() {
                 </p>
             </div>
 
-            <nav>
-                <ul className={styles.navItems}>
-                    <li className={styles.navItem}><Link href="/"><a>Home</a></Link></li>
-                    {/* <li className={styles.navItem}><Link href="/profile"><a>Profile</a></Link></li> */}
-                    <li className={styles.navItem}><Link href="/topics"><a>Topics</a></Link></li>
-                    <li className={styles.navItem}><Link href="/search"><a>Search</a></Link></li>
-                </ul>
-            </nav>
         </header>
     )
 }

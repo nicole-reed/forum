@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Toggle from 'react-toggle'
 import { useSession } from 'next-auth/client'
 import Posts from '../components/posts'
+import Topics from '../components/topics'
 import Head from 'next/head'
 import "react-toggle/style.css"
 import axios from 'axios'
@@ -12,6 +13,17 @@ export default function Home() {
   const [posts, setPosts] = useState([])
   const [showLikedTopicsOnly, setShowLikedTopicsOnly] = useState(true)
   const [pageNumber, setPageNumber] = useState(1)
+  const [topics, setTopics] = useState([])
+
+  const getTopics = async () => {
+    try {
+      const res = await axios.get('/api/topics')
+
+      setTopics(res.data.topics)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   const getPosts = async (page, likedTopicsOnly) => {
     try {
@@ -24,6 +36,7 @@ export default function Home() {
   }
   useEffect(() => {
     getPosts(pageNumber, showLikedTopicsOnly)
+    getTopics()
 
   }, [showLikedTopicsOnly])
 
@@ -57,16 +70,11 @@ export default function Home() {
     </Head>
     <Layout>
 
-      <div className="container">
-
-        <h1 className="title">
-          Digital Nomad Forum
-        </h1>
+      <div>
 
         <p className="description">
-          A place for DN's by DN's
+          A place for Digital Nomads by Digital Nomads
         </p>
-
         {session &&
           <div className='checkbox'>
             <Toggle type='checkbox' icons={false} checked={showLikedTopicsOnly} onChange={onShowLikedTopicsOnlyChanged} />
@@ -74,13 +82,15 @@ export default function Home() {
           </div>
         }
 
-
         <div className="grid">
-          <Posts posts={posts} setPosts={setPosts} />
+          <Topics className='gridItem' topics={topics} />
+          <Posts className='gridItem' posts={posts} setPosts={setPosts} />
+        </div>
+
+        <div className='pagination'>
           {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
 
           {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
-
         </div>
       </div>
     </Layout>

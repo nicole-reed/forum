@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useSession } from 'next-auth/client'
 import Posts from '../../../../components/posts'
+import NotFound from '../../../../components/notfound'
 import Layout from '../../../../components/layout'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -122,6 +123,8 @@ export default function PostsByTopic() {
                 {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
 
                 {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
+
+
 
             </Layout>
         </div>

@@ -12,7 +12,7 @@ export default function Nav() {
         <nav>
             <ul className='navItems'>
                 {session ?
-                    <li className='navItem'><Link href={`/users/${session && session.user.id}`} ><a className={router.pathname == `/users/${session && session.user.id}` ? "active" : ""}>{session && session.user.name}</a></Link></li>
+                    <li className='navItem'><Link href={`/users/${session && session.user.id}`} ><a className={router.pathname == `/users/${session.user.id}` ? "active" : ""}>{session && session.user.name}</a></Link></li>
                     : <li className='navItem'><Link href={`/api/auth/signin`}><a className={router.pathname == "/signin" ? "active" : ""}>Sign In</a></Link></li>
                 }
 

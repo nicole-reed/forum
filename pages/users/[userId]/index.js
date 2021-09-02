@@ -5,7 +5,7 @@ import Layout from '../../../components/layout'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import Header from '../../../components/header'
+import Auth from '../../../components/auth'
 
 export default function PostsByUserId() {
     const router = useRouter()
@@ -95,7 +95,7 @@ export default function PostsByUserId() {
                 <title>Profile</title>
             </Head>
             <Layout>
-                <Header />
+                <Auth />
                 {loadingError ? <NotFound /> : loading ? '' : <h2>Posts by {user.name}</h2>}
 
                 <Posts posts={posts} setPosts={setPosts} />

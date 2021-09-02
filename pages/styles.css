@@ -5,11 +5,8 @@ body {
   font-family: -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   text-align: center;
   font-weight: lighter;
-  /* max-width: 680px; */
   margin: auto;
   background: white;
-  /* background: linear-gradient(90deg, #777780 0%, #8a928d 100%); */
-  /* background: rgb(32, 31, 56); */
   color: black;
 }
 
@@ -60,7 +57,6 @@ a {
 a:hover,
 a:focus,
 a:active {
-  /* text-decoration: underline; */
   color: rgb(44, 148, 245);
   transition-duration: .5s;
 }
@@ -90,23 +86,14 @@ span{
 }
 
 .header{
-  /* width: 100%; */
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   padding-left: 30px;
   padding-right: 30px;
   background-color: white;
   box-shadow: 0px 2px 9px 5px rgba(0,0,0,0.05);
 }
-
-/* .post-form{
-    margin: auto;
-  width: 50%;
-  border-radius: 10px;
-  background-color: white;
-  padding: 5px;
-} */
 
 .search-input{
   margin-bottom: 5px;
@@ -199,7 +186,6 @@ span{
 }
 
 .navItems {
-  margin-bottom: 2rem;
   padding: 0;
   list-style: none;
   display: flex;
@@ -209,7 +195,6 @@ span{
 .navItem {
   display: inline-block;
   margin-right: 1rem;
-  /* font-size: 1rem; */
 }
 
 .navItem:hover{

@@ -86,8 +86,8 @@ export default function Home() {
 
         <BrowserView>
           <div className="grid">
-            <Topics className='gridItem' topics={topics} />
-            <Posts className='gridItem' posts={posts} setPosts={setPosts} />
+            <Topics className='gridItem' className='one' topics={topics} />
+            <Posts className='gridItem' className='two' posts={posts} setPosts={setPosts} />
           </div>
         </BrowserView>
         <MobileView>

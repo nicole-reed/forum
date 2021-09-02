@@ -8,6 +8,7 @@ export default function Layout({ children }) {
         <>
             <div className='header'>
                 <a href='/' className='navItem' className='logo'>DN</a>
+
                 <Nav />
             </div>
             <main>

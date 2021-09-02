@@ -7,7 +7,7 @@ body {
   font-weight: lighter;
   /* max-width: 680px; */
   margin: auto;
-  background: rgb(247, 246, 248);
+  background: white;
   /* background: linear-gradient(90deg, #777780 0%, #8a928d 100%); */
   /* background: rgb(32, 31, 56); */
   color: black;
@@ -16,6 +16,11 @@ body {
 header{
   width: 50%;
   margin: auto;
+}
+
+.active{
+  font-weight: bold;
+  color:rgb(44, 148, 245);
 }
 
 .logo{

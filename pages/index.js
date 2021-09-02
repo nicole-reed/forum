@@ -7,6 +7,7 @@ import Topics from '../components/topics'
 import Head from 'next/head'
 import "react-toggle/style.css"
 import axios from 'axios'
+import { BrowserView, MobileView } from 'react-device-detect'
 
 export default function Home() {
   const [session, loading] = useSession()
@@ -82,10 +83,18 @@ export default function Home() {
           </div>
         }
 
-        <div className="grid">
-          <Topics className='gridItem' topics={topics} />
-          <Posts className='gridItem' posts={posts} setPosts={setPosts} />
-        </div>
+
+        <BrowserView>
+          <div className="grid">
+            <Topics className='gridItem' topics={topics} />
+            <Posts className='gridItem' posts={posts} setPosts={setPosts} />
+          </div>
+        </BrowserView>
+        <MobileView>
+          <div className="grid">
+            <Posts className='gridItem' posts={posts} setPosts={setPosts} />
+          </div>
+        </MobileView>
 
         <div className='pagination'>
           {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
@@ -93,6 +102,6 @@ export default function Home() {
           {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
         </div>
       </div>
-    </Layout>
-  </div>
+    </Layout >
+  </div >
 }

@@ -29,6 +29,7 @@ export default function Topic() {
                 <title>Topic</title>
             </Head>
             <Layout>
+                <br></br>
                 <Topics topics={topics} />
             </Layout>
         </div>

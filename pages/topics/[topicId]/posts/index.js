@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useSession } from 'next-auth/client'
 import Posts from '../../../../components/posts'
+import NotFound from '../../../../components/notfound'
 import Layout from '../../../../components/layout'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -14,6 +15,7 @@ export default function PostsByTopic() {
     const [posts, setPosts] = useState([])
     const [pageNumber, setPageNumber] = useState(1)
     const [userHasLikedTopic, setUserHasLikedTopic] = useState(false)
+
 
     const getTopic = async () => {
         try {
@@ -103,25 +105,26 @@ export default function PostsByTopic() {
                 <h3>{topic.description}</h3>
                 {session && <button onClick={onLike}>{userHasLikedTopic ? '♥ liked' : '♡'}</button>}
 
-                {session && <>
+                {session && <div>
                     <h4>Create A Post For This Topic</h4>
-                    <form onSubmit={savePost}>
+                    <form className='post-form' onSubmit={savePost}>
                         {/* <label htmlFor="name">Post Title: </label> */}
-                        <input id='title' name='title' type="text" placeholder='title' required />
+                        <input className='post-title' id='title' name='title' type="text" placeholder='title' required />
                         <br></br>
                         {/* <label htmlFor="name">Body: </label> */}
-                        <textarea id='body' name='body' type="text" placeholder='body' required />
+                        <textarea className='post-body' id='body' name='body' type="text" placeholder='body' required />
                         <br></br>
                         <button type="submit"> Add Post </button>
+                        <button type="reset"> Cancel </button>
                     </form>
-                </>}
-
-
+                </div>}
 
                 <Posts posts={posts} setPosts={setPosts} />
                 {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
 
                 {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
+
+
 
             </Layout>
         </div>

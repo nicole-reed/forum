@@ -49,7 +49,7 @@ export default function PostById() {
             </Head>
             <Layout>
 
-                {loadingError ? <NotFound /> : isloading ? '' : <FullPost post={post} showDelete={session.user.id === post.userId ? true : false} />}
+                {loadingError ? <NotFound /> : isloading ? '' : <FullPost post={post} showDelete={session && session.user.id === post.userId ? true : false} />}
             </Layout>
 
         </div>

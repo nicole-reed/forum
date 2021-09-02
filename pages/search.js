@@ -64,11 +64,12 @@ export default function Search() {
                 <title>Search</title>
             </Head>
             <Layout>
+                <h2>Search Posts By Keywords</h2>
                 <form onSubmit={onSubmit}>
-                    <input id='keyword' name='keyword' type="text" placeholder='keyword' value={keyword} onChange={onKeywordChange} required />
-                    <button type="submit"> Search </button>
+                    <input className='search-input' id='keyword' name='keyword' type="text" placeholder='keyword' value={keyword} onChange={onKeywordChange} required />
+                    <button type="submit"> 🔍 </button>
                 </form>
-                {posts.length > 0 ? <Posts posts={posts} /> : <h2>No Posts Matching Keyword</h2>}
+                {posts.length > 0 ? <Posts posts={posts} /> : <p>No Posts Matching Keyword</p>}
                 {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
 
                 {posts.length === 10 && <button onClick={onClickNext}>Next</button>}

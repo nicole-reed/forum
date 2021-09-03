@@ -3,7 +3,7 @@ import Layout from '../components/layout'
 import Posts from '../components/posts'
 import React from 'react'
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 export default function Search() {
     const [posts, setPosts] = useState([])
@@ -24,9 +24,7 @@ export default function Search() {
             console.log(error.message)
         }
     }
-    useEffect(() => {
 
-    }, [])
 
     const onClickNext = () => {
         try {

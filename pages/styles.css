@@ -10,9 +10,14 @@ body {
   color: black;
 }
 
-header{
+.auth{
   width: 50%;
   margin: auto;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
 }
 
 .active{
@@ -82,6 +87,8 @@ span{
 }
 
 .header{
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

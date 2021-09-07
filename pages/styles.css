@@ -10,9 +10,14 @@ body {
   color: black;
 }
 
-header{
+.auth{
   width: 50%;
   margin: auto;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
 }
 
 .active{
@@ -42,10 +47,6 @@ h2{
 }
 h3{
   font-weight: lighter;
-}
-
-.topic{
-  text-decoration: underline;
 }
 
 a {
@@ -80,12 +81,14 @@ span{
 }
 
  input{
-  width: 25%;
+  width: 40%;
   border-width: 1px;
   border-radius: 8px;
 }
 
 .header{
+  position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -221,6 +224,7 @@ span{
 
 .topicContainer{
   display: flex;
+  height: max-content;
   flex-direction: column;
   border-radius: 10px;
   background-color: white;

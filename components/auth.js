@@ -12,7 +12,7 @@ export default function Header() {
     const [session, loading] = useSession()
 
     return (
-        <header>
+        <header className='auth'>
             <noscript>
                 <style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
             </noscript>

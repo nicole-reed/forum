@@ -71,7 +71,7 @@ export default function PostsByUserId() {
     const onClickNext = async () => {
         try {
             const newPageNumber = pageNumber + 1
-            getAndSetPosts(userId, pageNumber)
+            getAndSetPosts(userId, newPageNumber)
             setPageNumber(newPageNumber)
         } catch (error) {
             console.log(error.message)
@@ -81,7 +81,7 @@ export default function PostsByUserId() {
     const onClickBack = async () => {
         try {
             const newPageNumber = pageNumber - 1
-            getAndSetPosts(userId, pageNumber)
+            getAndSetPosts(userId, newPageNumber)
             setPageNumber(newPageNumber)
         } catch (error) {
             console.log(error.message)
@@ -96,13 +96,17 @@ export default function PostsByUserId() {
             </Head>
             <Layout>
                 <Auth />
+
                 {loadingError ? <NotFound /> : loading ? '' : <h2>Posts by {user.name}</h2>}
 
                 <Posts posts={posts} setPosts={setPosts} />
 
-                {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
+                <div className='pagination'>
+                    {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
 
-                {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
+                    {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
+                </div>
+
 
             </Layout>
         </div>

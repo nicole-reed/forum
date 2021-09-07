@@ -85,9 +85,8 @@ const Comment = ({ comment: commentProp, refreshComments }) => {
 
     return (
         <div className={postStyles.card}>
-            {session.user.id === comment.userId && <button onClick={() => deleteComment()}>delete</button>}
             <div>
-                <Link href={`/users/${comment.userId}`}>{comment.createdBy}</Link>
+                <Link href={`/users/${comment.userId}`}>{comment.createdBy}</Link>  {session && session.user.id === comment.userId && <button onClick={() => deleteComment()}>🗑</button>}
                 <h4>{moment(comment.createdAt).fromNow()}</h4>
             </div>
             <p>{comment.body}</p>

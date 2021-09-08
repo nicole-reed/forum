@@ -245,7 +245,7 @@ span{
    justify-content: center;
   }
   .grid{
-    flex-wrap: wrap;
+    flex-direction: column;
     border: none;
   }
 

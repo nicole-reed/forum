@@ -90,10 +90,9 @@ export default function Home() {
             <Posts posts={posts} setPosts={setPosts} />
           </div>
         </BrowserView>
+
         <MobileView>
-          <div className="grid">
-            <Posts posts={posts} setPosts={setPosts} />
-          </div>
+          <Posts posts={posts} setPosts={setPosts} />
         </MobileView>
 
         <div className='pagination'>

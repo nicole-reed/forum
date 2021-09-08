@@ -80,6 +80,7 @@ export default function Home() {
           <div className='checkbox'>
             <Toggle type='checkbox' icons={false} checked={showLikedTopicsOnly} onChange={onShowLikedTopicsOnlyChanged} />
             {showLikedTopicsOnly ? <span>My Topics</span> : <span>All Topics</span>}
+            <br></br>
           </div>
         }
 
@@ -90,9 +91,10 @@ export default function Home() {
             <Posts posts={posts} setPosts={setPosts} />
           </div>
         </BrowserView>
-
         <MobileView>
+
           <Posts posts={posts} setPosts={setPosts} />
+
         </MobileView>
 
         <div className='pagination'>

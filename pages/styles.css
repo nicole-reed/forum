@@ -245,6 +245,7 @@ span{
   }
   .grid{
     flex-wrap: wrap;
+    border: none;
   }
   .header{
     flex-direction: row;

@@ -99,9 +99,10 @@ const Post = ({ post: postProp }) => {
                 <button onClick={onLike}>{userHasLikedPost ? '♥' : '♡'}</button>
 
                 {comments.length}<button onClick={toggleShowComments}>💬</button>
+                <br></br>
                 {session && <>
                     <form onSubmit={saveComment} >
-                        <input id='body' name='body' type="text" value={commentBody} onChange={onCommentBodyChange} placeholder='add a comment' required />
+                        <input className='comment-input' id='body' name='body' type="text" value={commentBody} onChange={onCommentBodyChange} placeholder='add a comment' required />
                         <br></br>
                         <button type="submit"> Add Comment</button>
                     </form>

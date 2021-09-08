@@ -18,6 +18,7 @@ body {
 .nav {
   position: sticky;
   top: 0;
+  z-index: 1;
 }
 
 .active{
@@ -247,6 +248,7 @@ span{
     flex-wrap: wrap;
     border: none;
   }
+
   .header{
     flex-direction: row;
     font-size: 1rem;

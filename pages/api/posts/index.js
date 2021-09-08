@@ -29,7 +29,7 @@ const handler = async (req, res) => {
                 const userId = token.sub
                 const userDoc = await User.findOne({ _id: userId })
                 const likedTopics = Array.from(userDoc.likedTopics.keys())
-                posts = await Post.find({ 'topicId': { $in: likedTopics } }).sort({ _id: -1 }).limit(limit).skip(skip)
+                likedTopics && likedTopics.length > 0 ? posts = await Post.find({ 'topicId': { $in: likedTopics } }).sort({ _id: -1 }).limit(limit).skip(skip) : posts = await Post.find({}).sort({ _id: -1 }).limit(limit).skip(skip)
             } else {
                 posts = await Post.find({}).sort({ _id: -1 }).limit(limit).skip(skip)
             }

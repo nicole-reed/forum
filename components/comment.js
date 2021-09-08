@@ -98,7 +98,7 @@ const Comment = ({ comment: commentProp, refreshComments }) => {
             <div>
                 {session && <>
                     <form onSubmit={saveReply}>
-                        <input id='body' name='body' value={replyBody} onChange={onReplyBodyChange} type="text" placeholder='add a reply' required />
+                        <input className='comment-input' id='body' name='body' value={replyBody} onChange={onReplyBodyChange} type="text" placeholder='add a reply' required />
                         <br></br>
                         <button type="submit"> Add reply </button>
                     </form>

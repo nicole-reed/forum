@@ -240,7 +240,7 @@ span{
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .checkbox {
    justify-content: center;
   }
@@ -257,4 +257,10 @@ span{
   .post-body{
     width: 100%;
   }
+
+  .comment-input{
+    width: 90%;
+    height: 20px;
+  }
+
 }

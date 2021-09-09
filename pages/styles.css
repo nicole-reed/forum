@@ -263,4 +263,8 @@ span{
     height: 30px;
   }
 
+  .button:hover{
+    background-color: white;
+    color: black;
+  }
 }

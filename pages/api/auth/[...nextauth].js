@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
-import jwt from 'jsonwebtoken'
 
 export default NextAuth({
     providers: [

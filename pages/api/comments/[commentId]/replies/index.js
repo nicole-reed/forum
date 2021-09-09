@@ -9,7 +9,7 @@ const getRepliesRunType = Record({
         commentId: String,
     })
 })
-//change
+
 const handler = async (req, res) => {
 
     if (req.method === 'GET') {

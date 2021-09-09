@@ -266,5 +266,6 @@ span{
   .button:hover{
     background-color: white;
     color: black;
+    outline: 0;
   }
 }

@@ -77,7 +77,7 @@ button:hover{
 }
 
 span{
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
  input{
@@ -164,6 +164,7 @@ span{
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
   padding-right: 30px;
   color: black;
 }
@@ -175,7 +176,7 @@ span{
 
 .react-toggle-track {
   top: 1px !important;
-  width: 38px !important;
+  width: 40px !important;
   height: 14px !important;
 }
 
@@ -183,10 +184,16 @@ span{
   background:rgb(44, 148, 245) !important;
 }
 
+/* .react-toggle .react-toggle--checked{
+  border-color: transparent !important;
+  left: 25px !important;
+} */
+
 .react-toggle-thumb{
   width: 12px !important;
   height: 12px !important;
   box-shadow: none !important;
+  border-color: transparent !important;
 }
 
 .navItems {
@@ -237,8 +244,15 @@ span{
 
 .pagination{
   padding-bottom: 30px;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 30px;
 }
 
+.pag-btn {
+  border-radius: 10px;
+  box-shadow: 0px 2px 9px 5px rgba(0,0,0,0.05);
+}
 
 @media (max-width: 768px) {
   .checkbox {

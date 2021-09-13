@@ -104,9 +104,9 @@ export default function PostsByUserId() {
                 <Posts posts={posts} setPosts={setPosts} />
 
                 <div className='pagination'>
-                    {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
+                    {pageNumber > 1 && <button className='pag-btn' onClick={onClickBack}>Back</button>}
 
-                    {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
+                    {posts.length === 10 && <button className='pag-btn' onClick={onClickNext}>Next</button>}
                 </div>
 
 

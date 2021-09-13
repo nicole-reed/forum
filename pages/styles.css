@@ -255,13 +255,9 @@ span{
 }
 
 @media (max-width: 768px) {
-  .checkbox {
+  /* .checkbox {
    justify-content: center;
-  }
-
-  .pagination{
-  justify-content: center;
-  }
+  } */
 
   .grid{
     flex-direction: column;
@@ -285,5 +281,6 @@ span{
   button:focus {
   outline: none;
   box-shadow: none;
+  background-color: transparent;
 }
 }

@@ -12,7 +12,7 @@ import { BrowserView, MobileView } from 'react-device-detect'
 export default function Home() {
   const [session, loading] = useSession()
   const [posts, setPosts] = useState([])
-  const [showLikedTopicsOnly, setShowLikedTopicsOnly] = useState(true)
+  const [showLikedTopicsOnly, setShowLikedTopicsOnly] = useState(false)
   const [pageNumber, setPageNumber] = useState(1)
   const [topics, setTopics] = useState([])
 
@@ -88,13 +88,12 @@ export default function Home() {
         <BrowserView>
           <div className="grid">
             <Topics topics={topics} />
-            <Posts posts={posts} setPosts={setPosts} />
+            {showLikedTopicsOnly && posts.length < 1 ? <p className='like-topic-msg'>You haven't liked any topics yet. Like a topic to add it to your topics.</p> : <Posts posts={posts} setPosts={setPosts} />}
           </div>
         </BrowserView>
+
         <MobileView>
-
-          <Posts posts={posts} setPosts={setPosts} />
-
+          {showLikedTopicsOnly && posts.length < 1 ? <p className='like-topic-msg'>You haven't liked any topics yet. Like a topic to add it to your topics.</p> : <Posts posts={posts} setPosts={setPosts} />}
         </MobileView>
 
         <div className='pagination'>

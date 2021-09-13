@@ -4,16 +4,18 @@ import NotFound from '../../../components/notfound'
 import Layout from '../../../components/layout'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/client'
 import axios from 'axios'
 import Auth from '../../../components/auth'
 
 export default function PostsByUserId() {
+    const { session, loading } = useSession()
     const router = useRouter()
     const { userId } = router.query
     const [user, setUser] = useState({})
     const [posts, setPosts] = useState([])
     const [pageNumber, setPageNumber] = useState(1)
-    const [loading, setLoading] = useState(true)
+    const [isLoading, setLoading] = useState(true)
     const [loadingError, setLoadingError] = useState(false)
 
     const getUser = async (id) => {
@@ -88,9 +90,6 @@ export default function PostsByUserId() {
         }
     }
 
-    //nothing again
-
-
     return (
         <div >
             <Head>
@@ -99,7 +98,7 @@ export default function PostsByUserId() {
             <Layout>
                 <Auth />
 
-                {loadingError ? <NotFound /> : loading ? '' : <h2>Posts by {user.name}</h2>}
+                {loadingError ? <NotFound /> : isLoading ? '' : <h2>Posts by {user.name}</h2>}
 
                 <Posts posts={posts} setPosts={setPosts} />
 

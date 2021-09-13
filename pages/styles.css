@@ -69,6 +69,7 @@ button {
     font-weight: lighter;
   background-color: inherit;
   border: none;
+  cursor: pointer;
 }
 
 button:hover{
@@ -165,7 +166,7 @@ span{
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  padding-right: 30px;
+  padding-right: 10px;
   color: black;
 }
 
@@ -242,21 +243,35 @@ span{
   box-shadow: 0px 2px 9px 5px rgba(0,0,0,0.05);
 }
 
+.topicList{
+  max-width: 500px;
+  margin: auto;
+}
+
+.like-topic-msg{
+  display: flex;
+  margin: auto;
+}
+
 .pagination{
   padding-bottom: 30px;
   display: flex;
   justify-content: flex-end;
-  padding-right: 30px;
+  padding-right: 10px;
 }
 
 .pag-btn {
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0px 2px 9px 5px rgba(0,0,0,0.05);
 }
 
 @media (max-width: 768px) {
   /* .checkbox {
    justify-content: center;
+  }
+
+  .pagination{
+    justify-content: center ;
   } */
 
   .grid{

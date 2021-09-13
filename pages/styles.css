@@ -258,6 +258,11 @@ span{
   .checkbox {
    justify-content: center;
   }
+
+  .pagination{
+  justify-content: center;
+  }
+
   .grid{
     flex-direction: column;
     border: none;

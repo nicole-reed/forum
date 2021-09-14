@@ -72,10 +72,10 @@ export default function Home() {
     <Layout>
 
       <div>
-
-        <p className="description">
+        <br></br>
+        {/* <p className="description">
           A place for Digital Nomads by Digital Nomads
-        </p>
+        </p> */}
         {session &&
           <div className='checkbox'>
             <Toggle type='checkbox' icons={false} checked={showLikedTopicsOnly} onChange={onShowLikedTopicsOnlyChanged} />

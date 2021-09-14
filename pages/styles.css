@@ -72,10 +72,10 @@ button {
   cursor: pointer;
 }
 
-button:hover{
+/* button:hover{
   background-color: black;
   color: white;
-}
+} */
 
 span{
   font-size: 1.05rem;
@@ -293,9 +293,8 @@ span{
     height: 30px;
   }
 
-  button:focus {
-  outline: none;
-  box-shadow: none;
-  background-color: transparent;
-}
+  .like-topic-msg{
+    margin-top: 30%;
+  }
+
 }

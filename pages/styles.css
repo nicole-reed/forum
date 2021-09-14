@@ -305,7 +305,12 @@ span{
     margin-top: 30%;
   }
 
-  .heart-btn {
+  .heart-btn-liked{
+    font-family: monospace;
+    color: black;
+  }
+
+  .heart-btn-unliked{
     font-family: monospace;
   }
 

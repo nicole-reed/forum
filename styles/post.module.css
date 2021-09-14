@@ -111,5 +111,12 @@ transition: .15s ease;
   .card button:focus{
     outline: none;
   }
+
+  .card button:hover {
+  background-color: transparent;
+  color: black;
+  transition: none;
+  outline: none;
+}
 }
       

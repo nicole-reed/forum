@@ -107,5 +107,9 @@ transition: .15s ease;
     width: 100%;
     flex-direction: column;
   }
+
+  button:focus{
+    outline: none;
+  }
 }
       

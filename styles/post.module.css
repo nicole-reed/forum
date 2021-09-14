@@ -107,11 +107,6 @@ transition: .15s ease;
     width: 100%;
     flex-direction: column;
   }
-
-  .card button:focus{
-    outline: none;
-  }
-
   .card button:hover {
   background-color: transparent;
   color: black;

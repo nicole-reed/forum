@@ -297,4 +297,8 @@ span{
     margin-top: 30%;
   }
 
+  button:active {
+  outline: none;
+}
+
 }

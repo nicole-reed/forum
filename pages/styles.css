@@ -314,13 +314,12 @@ span{
     margin-top: 30%;
   }
 
-  .heart-btn-liked{
-    color: black;
+ .heart-btn-liked{
+    color: black !important;
   }
 
   .heart-btn-unliked{
-    color: white;
-    outline: thin black;
+    color: rgb(168, 165, 165) !important;
   }
 
 }

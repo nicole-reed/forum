@@ -96,7 +96,7 @@ export default function Home() {
         </MobileView>
 
         <div className='pagination'>
-          {pageNumber > 1 && <button className='pag-btn' onClick={onClickBack}>Back</button>}
+          {pageNumber > 1 && posts.length > 0 && <button className='pag-btn' onClick={onClickBack}>Back</button>}
 
           {posts.length === 10 && <button className='pag-btn' onClick={onClickNext}>Next</button>}
         </div>

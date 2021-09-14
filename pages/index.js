@@ -73,9 +73,8 @@ export default function Home() {
 
       <div>
         <br></br>
-        {/* <p className="description">
-          A place for Digital Nomads by Digital Nomads
-        </p> */}
+        <p className="description">A place for Digital Nomads by Digital Nomads</p>
+        <br></br>
         {session &&
           <div className='checkbox'>
             <Toggle type='checkbox' icons={false} checked={showLikedTopicsOnly} onChange={onShowLikedTopicsOnlyChanged} />

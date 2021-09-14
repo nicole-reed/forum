@@ -92,7 +92,7 @@ const Comment = ({ comment: commentProp, refreshComments }) => {
             <p>{comment.body}</p>
             <br />
             <span>{comment.likedBy ? Object.keys(comment.likedBy).length : 0}</span>
-            <button className='heart-btn' onClick={onLike}>{userHasLikedComment ? '♥' : '♡'}</button>
+            <button className={userHasLikedComment ? 'heart-btn-liked' : 'heart-btn-unliked'} onClick={onLike}>♥</button>
 
             <button onClick={toggleShowReplies}>{replies.length} replies</button>
             <div>

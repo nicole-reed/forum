@@ -90,6 +90,10 @@ export default function PostsByUserId() {
         }
     }
 
+    // console.log('session.user.id', session.user)
+    // console.log('userId', userId)
+    // console.log('user._id', user._id)
+
     return (
         <div >
             <Head>
@@ -99,6 +103,8 @@ export default function PostsByUserId() {
                 <Auth />
 
                 {loadingError ? <NotFound /> : isLoading ? '' : <h2>Posts by {user.name}</h2>}
+
+                {posts.length < 1 ? <p>Choose a <a className='topics-link' href='/topics'>Topic</a> to start posting!</p> : ''}
 
                 <Posts posts={posts} setPosts={setPosts} />
 

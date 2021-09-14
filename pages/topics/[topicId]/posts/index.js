@@ -103,7 +103,7 @@ export default function PostsByTopic() {
 
                 <h1>{topic.title}</h1>
                 <h3>{topic.description}</h3>
-                {session && <button onClick={onLike}>{userHasLikedTopic ? '♥ liked' : '♡'}</button>}
+                {session && <button className='heart-btn' onClick={onLike}>{userHasLikedTopic ? '♥ liked' : '♡'}</button>}
 
                 {session && <div>
                     <h4>Create A Post For This Topic</h4>

@@ -96,7 +96,7 @@ const Post = ({ post: postProp }) => {
                 <br></br>
 
                 <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
-                <button onClick={onLike}>{userHasLikedPost ? '♥' : '♡'}</button>
+                <button className='heart-btn' onClick={onLike}>{userHasLikedPost ? <>♥&#xFE0E;</> : <>♡&#xFE0E;</>}</button>
 
                 {comments.length}<button onClick={toggleShowComments}>💬</button>
                 <br></br>
@@ -104,7 +104,7 @@ const Post = ({ post: postProp }) => {
                     <form onSubmit={saveComment} >
                         <input className='comment-input' id='body' name='body' type="text" value={commentBody} onChange={onCommentBodyChange} placeholder='add a comment' required />
                         <br></br>
-                        <button type="submit"> Add Comment</button>
+                        <button type="submit"> Add Comment </button>
                     </form>
                 </>}
                 {showComments &&

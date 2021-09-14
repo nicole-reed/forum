@@ -68,9 +68,9 @@ export default function Search() {
                     <button type="submit"> 🔍 </button>
                 </form>
                 {posts.length > 0 ? <Posts posts={posts} /> : <p>No Posts Matching Keyword</p>}
-                {pageNumber > 1 && <button onClick={onClickBack}>Back</button>}
+                {pageNumber > 1 && <button className='pag-btn' onClick={onClickBack}>Back</button>}
 
-                {posts.length === 10 && <button onClick={onClickNext}>Next</button>}
+                {posts.length === 10 && <button className='pag-btn' onClick={onClickNext}>Next</button>}
 
             </Layout>
         </div>

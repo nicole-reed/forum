@@ -231,6 +231,10 @@ span{
   color: rgb(44, 148, 245);
 }
 
+.topics-link{
+  font-weight: bolder;
+}
+
 .topicContainer{
   display: flex;
   height: max-content;

@@ -273,15 +273,6 @@ span{
   box-shadow: 0px 2px 9px 5px rgba(0,0,0,0.05);
 }
 
-.heart-btn-liked{
-    color: black;
-  }
-
-  .heart-btn-unliked{
-    color: rgb(168, 165, 165);
-    outline: thin black;
-  }
-
 @media (max-width: 768px) {
   /* .checkbox {
    justify-content: center;
@@ -312,14 +303,6 @@ span{
 
   .like-topic-msg{
     margin-top: 30%;
-  }
-
- .heart-btn-liked{
-    color: black !important;
-  }
-
-  .heart-btn-unliked{
-    color: rgb(168, 165, 165) !important;
   }
 
 }

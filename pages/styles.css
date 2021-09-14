@@ -305,4 +305,8 @@ span{
     margin-top: 30%;
   }
 
+  .heart-btn {
+    font-family: monospace;
+  }
+
 }

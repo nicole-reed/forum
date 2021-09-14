@@ -96,7 +96,7 @@ const Post = ({ post: postProp }) => {
                 <br></br>
 
                 <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
-                <button className='heart-btn' onClick={onLike}>{userHasLikedPost ? <>♥&#xFE0E;</> : <>♡&#xFE0E;</>}</button>
+                <button className='heart-btn' onClick={onLike}>{userHasLikedPost ? '♥' : '♡'}</button>
 
                 {comments.length}<button onClick={toggleShowComments}>💬</button>
                 <br></br>

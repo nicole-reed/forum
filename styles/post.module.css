@@ -108,7 +108,7 @@ transition: .15s ease;
     flex-direction: column;
   }
 
-  button:focus{
+  .card button:focus{
     outline: none;
   }
 }

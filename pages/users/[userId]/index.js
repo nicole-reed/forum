@@ -114,8 +114,8 @@ export default function PostsByUserId() {
                     {posts.length === 10 && <button className='pag-btn' onClick={onClickNext}>Next</button>}
                 </div>
 
-
             </Layout>
+
         </div>
     )
 }

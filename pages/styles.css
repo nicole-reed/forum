@@ -170,6 +170,10 @@ span{
   color: black;
 }
 
+.checkbox-text{
+  padding-right: 5px;
+}
+
 .react-toggle {
   height: 15px !important;
   width: 40px !important;

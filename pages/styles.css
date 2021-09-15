@@ -31,7 +31,6 @@ body {
   padding: 5px;
   color: white;
   font-weight: bold;
-
 }
 
 main{
@@ -54,7 +53,6 @@ a {
   text-decoration: none;
 }
 
-
 a:hover,
 a:focus,
 a:active {
@@ -71,11 +69,6 @@ button {
   border: none;
   cursor: pointer;
 }
-
-/* button:hover{
-  background-color: black;
-  color: white;
-} */
 
 span{
   font-size: 1.05rem;
@@ -135,6 +128,21 @@ span{
   opacity: .5;
 }
 
+.post-form{
+  margin-bottom: 1rem;
+}
+
+.form-btn {
+  border-radius: 5px;
+  box-shadow: 0px 2px 9px 5px rgba(0,0,0,0.05);
+  margin: .5rem;
+}
+
+.form-btn:hover{
+  background-color: black;
+  color: white;
+}
+
 .post-body{
   border-radius: 5px;
   border: none;
@@ -162,6 +170,7 @@ span{
 
 
 .checkbox{
+  margin-bottom: .75rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -188,11 +197,6 @@ span{
 .react-toggle--checked .react-toggle-track{
   background:rgb(44, 148, 245) !important;
 }
-
-/* .react-toggle .react-toggle--checked{
-  border-color: transparent !important;
-  left: 25px !important;
-} */
 
 .react-toggle-thumb{
   width: 12px !important;
@@ -239,7 +243,7 @@ span{
   font-weight: bolder;
 }
 
-.topicContainer{
+.topics-container{
   display: flex;
   height: max-content;
   flex-direction: column;
@@ -251,7 +255,7 @@ span{
   box-shadow: 0px 2px 9px 5px rgba(0,0,0,0.05);
 }
 
-.topicList{
+.topic-list{
   max-width: 500px;
   margin: auto;
 }
@@ -271,6 +275,15 @@ span{
 .pag-btn {
   border-radius: 5px;
   box-shadow: 0px 2px 9px 5px rgba(0,0,0,0.05);
+}
+
+.pag-btn:hover{
+  background-color: black;
+  color: white;
+}
+
+.full-post{
+  margin-top: .5rem;
 }
 
 @media (max-width: 768px) {
@@ -305,4 +318,17 @@ span{
     margin-top: 30%;
   }
 
+}
+
+@media (min-width: 1450px){
+  main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .grid{
+    display: flex;
+    justify-content: center;
+  }
 }

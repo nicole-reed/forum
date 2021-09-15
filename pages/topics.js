@@ -30,7 +30,7 @@ export default function Topic() {
             </Head>
             <Layout>
                 <br></br>
-                <div className='topicList'>
+                <div className='topic-list'>
                     <Topics topics={topics} />
                 </div>
 

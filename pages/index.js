@@ -71,7 +71,7 @@ export default function Home() {
     </Head>
     <Layout>
 
-      <div>
+      <div className='home-page'>
         <br></br>
         <p className="description">A place for Digital Nomads by Digital Nomads</p>
         <br></br>

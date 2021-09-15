@@ -8,7 +8,7 @@
 } */
 
 .card {
-  margin: .5rem;
+  margin: 0 .5rem .5rem .5rem;
   flex-basis: 45%; 
   padding: .5rem;
   text-align: left;
@@ -57,7 +57,7 @@ transition: .15s ease;
 .card p {
   margin: 0;
   font-size: 1rem;
-  line-height: 1;
+  line-height: 1.5;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
@@ -114,4 +114,3 @@ transition: .15s ease;
   outline: none;
 }
 }
-      

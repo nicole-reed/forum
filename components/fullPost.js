@@ -86,32 +86,35 @@ const Post = ({ post: postProp }) => {
 
 
     return (
-        <div className={postStyles.card}>
-            <div>
-                <h1>{post.title}</h1>
-                <a href={`/users/${post.userId}`}>{post.createdBy}</a> {session && session.user.id === post.userId && <button onClick={() => deletePost()}>🗑</button>}
-                <h4>{moment(post.createdAt).fromNow()}</h4>
-                <br></br>
-                <p className={postStyles.body}>{post.body}</p>
-                <br></br>
+        <div className='full-post'>
+            <div className={postStyles.card}>
+                <div>
+                    <h1>{post.title}</h1>
+                    <a href={`/users/${post.userId}`}>{post.createdBy}</a> {session && session.user.id === post.userId && <button onClick={() => deletePost()}>🗑</button>}
+                    <h4>{moment(post.createdAt).fromNow()}</h4>
+                    <br></br>
+                    <p className={postStyles.body}>{post.body}</p>
+                    <br></br>
 
-                <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
-                <button className='heart-btn' onClick={onLike}>{userHasLikedPost ? '♥' : '♡'}</button>
+                    <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
+                    <button className='heart-btn' onClick={onLike}>{userHasLikedPost ? '♥' : '♡'}</button>
 
-                {comments.length}<button onClick={toggleShowComments}>💬</button>
-                <br></br>
-                {session && <>
-                    <form onSubmit={saveComment} >
-                        <input className='comment-input' id='body' name='body' type="text" value={commentBody} onChange={onCommentBodyChange} placeholder='add a comment' required />
-                        <br></br>
-                        <button type="submit"> Add Comment </button>
-                    </form>
-                </>}
-                {showComments &&
+                    {comments.length}<button onClick={toggleShowComments}>💬</button>
+                    <br></br>
+                    {session && <>
+                        <form onSubmit={saveComment} >
+                            <input className='comment-input' id='body' name='body' type="text" value={commentBody} onChange={onCommentBodyChange} placeholder='add a comment' required />
+                            <br></br>
+                            <button type="submit"> Add Comment </button>
+                        </form>
+                    </>}
+                    {showComments &&
 
-                    <Comments comments={comments} refreshComments={getComments} />
-                }
+                        <Comments comments={comments} refreshComments={getComments} />
+                    }
+                </div>
             </div>
+            {!session && <p className='sign-in-link'><a href='/api/auth/signin'>Sign in</a> to like and comment!</p>}
         </div>
     )
 

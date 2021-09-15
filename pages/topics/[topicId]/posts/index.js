@@ -101,21 +101,21 @@ export default function PostsByTopic() {
             </Head>
             <Layout>
 
-                <h1>{topic.title}</h1>
-                <h3>{topic.description}</h3>
-                {session && <button onClick={onLike}>{userHasLikedTopic ? '♥ liked' : '♡'}</button>}
+                <h2>{topic.title}</h2> {session && <button onClick={onLike}>{userHasLikedTopic ? '♥ liked' : '♡'}</button>}
 
-                {session && <div>
+                <h3>{topic.description}</h3>
+
+                {session && <div className='post-form'>
                     <h4>Create A Post For This Topic</h4>
-                    <form className='post-form' onSubmit={savePost}>
+                    <form onSubmit={savePost}>
                         {/* <label htmlFor="name">Post Title: </label> */}
                         <input className='post-title' id='title' name='title' type="text" placeholder='title' required />
                         <br></br>
                         {/* <label htmlFor="name">Body: </label> */}
                         <textarea className='post-body' id='body' name='body' type="text" placeholder='body' required />
                         <br></br>
-                        <button type="submit"> Add Post </button>
-                        <button type="reset"> Cancel </button>
+                        <button className='form-btn' type="submit"> Add Post </button>
+                        <button className='form-btn' type="reset"> Cancel </button>
                     </form>
                 </div>}
 

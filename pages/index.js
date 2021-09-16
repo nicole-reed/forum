@@ -72,38 +72,37 @@ export default function Home() {
     </Head>
     <Layout>
 
-      <div className='home-page'>
-        <br></br>
-        <p className="description">A place for Digital Nomads by Digital Nomads</p>
-        <br></br>
-        {session &&
-          <div className='checkbox'>
+      <br></br>
+      <p className="description">A place for Digital Nomads by Digital Nomads</p>
+      <br></br>
+      {session &&
+        <div className='checkbox'>
 
-            {showLikedTopicsOnly ? <span className='checkbox-text'>My Topics</span> : <span className='checkbox-text'>All Topics</span>}
-            <Toggle type='checkbox' icons={false} checked={showLikedTopicsOnly} onChange={onShowLikedTopicsOnlyChanged} />
+          {showLikedTopicsOnly ? <span className='checkbox-text'>My Topics</span> : <span className='checkbox-text'>All Topics</span>}
+          <Toggle type='checkbox' icons={false} checked={showLikedTopicsOnly} onChange={onShowLikedTopicsOnlyChanged} />
 
-            <br></br>
-          </div>
-        }
-
-
-        <BrowserView>
-          <div className="grid">
-            <Topics topics={topics} />
-            {showLikedTopicsOnly && posts.length < 1 && pageNumber === 1 ? <p className='like-topic-msg'>You haven't liked any topics yet. Like a topic to add it to your topics.</p> : <Posts posts={posts} setPosts={setPosts} />}
-          </div>
-        </BrowserView>
-
-        <MobileView>
-          {showLikedTopicsOnly && posts.length < 1 && pageNumber === 1 ? <p className='like-topic-msg'>You haven't liked any topics yet. Like a topic to add it to your topics.</p> : <Posts posts={posts} setPosts={setPosts} />}
-        </MobileView>
-
-        <div className='pagination'>
-          {pageNumber > 1 && <button className='pag-btn' onClick={onClickBack}>Back</button>}
-
-          {posts.length === 10 && <button className='pag-btn' onClick={onClickNext}>Next</button>}
+          <br></br>
         </div>
+      }
+
+
+      <BrowserView>
+        <div className="grid">
+          <Topics topics={topics} />
+          {showLikedTopicsOnly && posts.length < 1 && pageNumber === 1 ? <p className='like-topic-msg'>You haven't liked any topics yet. Like a topic to add it to your topics.</p> : <Posts posts={posts} setPosts={setPosts} />}
+        </div>
+      </BrowserView>
+
+      <MobileView>
+        {showLikedTopicsOnly && posts.length < 1 && pageNumber === 1 ? <p className='like-topic-msg'>You haven't liked any topics yet. Like a topic to add it to your topics.</p> : <Posts posts={posts} setPosts={setPosts} />}
+      </MobileView>
+
+      <div className='pagination'>
+        {pageNumber > 1 && <button className='pag-btn' onClick={onClickBack}>Back</button>}
+
+        {posts.length === 10 && <button className='pag-btn' onClick={onClickNext}>Next</button>}
       </div>
+
     </Layout >
   </div >
 }

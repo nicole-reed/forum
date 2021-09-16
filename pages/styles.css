@@ -205,6 +205,10 @@ span{
   border-color: transparent !important;
 }
 
+.heart{
+  color: black !important;
+}
+
 .navItems {
   padding: 0;
   list-style: none;

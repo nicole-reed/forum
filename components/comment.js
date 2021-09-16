@@ -94,7 +94,7 @@ const Comment = ({ comment: commentProp, refreshComments }) => {
             <p>{comment.body}</p>
             <br />
             <span>{comment.likedBy ? Object.keys(comment.likedBy).length : 0}</span>
-            <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedComment ? <i class="fas fa-heart"></i> : '♡'}</button>
+            <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedComment ? <i class="fas fa-heart" className='heart'></i> : '♡'}</button>
 
             <button onClick={toggleShowReplies}>{replies.length} replies</button>
             <div>

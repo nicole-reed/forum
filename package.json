@@ -18,6 +18,7 @@
     "react": "17.0.2",
     "react-device-detect": "^1.17.0",
     "react-dom": "17.0.2",
+    "react-toast-notifications": "^2.5.1",
     "react-toggle": "^4.1.2",
     "runtypes": "^6.3.1"
   }

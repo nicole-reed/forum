@@ -4,12 +4,10 @@ import NotFound from '../../../components/notfound'
 import Layout from '../../../components/layout'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/client'
 import axios from 'axios'
 import Auth from '../../../components/auth'
 
 export default function PostsByUserId() {
-    const { session, loading } = useSession()
     const router = useRouter()
     const { userId } = router.query
     const [user, setUser] = useState({})

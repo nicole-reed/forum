@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useSession } from 'next-auth/client'
 import { useState, useEffect } from 'react'
 import moment from 'moment'
+import { useToasts } from 'react-toast-notifications'
 
 const Comment = ({ comment: commentProp, refreshComments }) => {
     const [session, loading] = useSession({})
@@ -13,6 +14,7 @@ const Comment = ({ comment: commentProp, refreshComments }) => {
     const [replyBody, setReplyBody] = useState('')
     const [showReplies, setShowReplies] = useState(false)
     const [userHasLikedComment, setUserHasLikedComment] = useState(false)
+    const { addToast } = useToasts()
 
     const onReplyBodyChange = (event) => {
         setReplyBody(event.target.value)
@@ -92,7 +94,7 @@ const Comment = ({ comment: commentProp, refreshComments }) => {
             <p>{comment.body}</p>
             <br />
             <span>{comment.likedBy ? Object.keys(comment.likedBy).length : 0}</span>
-            <button className='heart-btn' onClick={onLike}>{userHasLikedComment ? '♥' : '♡'}</button>
+            <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedComment ? '♥' : '♡'}</button>
 
             <button onClick={toggleShowReplies}>{replies.length} replies</button>
             <div>

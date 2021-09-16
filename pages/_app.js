@@ -1,5 +1,7 @@
 import { Provider } from 'next-auth/client'
+import { ToastProvider } from 'react-toast-notifications'
 import './styles.css'
+
 
 // Use the <Provider> to improve performance and allow components that call
 // `useSession()` anywhere in your application to access the `session` object.
@@ -24,7 +26,14 @@ export default function App({ Component, pageProps }) {
         keepAlive: 0
       }}
       session={pageProps.session} >
-      <Component {...pageProps} />
+      <ToastProvider autoDismiss={true} autoDismissTimeout='2000' placement='bottom-center'>
+
+        <Component {...pageProps} />
+      </ToastProvider>
+
+
+
+
     </Provider>
   )
 }

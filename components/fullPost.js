@@ -4,6 +4,7 @@ import moment from 'moment'
 import Comments from '../components/comments'
 import { useSession } from 'next-auth/client'
 import { useState, useEffect } from 'react'
+import { useToasts } from 'react-toast-notifications'
 
 const Post = ({ post: postProp }) => {
     const [session, loading] = useSession({})
@@ -12,6 +13,8 @@ const Post = ({ post: postProp }) => {
     const [showComments, setShowComments] = useState(true)
     const [post, setPost] = useState(postProp)
     const [userHasLikedPost, setUserHasLikedPost] = useState(false)
+    const { addToast } = useToasts()
+
 
     const onCommentBodyChange = (event) => {
         setCommentBody(event.target.value)
@@ -84,9 +87,9 @@ const Post = ({ post: postProp }) => {
         }
     }
 
-
     return (
         <div className='full-post'>
+
             <div className={postStyles.card}>
                 <div>
                     <h1>{post.title}</h1>
@@ -97,7 +100,7 @@ const Post = ({ post: postProp }) => {
                     <br></br>
 
                     <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
-                    <button className='heart-btn' onClick={onLike}>{userHasLikedPost ? '♥' : '♡'}</button>
+                    <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedPost ? '♥' : '♡'}</button>
 
                     {comments.length}<button onClick={toggleShowComments}>💬</button>
                     <br></br>
@@ -114,8 +117,10 @@ const Post = ({ post: postProp }) => {
                     }
                 </div>
             </div>
-            {!session && <p className='sign-in-link'><a href='/api/auth/signin'>Sign in</a> to like and comment!</p>}
+            {/* {!session && <p className='sign-in-link'><a href='/api/auth/signin'>Sign in</a> to like and comment!</p>} */}
+
         </div>
+
     )
 
 }

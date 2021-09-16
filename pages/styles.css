@@ -322,9 +322,8 @@ span{
 
 @media (min-width: 1450px){
   main{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+     max-width: 50%;
+     margin: auto;
   }
 
   .grid{

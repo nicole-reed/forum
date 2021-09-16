@@ -30,15 +30,15 @@ export default function PostsByUserId() {
 
     const getAndSetUser = async (id) => {
         try {
-            setLoading(true)
+            // setLoading(true)
             const user = await getUser(id)
 
             setUser(user)
-            setLoading(false)
+            // setLoading(false)
         } catch (error) {
             console.log(error.message)
             setLoadingError(true)
-            setLoading(false)
+            // setLoading(false)
         }
     }
 
@@ -55,9 +55,10 @@ export default function PostsByUserId() {
 
     const getAndSetPosts = async (id, page) => {
         try {
+            // setLoading(true)
             const posts = await getPosts(id, page)
             setPosts(posts)
-
+            // setLoading(false)
         } catch (error) {
             console.log(error.message)
         }
@@ -65,15 +66,18 @@ export default function PostsByUserId() {
 
     useEffect(async () => {
         if (userId) {
-            getAndSetPosts(userId, pageNumber)
-            getAndSetUser(userId)
+            setLoading(true)
+            await Promise.all([getAndSetPosts(userId, pageNumber), getAndSetUser(userId)])
+            setLoading(false)
         }
     }, [userId])
 
     const onClickNext = async () => {
         try {
             const newPageNumber = pageNumber + 1
-            getAndSetPosts(userId, newPageNumber)
+            setLoading(true)
+            await getAndSetPosts(userId, newPageNumber)
+            setLoading(false)
             setPageNumber(newPageNumber)
         } catch (error) {
             console.log(error.message)
@@ -83,16 +87,14 @@ export default function PostsByUserId() {
     const onClickBack = async () => {
         try {
             const newPageNumber = pageNumber - 1
-            getAndSetPosts(userId, newPageNumber)
+            setLoading(true)
+            await getAndSetPosts(userId, newPageNumber)
+            setLoading(false)
             setPageNumber(newPageNumber)
         } catch (error) {
             console.log(error.message)
         }
     }
-
-    // console.log('session.user.id', session.user)
-    // console.log('userId', userId)
-    // console.log('user._id', user._id)
 
     return (
         <div >
@@ -102,17 +104,18 @@ export default function PostsByUserId() {
             <Layout>
                 <Auth />
 
-                {loadingError ? <NotFound /> : isLoading ? '' : <h2>Posts by {user.name}</h2>}
+                {loadingError ? <NotFound /> : <h2>Posts by {user.name}</h2>}
 
-                {posts.length < 1 ? <p>Choose a <a className='topics-link' href='/topics'>Topic</a> to start posting!</p> : ''}
+                {isLoading ? '' : <>
+                    {posts.length > 0 ? <Posts posts={posts} setPosts={setPosts} /> : <p>Choose a <a className='topics-link' href='/topics'>Topic</a> to start posting!</p>}
 
-                <Posts posts={posts} setPosts={setPosts} />
+                    <div className='pagination'>
+                        {pageNumber > 1 && <button className='pag-btn' onClick={onClickBack}>Back</button>}
 
-                <div className='pagination'>
-                    {pageNumber > 1 && <button className='pag-btn' onClick={onClickBack}>Back</button>}
+                        {posts.length === 10 && <button className='pag-btn' onClick={onClickNext}>Next</button>}
+                    </div>
 
-                    {posts.length === 10 && <button className='pag-btn' onClick={onClickNext}>Next</button>}
-                </div>
+                </>}
 
             </Layout>
 

@@ -62,6 +62,7 @@ export default function Home() {
   }
 
   const onShowLikedTopicsOnlyChanged = event => {
+    setPageNumber(1)
     setShowLikedTopicsOnly(event.target.checked)
   }
 
@@ -89,16 +90,16 @@ export default function Home() {
         <BrowserView>
           <div className="grid">
             <Topics topics={topics} />
-            {showLikedTopicsOnly && posts.length < 1 ? <p className='like-topic-msg'>You haven't liked any topics yet. Like a topic to add it to your topics.</p> : <Posts posts={posts} setPosts={setPosts} />}
+            {showLikedTopicsOnly && posts.length < 1 && pageNumber === 1 ? <p className='like-topic-msg'>You haven't liked any topics yet. Like a topic to add it to your topics.</p> : <Posts posts={posts} setPosts={setPosts} />}
           </div>
         </BrowserView>
 
         <MobileView>
-          {showLikedTopicsOnly && posts.length < 1 ? <p className='like-topic-msg'>You haven't liked any topics yet. Like a topic to add it to your topics.</p> : <Posts posts={posts} setPosts={setPosts} />}
+          {showLikedTopicsOnly && posts.length < 1 && pageNumber === 1 ? <p className='like-topic-msg'>You haven't liked any topics yet. Like a topic to add it to your topics.</p> : <Posts posts={posts} setPosts={setPosts} />}
         </MobileView>
 
         <div className='pagination'>
-          {pageNumber > 1 && posts.length > 0 && <button className='pag-btn' onClick={onClickBack}>Back</button>}
+          {pageNumber > 1 && <button className='pag-btn' onClick={onClickBack}>Back</button>}
 
           {posts.length === 10 && <button className='pag-btn' onClick={onClickNext}>Next</button>}
         </div>

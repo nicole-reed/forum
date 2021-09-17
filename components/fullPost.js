@@ -5,6 +5,8 @@ import Comments from '../components/comments'
 import { useSession } from 'next-auth/client'
 import { useState, useEffect } from 'react'
 import { useToasts } from 'react-toast-notifications'
+import BlackHeart from '../components/icons/BlackHeart'
+import WhiteHeart from '../components/icons/WhiteHeart'
 
 const Post = ({ post: postProp }) => {
     const [session, loading] = useSession({})
@@ -100,7 +102,7 @@ const Post = ({ post: postProp }) => {
                     <br></br>
 
                     <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
-                    <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedPost ? '♥' : '♡'}</button>
+                    <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedPost ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>
 
                     {comments.length}<button onClick={toggleShowComments}>💬</button>
                     <br></br>

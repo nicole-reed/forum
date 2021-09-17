@@ -79,9 +79,8 @@ transition: .15s ease;
 }
 
 .card button:hover {
-  background-color: black;
-  color: white;
-  transition: .15s ease;
+  background-color: transparent;
+  color: black;
 }
 
 .card ul {

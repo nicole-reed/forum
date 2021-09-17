@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react'
 import { useToasts } from 'react-toast-notifications'
 import BlackHeart from '../components/icons/BlackHeart'
 import WhiteHeart from '../components/icons/WhiteHeart'
+import CommentIcon from '../components/icons/Comment'
+import Trash from '../components/icons/Trash'
 
 const Post = ({ post: postProp }) => {
     const [session, loading] = useSession({})
@@ -95,7 +97,7 @@ const Post = ({ post: postProp }) => {
             <div className={postStyles.card}>
                 <div>
                     <h1>{post.title}</h1>
-                    <a href={`/users/${post.userId}`}>{post.createdBy}</a> {session && session.user.id === post.userId && <button onClick={() => deletePost()}>🗑</button>}
+                    <a href={`/users/${post.userId}`}>{post.createdBy}</a> {session && session.user.id === post.userId && <button onClick={() => deletePost()}><Trash width={12} height={12} /></button>}
                     <h4>{moment(post.createdAt).fromNow()}</h4>
                     <br></br>
                     <p className={postStyles.body}>{post.body}</p>
@@ -104,7 +106,7 @@ const Post = ({ post: postProp }) => {
                     <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
                     <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedPost ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>
 
-                    {comments.length}<button onClick={toggleShowComments}>💬</button>
+                    {comments.length}<button onClick={toggleShowComments}><CommentIcon width={12} height={12} /></button>
                     <br></br>
                     {session && <>
                         <form onSubmit={saveComment} >

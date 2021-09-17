@@ -6,6 +6,8 @@ import Layout from '../../../../components/layout'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import BlackHeart from '../../../../components/icons/BlackHeart'
+import WhiteHeart from '../../../../components/icons/WhiteHeart'
 
 export default function PostsByTopic() {
     const [session, loading] = useSession()
@@ -101,7 +103,8 @@ export default function PostsByTopic() {
             </Head>
             <Layout>
 
-                <h2>{topic.title}</h2> {session && <button onClick={onLike}>{userHasLikedTopic ? '♥ liked' : '♡'}</button>}
+                <h2>{topic.title}</h2>
+                {session && <button onClick={onLike}>{userHasLikedTopic ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>}
 
                 <h3>{topic.description}</h3>
 

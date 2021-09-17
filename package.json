@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "svg": "svgr -d components/icons components/icons/svgs"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -21,5 +22,8 @@
     "react-toast-notifications": "^2.5.1",
     "react-toggle": "^4.1.2",
     "runtypes": "^6.3.1"
+  },
+  "devDependencies": {
+    "@svgr/cli": "^5.5.0"
   }
 }

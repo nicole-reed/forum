@@ -6,6 +6,10 @@ import { useSession } from 'next-auth/client'
 import { useState, useEffect } from 'react'
 import moment from 'moment'
 import { useToasts } from 'react-toast-notifications'
+import BlackHeart from '../components/icons/BlackHeart'
+import WhiteHeart from '../components/icons/WhiteHeart'
+import CommentIcon from '../components/icons/Comment'
+import Trash from '../components/icons/Trash'
 
 const Comment = ({ comment: commentProp, refreshComments }) => {
     const [session, loading] = useSession({})
@@ -88,15 +92,15 @@ const Comment = ({ comment: commentProp, refreshComments }) => {
     return (
         <div className={postStyles.card}>
             <div>
-                <Link href={`/users/${comment.userId}`}>{comment.createdBy}</Link>  {session && session.user.id === comment.userId && <button onClick={() => deleteComment()}>🗑</button>}
+                <Link href={`/users/${comment.userId}`}>{comment.createdBy}</Link>  {session && session.user.id === comment.userId && <button onClick={() => deleteComment()}><Trash width={12} height={12} /></button>}
                 <h4>{moment(comment.createdAt).fromNow()}</h4>
             </div>
             <p>{comment.body}</p>
             <br />
             <span>{comment.likedBy ? Object.keys(comment.likedBy).length : 0}</span>
-            <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedComment ? '♥' : '♡'}</button>
+            <button onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedComment ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>
 
-            <button onClick={toggleShowReplies}>{replies.length} replies</button>
+            <button onClick={toggleShowReplies}>{replies.length} replies <CommentIcon width={12} height={12} /></button>
             <div>
                 {session && <>
                     <form onSubmit={saveReply}>

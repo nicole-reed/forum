@@ -66,7 +66,7 @@ export default function Search() {
                 <h2>Search Posts By Keywords</h2>
                 <form onSubmit={onSubmit}>
                     <input className='search-input' id='keyword' name='keyword' type="text" placeholder='keyword' value={keyword} onChange={onKeywordChange} required />
-                    <button type="submit"> <SearchIcon width={12} height={12} /> </button>
+                    <button type="submit"> <SearchIcon width={16} height={16} /> </button>
                 </form>
                 {posts.length > 0 ? <Posts posts={posts} /> : <p>No Posts Matching Keyword</p>}
                 {pageNumber > 1 && <button className='pag-btn' onClick={onClickBack}>Back</button>}

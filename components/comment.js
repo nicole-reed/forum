@@ -100,7 +100,7 @@ const Comment = ({ comment: commentProp, refreshComments }) => {
             <span>{comment.likedBy ? Object.keys(comment.likedBy).length : 0}</span>
             <button onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedComment ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>
 
-            <button onClick={toggleShowReplies}>{replies.length} replies <CommentIcon width={12} height={12} /></button>
+            <button onClick={toggleShowReplies}>{replies.length} replies <CommentIcon width={14} height={14} /></button>
             <div>
                 {session && <>
                     <form onSubmit={saveReply}>

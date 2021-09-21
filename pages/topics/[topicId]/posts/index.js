@@ -8,7 +8,6 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import BlackHeart from '../../../../components/icons/BlackHeart'
 import WhiteHeart from '../../../../components/icons/WhiteHeart'
-import { BrowserView, MobileView, isMobile } from 'react-device-detect'
 import Uppy from '@uppy/core'
 import AwsS3 from '@uppy/aws-s3'
 import { DragDrop } from '@uppy/react'
@@ -114,7 +113,7 @@ export default function PostsByTopic() {
     }
 
     const uppy = new Uppy({
-        autoProceed: isMobile ? true : false,
+        autoProceed: false,
         debug: true
     })
         .use(AwsS3, {

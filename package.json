@@ -9,6 +9,11 @@
     "svg": "svgr -d components/icons components/icons/svgs"
   },
   "dependencies": {
+    "@uppy/aws-s3": "^2.0.3",
+    "@uppy/dashboard": "^2.0.3",
+    "@uppy/image-editor": "^1.0.2",
+    "@uppy/react": "^2.0.3",
+    "aws-sdk": "^2.991.0",
     "axios": "^0.21.1",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",

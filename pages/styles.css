@@ -266,6 +266,16 @@ span{
   margin: auto;
 }
 
+img{
+  width: 800px;
+  height: auto;
+}
+
+.small-img{
+  width: 200px;
+  height: auto;
+}
+
 .pagination{
   padding-bottom: 30px;
   display: flex;

@@ -276,6 +276,12 @@ img{
   height: auto;
 }
 
+.uppy-Dashboard{
+  width: 50%;
+  height: 20%;
+  margin: auto;
+}
+
 .pagination{
   padding-bottom: 30px;
   display: flex;
@@ -306,6 +312,11 @@ img{
   .pagination{
     justify-content: center ;
   } */
+
+  img{
+  width: 100%;
+  height: auto;
+}
 
   .grid{
     flex-direction: column;

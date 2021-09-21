@@ -111,7 +111,7 @@ const Post = ({ post: postProp }) => {
                     <br></br>
                     <p className={postStyles.body}>{post.body}</p>
                     <br></br>
-                    {post.image && <img src={post.image}></img>}
+                    {post.image && <img src={image}></img>}
                     <br></br>
                     <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
                     <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedPost ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>

@@ -9,7 +9,8 @@ const PostSchema = new Schema({
     title: { type: String },
     body: { type: String },
     createdBy: { type: String },
-    likedBy: { type: Map, of: String }
+    likedBy: { type: Map, of: String },
+    image: { type: String }
 })
 
 

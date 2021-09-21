@@ -17,6 +17,7 @@ const Post = ({ post: postProp }) => {
     const [showComments, setShowComments] = useState(true)
     const [post, setPost] = useState(postProp)
     const [userHasLikedPost, setUserHasLikedPost] = useState(false)
+    const [image, setImage] = useState('')
     const { addToast } = useToasts()
 
 
@@ -33,7 +34,15 @@ const Post = ({ post: postProp }) => {
             console.log(error.message)
         }
     }
-    useEffect(() => {
+    useEffect(async () => {
+        if (post.image) {
+            try {
+                await axios.get(post.image)
+                setImage(post.image)
+            } catch (error) {
+                setImage(post.fullImage)
+            }
+        }
         if (post._id) {
             getComments()
         }
@@ -102,7 +111,8 @@ const Post = ({ post: postProp }) => {
                     <br></br>
                     <p className={postStyles.body}>{post.body}</p>
                     <br></br>
-
+                    {post.image && <img src={post.image}></img>}
+                    <br></br>
                     <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
                     <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedPost ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>
 

@@ -8,6 +8,20 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import BlackHeart from '../../../../components/icons/BlackHeart'
 import WhiteHeart from '../../../../components/icons/WhiteHeart'
+import { BrowserView, MobileView, isMobile } from 'react-device-detect'
+import Uppy from '@uppy/core'
+import AwsS3 from '@uppy/aws-s3'
+import { DragDrop } from '@uppy/react'
+import { Dashboard } from '@uppy/react'
+import { ProgressBar } from '@uppy/react'
+import '@uppy/core/dist/style.css'
+import '@uppy/drag-drop/dist/style.css'
+import '@uppy/progress-bar/dist/style.css'
+import '@uppy/image-editor/dist/style.css'
+import '@uppy/dashboard/dist/style.css'
+
+const ImageEditor = require('@uppy/image-editor')
+
 
 export default function PostsByTopic() {
     const [session, loading] = useSession()
@@ -17,6 +31,7 @@ export default function PostsByTopic() {
     const [posts, setPosts] = useState([])
     const [pageNumber, setPageNumber] = useState(1)
     const [userHasLikedTopic, setUserHasLikedTopic] = useState(false)
+    const [imageName, setImageName] = useState(undefined)
 
 
     const getTopic = async () => {
@@ -69,8 +84,10 @@ export default function PostsByTopic() {
     const savePost = async event => {
         try {
             // event.preventDefault()
-            const res = await axios.post(`/api/topics/${topicId}/posts`, { title: event.target.title.value, body: event.target.body.value })
-
+            const reqBody = { title: event.target.title.value, body: event.target.body.value, image: imageName }
+            console.log('reqBody', reqBody)
+            const res = await axios.post(`/api/topics/${topicId}/posts`, reqBody)
+            console.log('res.data', res.data)
         } catch (error) {
             console.log(error)
         }
@@ -96,6 +113,62 @@ export default function PostsByTopic() {
         }
     }
 
+    const uppy = new Uppy({
+        autoProceed: isMobile ? true : false,
+        debug: true
+    })
+        .use(AwsS3, {
+            limit: 1,
+            timeout: 60 * 1000,
+            getUploadParameters: async (file) => {
+                console.log('fetching url')
+                const res = await axios.post('/api/signed-url', { type: 'putObject', key: `${session.user.id}/${file.name}`, contentType: file.type })
+                console.log('res', res)
+                const signedUrl = res.data.signedUrl
+                return {
+                    method: 'PUT',
+                    url: signedUrl,
+                    headers: {
+                        'Content-Type': file.type
+                    }
+                }
+            }
+        })
+        .use(ImageEditor, {
+            id: 'ImageEditor',
+            quality: 0.8,
+            cropperOptions: {
+                viewMode: 1,
+                background: false,
+                autoCropArea: 1,
+                responsive: true
+            },
+            actions: {
+                revert: true,
+                rotate: true,
+                granularRotate: true,
+                flip: true,
+                zoomIn: true,
+                zoomOut: true,
+                cropSquare: true,
+                cropWidescreen: true,
+                cropWidescreenVertical: true
+            }
+        })
+        .on('file-editor:start', (file) => {
+            console.log(file)
+        })
+        .on('file-editor:complete', (updatedFile) => {
+            console.log(updatedFile)
+        })
+        .on('file-added', () => console.log('file added'))
+        .on('upload-success', async (file) => {
+            console.log('upload success', file)
+            setImageName(file.name)
+        })
+        .on('upload-error', (error) => console.log('upload error', error))
+
+
     return (
         <div >
             <Head>
@@ -117,8 +190,19 @@ export default function PostsByTopic() {
                         {/* <label htmlFor="name">Body: </label> */}
                         <textarea className='post-body' id='body' name='body' type="text" placeholder='body' required />
                         <br></br>
+                        <div className='uploader'>
+                            <Dashboard
+                                uppy={uppy}
+                                plugins={['ImageEditor']}
+                                metaFields={[
+                                    { id: 'caption', name: 'Location', placeholder: 'where was this photo taken?' }
+                                ]}
+                            // theme={'dark'}
+                            />
+                        </div>
                         <button className='form-btn' type="submit"> Add Post </button>
                         <button className='form-btn' type="reset"> Cancel </button>
+
                     </form>
                 </div>}
 

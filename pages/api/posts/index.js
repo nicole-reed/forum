@@ -4,6 +4,14 @@ import { Record, String, Optional, Union, Literal } from 'runtypes'
 import connectDB from '../../../middleware/mongodb'
 import handleError from '../../../utils/handleError'
 import jwt from 'next-auth/jwt'
+import AWS from 'aws-sdk'
+
+AWS.config.update({
+    credentials: new AWS.Credentials({ accessKeyId: process.env.MY_ACCESS_KEY, secretAccessKey: process.env.MY_SECRET }),
+    region: process.env.MY_REGION
+})
+
+const s3 = new AWS.S3()
 
 const secret = process.env.JWT_SECRET
 
@@ -39,9 +47,21 @@ const handler = async (req, res) => {
 
             const postsWithUsername = await Promise.all(posts.map(async (post) => {
                 const user = await User.findOne({ _id: post.userId })
+                let image
+                let fullImage
+                if (post.image) {
+                    const params = { Bucket: 'nicole-reed-forum', Key: `${post.userId}/small-${post.image}` }
+                    const imageSignedUrl = s3.getSignedUrl('getObject', params)
+                    const fullParams = { Bucket: 'nicole-reed-forum', Key: `${post.userId}/${post.image}` }
+                    const fullImageSignedUrl = s3.getSignedUrl('getObject', fullParams)
+                    image = imageSignedUrl
+                    fullImage = fullImageSignedUrl
+                }
                 return {
                     ...post._doc,
-                    createdBy: user.name
+                    createdBy: user.name,
+                    image,
+                    fullImage
                 }
             }))
             res.send({ posts: postsWithUsername })

@@ -8,6 +8,7 @@ const Post = ({ post }) => {
     const router = useRouter()
     const [topic, setTopic] = useState({})
     const [isloading, setLoading] = useState(true)
+    const [image, setImage] = useState('')
 
     const getTopic = async () => {
         try {
@@ -20,7 +21,16 @@ const Post = ({ post }) => {
             console.log(error.message)
         }
     }
-    useEffect(() => {
+    useEffect(async () => {
+        if (post.image) {
+            try {
+                await axios.get(post.image)
+
+                setImage(post.image)
+            } catch (error) {
+                setImage(post.fullImage)
+            }
+        }
         getTopic()
     }, [])
 
@@ -30,10 +40,10 @@ const Post = ({ post }) => {
                 <>
                     <a href={`/posts/${post._id}`}>
                         {router.pathname == "/" ? <h3>{topic.title} : {post.title} </h3> : <h3>{post.title}</h3>}
-                    </a>
-                    <p>{post.body.slice(0, 175)}...</p>
-                    <h4>{moment(post.createdAt).fromNow()}</h4>
+                        <p>{post.body.slice(0, 175)}...</p>{post.image && <img className='small-img' src={image}></img>}
 
+                        <h4>{moment(post.createdAt).fromNow()}</h4>
+                    </a>
                 </>
             }
         </div>

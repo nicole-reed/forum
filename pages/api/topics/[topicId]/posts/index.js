@@ -5,6 +5,14 @@ import jwt from 'next-auth/jwt'
 import connectDB from '../../../../../middleware/mongodb'
 import { UnauthorizedError } from '../../../../../errors/unauthorized.error'
 import handleError from '../../../../../utils/handleError'
+import AWS from 'aws-sdk'
+
+AWS.config.update({
+    credentials: new AWS.Credentials({ accessKeyId: process.env.MY_ACCESS_KEY, secretAccessKey: process.env.MY_SECRET }),
+    region: process.env.MY_REGION
+})
+
+const s3 = new AWS.S3()
 
 const secret = process.env.JWT_SECRET
 
@@ -14,7 +22,8 @@ const createPostRunType = Record({
     }),
     body: Record({
         title: String,
-        body: String
+        body: String,
+        image: Optional(String)
     })
 })
 
@@ -38,9 +47,9 @@ const handler = async (req, res) => {
 
             const validatedRequest = createPostRunType.check(req)
             const { topicId } = validatedRequest.query
-            const { title, body } = validatedRequest.body
+            const { title, body, image } = validatedRequest.body
 
-            const post = new Post({ topicId, userId: token.sub, title, body, createdAt: new Date() })
+            const post = new Post({ topicId, userId: token.sub, title, body, createdAt: new Date(), image })
 
             await post.save()
 
@@ -59,15 +68,27 @@ const handler = async (req, res) => {
 
             const posts = await Post.find({ topicId }).sort({ _id: -1 }).limit(limit).skip(skip)
 
-            const postsWithUsername = await Promise.all(posts.map(async (post) => {
+            const postsWithUsernameAndImage = await Promise.all(posts.map(async (post) => {
                 const user = await User.findOne({ _id: post.userId })
+                let image
+                let fullImage
+                if (post.image) {
+                    const params = { Bucket: 'nicole-reed-forum', Key: `${post.userId}/small-${post.image}` }
+                    const imageSignedUrl = s3.getSignedUrl('getObject', params)
+                    const fullParams = { Bucket: 'nicole-reed-forum', Key: `${post.userId}/${post.image}` }
+                    const fullImageSignedUrl = s3.getSignedUrl('getObject', fullParams)
+                    image = imageSignedUrl
+                    fullImage = fullImageSignedUrl
+                }
                 return {
                     ...post._doc,
-                    createdBy: user.name
+                    createdBy: user.name,
+                    image,
+                    fullImage
                 }
             }))
 
-            res.send({ posts: postsWithUsername })
+            res.send({ posts: postsWithUsernameAndImage })
         } catch (error) {
             handleError(error, res)
         }

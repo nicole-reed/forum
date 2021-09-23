@@ -149,6 +149,12 @@ span{
   font-weight: bolder;
 }
 
+.form-btn:focus{
+   background-color: white;
+  color: black;
+  font-weight: lighter;
+}
+
 .post-body{
   border-radius: 5px;
   border: none;
@@ -319,18 +325,11 @@ img{
 }
 
 @media (max-width: 768px) {
-  /* .checkbox {
-   justify-content: center;
-  }
-
-  .pagination{
-    justify-content: center ;
-  } */
 
   img{
   width: 100%;
   height: auto;
-}
+  }
 
   .grid{
     flex-direction: column;

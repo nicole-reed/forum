@@ -53,11 +53,16 @@ a {
   text-decoration: none;
 }
 
-a:hover,
-a:focus,
-a:active {
+a:hover {
   color: rgb(44, 148, 245);
-  transition-duration: .5s;
+  transition-duration: .33s;
+}
+
+a:hover > p {
+  color: black;
+}
+a:hover > h4 {
+  color: black;
 }
 
 button {
@@ -234,6 +239,11 @@ span{
   font-weight: lighter;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.topic-items{
+  display: flex;
+  flex-direction: row;
 }
 
 .topic:hover{

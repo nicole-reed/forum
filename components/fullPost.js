@@ -116,7 +116,7 @@ const Post = ({ post: postProp }) => {
                     <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
                     <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedPost ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>
 
-                    {comments.length}<button onClick={toggleShowComments}><CommentIcon width={14} height={14} stroke-width={2} /></button>
+                    {comments.length}<button onClick={toggleShowComments}><CommentIcon width={14} height={14} strokeWidth={2} /></button>
                     <br></br>
                     {session && <>
                         <form onSubmit={saveComment} >

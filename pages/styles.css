@@ -276,9 +276,10 @@ img{
   height: auto;
 }
 
+
 .uppy-Dashboard{
   width: 50%;
-  height: 20%;
+  height: 30vh;
   margin: auto;
 }
 
@@ -331,8 +332,8 @@ img{
   .post-body{
     width: 100%;
   }
-
-.uppy-Dashboard{
+  
+  .uppy-Dashboard{
     width: 100%;
   }
 

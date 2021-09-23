@@ -144,8 +144,9 @@ span{
 }
 
 .form-btn:hover{
-  background-color: black;
+  background-color: rgb(44, 148, 245);
   color: white;
+  font-weight: bolder;
 }
 
 .post-body{
@@ -244,6 +245,7 @@ span{
 .topic-items{
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .topic:hover{
@@ -307,8 +309,9 @@ img{
 }
 
 .pag-btn:hover{
-  background-color: black;
+  background-color: rgb(44, 148, 245);
   color: white;
+  font-weight: bolder;
 }
 
 .full-post{

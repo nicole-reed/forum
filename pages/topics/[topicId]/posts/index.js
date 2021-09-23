@@ -183,9 +183,10 @@ export default function PostsByTopic() {
             </Head>
             <Layout>
 
-                <h2>{topic.title}</h2>
-                {session && <button onClick={onLike}>{userHasLikedTopic ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>}
-
+                <div className='topic-items'>
+                    <h2>{topic.title}</h2>
+                    {session && <button onClick={onLike}>{userHasLikedTopic ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>}
+                </div>
                 <h3>{topic.description}</h3>
 
                 {session && <div className='post-form'>

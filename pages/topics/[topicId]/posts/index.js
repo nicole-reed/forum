@@ -1,25 +1,22 @@
 import Head from 'next/head'
 import { useSession } from 'next-auth/client'
 import Posts from '../../../../components/posts'
-import NotFound from '../../../../components/notfound'
 import Layout from '../../../../components/layout'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import BlackHeart from '../../../../components/icons/BlackHeart'
 import WhiteHeart from '../../../../components/icons/WhiteHeart'
-import { BrowserView, MobileView, isMobile } from 'react-device-detect'
+import { isMobile } from 'react-device-detect'
 import Uppy from '@uppy/core'
 import AwsS3 from '@uppy/aws-s3'
-import { DragDrop } from '@uppy/react'
 import { Dashboard } from '@uppy/react'
-import { ProgressBar } from '@uppy/react'
 import '@uppy/core/dist/style.css'
 import '@uppy/drag-drop/dist/style.css'
-import '@uppy/progress-bar/dist/style.css'
 import '@uppy/image-editor/dist/style.css'
+import '@uppy/progress-bar/dist/style.css'
 import '@uppy/dashboard/dist/style.css'
-
+import { useToasts } from 'react-toast-notifications'
 const ImageEditor = require('@uppy/image-editor')
 
 
@@ -32,7 +29,8 @@ export default function PostsByTopic() {
     const [pageNumber, setPageNumber] = useState(1)
     const [userHasLikedTopic, setUserHasLikedTopic] = useState(false)
     const [imageName, setImageName] = useState(undefined)
-
+    const [showUppy, setShowUppy] = useState(false)
+    const { addToast } = useToasts()
 
     const getTopic = async () => {
         try {
@@ -85,9 +83,9 @@ export default function PostsByTopic() {
         try {
             // event.preventDefault()
             const reqBody = { title: event.target.title.value, body: event.target.body.value, image: imageName }
-            console.log('reqBody', reqBody)
+
             const res = await axios.post(`/api/topics/${topicId}/posts`, reqBody)
-            console.log('res.data', res.data)
+
         } catch (error) {
             console.log(error)
         }
@@ -113,17 +111,25 @@ export default function PostsByTopic() {
         }
     }
 
+    const handleShowUppy = () => {
+        try {
+            setShowUppy(!showUppy)
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
     const uppy = new Uppy({
         autoProceed: isMobile ? true : false,
-        debug: true
+        debug: true,
     })
         .use(AwsS3, {
             limit: 1,
             timeout: 60 * 1000,
             getUploadParameters: async (file) => {
-                console.log('fetching url')
+
                 const res = await axios.post('/api/signed-url', { type: 'putObject', key: `${session.user.id}/${file.name}`, contentType: file.type })
-                console.log('res', res)
+
                 const signedUrl = res.data.signedUrl
                 return {
                     method: 'PUT',
@@ -165,6 +171,7 @@ export default function PostsByTopic() {
         .on('upload-success', async (file) => {
             console.log('upload success', file)
             setImageName(file.name)
+            addToast('Photo Successfully Uploaded', { appearance: "info" })
         })
         .on('upload-error', (error) => console.log('upload error', error))
 
@@ -190,16 +197,20 @@ export default function PostsByTopic() {
                         {/* <label htmlFor="name">Body: </label> */}
                         <textarea className='post-body' id='body' name='body' type="text" placeholder='body' required />
                         <br></br>
-                        <div className='uploader'>
+                        {showUppy && <div className='uploader'>
                             <Dashboard
                                 uppy={uppy}
-                                plugins={['ImageEditor']}
+                                plugins={['ImageEditor', 'Informer']}
                                 metaFields={[
                                     { id: 'caption', name: 'Location', placeholder: 'where was this photo taken?' }
                                 ]}
-                            // theme={'dark'}
+                                hideProgressAfterFinish={'false'}
+                                theme={'auto'}
+                                showProgressDetails={true}
                             />
                         </div>
+                        }
+                        <button className='form-btn' type="button" onClick={handleShowUppy}> Add Photo </button>
                         <button className='form-btn' type="submit"> Add Post </button>
                         <button className='form-btn' type="reset"> Cancel </button>
 

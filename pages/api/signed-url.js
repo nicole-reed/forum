@@ -23,13 +23,10 @@ const reqRunType = Record({
 const getSignedUrl = async (req, res) => {
     try {
         if (req.method === 'POST') {
-            console.log('inside getSignedUrl')
             const token = await jwt.getToken({ req, secret })
-            console.log('token', token)
             if (!token) {
                 return res.status(403).send('Forbidden')
             }
-            console.log('token', token)
 
 
             const validatedRequest = reqRunType.check(req)
@@ -44,7 +41,6 @@ const getSignedUrl = async (req, res) => {
             if (type === 'putObject') {
                 params.ContentType = contentType
             }
-            console.log('params', params)
             const signedUrl = s3.getSignedUrl(type, params)
 
             res.send({ signedUrl })

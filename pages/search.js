@@ -10,6 +10,7 @@ export default function Search() {
     const [posts, setPosts] = useState([])
     const [keyword, setKeyword] = useState('')
     const [pageNumber, setPageNumber] = useState(1)
+    const [hasSearched, setHasSearched] = useState(false)
 
     const onKeywordChange = (event) => {
         setKeyword(event.target.value)
@@ -21,6 +22,7 @@ export default function Search() {
             const res = await axios.get(`/api/search`, { params: { page: pageNumber, keyword } })
 
             setPosts(res.data.posts)
+            setHasSearched(true)
         } catch (error) {
             console.log(error.message)
         }
@@ -68,7 +70,8 @@ export default function Search() {
                     <input className='search-input' id='keyword' name='keyword' type="text" placeholder='keyword' value={keyword} onChange={onKeywordChange} required />
                     <button type="submit"> <SearchIcon width={16} height={16} /> </button>
                 </form>
-                {posts.length > 0 ? <Posts posts={posts} /> : <p>No Posts Matching Keyword</p>}
+                {hasSearched && posts.length < 1 ? <p>No Posts Matching Keyword</p> : <Posts posts={posts} />}
+
                 {pageNumber > 1 && <button className='pag-btn' onClick={onClickBack}>Back</button>}
 
                 {posts.length === 10 && <button className='pag-btn' onClick={onClickNext}>Next</button>}

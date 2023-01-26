@@ -8,7 +8,7 @@ import axios from 'axios'
 import { useSession } from 'next-auth/react'
 
 export default function PostById() {
-    const [session, loading] = useSession()
+    const { data: session } = useSession()
     const [post, setPost] = useState({})
     const [isloading, setLoading] = useState(true)
     const [loadingError, setLoadingError] = useState(false)

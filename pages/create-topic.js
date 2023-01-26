@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 export default function createTopic() {
-    const [session, loading] = useSession()
+    const { data: session } = useSession()
     const [user, setUser] = useState({})
 
     const getUser = async () => {

@@ -19,7 +19,7 @@ import ImageEditor from '@uppy/image-editor'
 
 
 export default function PostsByTopic() {
-    const [session, loading] = useSession()
+    const { data: session } = useSession()
     const router = useRouter()
     const { topicId } = router.query
     const [topic, setTopic] = useState({})

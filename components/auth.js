@@ -16,7 +16,7 @@ export default function Header() {
                 <style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
             </noscript>
             <div className={styles.signedInStatus}>
-                <p className={`nojs-show ${(!session && loading) ? styles.loading : styles.loaded}`}>
+                <p>
                     {!session && <>
                         <span className={styles.notSignedInText}>You are not signed in</span>
                         <a

@@ -22,7 +22,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
         // windows / tabs will be updated to reflect the user is signed out.
         keepAlive: 0
       }}
-      session={session.pageProps} >
+      session={session} >
       <ToastProvider autoDismiss={true} autoDismissTimeout='2000' placement='bottom-center'>
 
         <Component {...pageProps} />

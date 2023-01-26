@@ -10,7 +10,7 @@ import axios from 'axios'
 import { BrowserView, MobileView } from 'react-device-detect'
 
 export default function Home() {
-  const [session, loading] = useSession()
+  const { data: session } = useSession()
   const [posts, setPosts] = useState([])
   const [showLikedTopicsOnly, setShowLikedTopicsOnly] = useState(false)
   const [pageNumber, setPageNumber] = useState(1)

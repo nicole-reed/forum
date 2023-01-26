@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import styles from '../styles/header.module.css'
 
 

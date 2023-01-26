@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Layout from '../components/layout'
 import NotFound from '../components/notfound'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 

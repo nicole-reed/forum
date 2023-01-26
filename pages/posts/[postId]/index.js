@@ -5,7 +5,7 @@ import Layout from '../../../components/layout'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 
 export default function PostById() {
     const [session, loading] = useSession()

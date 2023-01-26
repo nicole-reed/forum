@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Layout from '../components/layout'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import Topics from '../components/topics'
 import React from 'react'
 import axios from 'axios'

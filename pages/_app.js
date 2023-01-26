@@ -1,4 +1,4 @@
-import { Provider } from 'next-auth/client'
+import { Provider } from 'next-auth/react'
 import { ToastProvider } from 'react-toast-notifications'
 import './styles.css'
 

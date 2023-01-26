@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import BlackHeart from '../components/icons/BlackHeart'

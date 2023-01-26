@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import Posts from '../../../../components/posts'
 import Layout from '../../../../components/layout'
 import React, { useEffect, useState } from 'react'

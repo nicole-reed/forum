@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { isMobile } from 'react-device-detect'
 

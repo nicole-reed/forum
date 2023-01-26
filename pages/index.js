@@ -1,7 +1,7 @@
 import Layout from '../components/layout'
 import React, { useEffect, useState } from 'react'
 import Toggle from 'react-toggle'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import Posts from '../components/posts'
 import Topics from '../components/topics'
 import Head from 'next/head'

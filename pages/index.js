@@ -1,7 +1,7 @@
 import Layout from '../components/layout'
 import React, { useEffect, useState } from 'react'
 import Toggle from 'react-toggle'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import Posts from '../components/posts'
 import Topics from '../components/topics'
 import Head from 'next/head'
@@ -10,7 +10,7 @@ import axios from 'axios'
 import { BrowserView, MobileView } from 'react-device-detect'
 
 export default function Home() {
-  const [session, loading] = useSession()
+  const { data: session } = useSession()
   const [posts, setPosts] = useState([])
   const [showLikedTopicsOnly, setShowLikedTopicsOnly] = useState(false)
   const [pageNumber, setPageNumber] = useState(1)

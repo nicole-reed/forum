@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import Layout from '../components/layout'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import Topics from '../components/topics'
 import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
 export default function Topic() {
-    const [session, loading] = useSession()
+    const { data: session } = useSession()
     const [topics, setTopics] = useState([])
 
     const getTopics = async () => {

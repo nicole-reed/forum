@@ -1,13 +1,10 @@
-import { Provider } from 'next-auth/client'
+import { SessionProvider } from 'next-auth/react'
 import { ToastProvider } from 'react-toast-notifications'
 import './styles.css'
 
-
-// Use the <Provider> to improve performance and allow components that call
-// `useSession()` anywhere in your application to access the `session` object.
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <Provider
+    <SessionProvider
       // Provider options are not required but can be useful in situations where
       // you have a short session maxAge time. Shown here with default values.
       options={{
@@ -25,7 +22,7 @@ export default function App({ Component, pageProps }) {
         // windows / tabs will be updated to reflect the user is signed out.
         keepAlive: 0
       }}
-      session={pageProps.session} >
+      session={session} >
       <ToastProvider autoDismiss={true} autoDismissTimeout='2000' placement='bottom-center'>
 
         <Component {...pageProps} />
@@ -34,6 +31,6 @@ export default function App({ Component, pageProps }) {
 
 
 
-    </Provider>
+    </SessionProvider>
   )
 }

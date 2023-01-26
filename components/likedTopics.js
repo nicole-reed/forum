@@ -1,5 +1,5 @@
 import Topic from './topic'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/next-auth/react'
 import { useState } from 'react'
 import postStyles from '../styles/post.module.css'
 

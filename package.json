@@ -9,26 +9,26 @@
     "svg": "svgr -d components/icons components/icons/svgs"
   },
   "dependencies": {
-    "@uppy/aws-s3": "^2.0.3",
-    "@uppy/dashboard": "^2.0.3",
-    "@uppy/image-editor": "^1.0.2",
-    "@uppy/react": "^2.0.3",
-    "aws-sdk": "^2.991.0",
-    "axios": "^0.21.1",
-    "jsonwebtoken": "^8.5.1",
-    "moment": "^2.29.1",
-    "mongodb": "^3.6.10",
-    "mongoose": "^5.13.3",
-    "next": "11.0.1",
-    "next-auth": "^3.27.3",
-    "react": "17.0.2",
-    "react-device-detect": "^1.17.0",
-    "react-dom": "17.0.2",
+    "@uppy/aws-s3": "^3.0.4",
+    "@uppy/dashboard": "^3.2.0",
+    "@uppy/image-editor": "^2.1.0",
+    "@uppy/react": "^3.0.2",
+    "aws-sdk": "^2.1302.0",
+    "axios": "^1.2.4",
+    "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
+    "mongodb": "^4.13.0",
+    "mongoose": "^6.9.0",
+    "next": "13.1.5",
+    "next-auth": "^4.18.10",
+    "react": "18.2.0",
+    "react-device-detect": "^2.2.2",
+    "react-dom": "18.2.0",
     "react-toast-notifications": "^2.5.1",
-    "react-toggle": "^4.1.2",
-    "runtypes": "^6.3.1"
+    "react-toggle": "^4.1.3",
+    "runtypes": "^6.6.0"
   },
   "devDependencies": {
-    "@svgr/cli": "^5.5.0"
+    "@svgr/cli": "^6.5.1"
   }
 }

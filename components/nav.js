@@ -5,7 +5,7 @@ import { isMobile } from 'react-device-detect'
 
 
 export default function Nav() {
-    const [session, loading] = useSession()
+    const { data: session } = useSession()
     const router = useRouter()
 
     return (

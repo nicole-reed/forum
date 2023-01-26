@@ -2,7 +2,7 @@ import { SessionProvider } from 'next-auth/react'
 import { ToastProvider } from 'react-toast-notifications'
 import './styles.css'
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider
       // Provider options are not required but can be useful in situations where

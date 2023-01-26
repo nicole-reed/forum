@@ -12,12 +12,10 @@ import Uppy from '@uppy/core'
 import AwsS3 from '@uppy/aws-s3'
 import { Dashboard } from '@uppy/react'
 import '@uppy/core/dist/style.css'
-import '@uppy/drag-drop/dist/style.css'
 import '@uppy/image-editor/dist/style.css'
-import '@uppy/progress-bar/dist/style.css'
 import '@uppy/dashboard/dist/style.css'
 import { useToasts } from 'react-toast-notifications'
-const ImageEditor = require('@uppy/image-editor')
+import ImageEditor from '@uppy/image-editor'
 
 
 export default function PostsByTopic() {
@@ -192,10 +190,8 @@ export default function PostsByTopic() {
                 {session && <div className='post-form'>
                     <h4>Create A Post For This Topic</h4>
                     <form onSubmit={savePost}>
-                        {/* <label htmlFor="name">Post Title: </label> */}
                         <input className='post-title' id='title' name='title' type="text" placeholder='title' required />
                         <br></br>
-                        {/* <label htmlFor="name">Body: </label> */}
                         <textarea className='post-body' id='body' name='body' type="text" placeholder='body' required />
                         <br></br>
                         {showUppy && <div className='uploader'>

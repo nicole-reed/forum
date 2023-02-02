@@ -1,15 +1,5 @@
-/* .grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 700px;
-  margin-top: 1rem;
-} */
-
 .card {
   margin: 0 .5rem .5rem .5rem;
-  /* flex-basis: 45%;  */
   padding: .5rem;
   text-align: left;
   background-color: white;
@@ -28,12 +18,6 @@
   font-size: .8rem;
   font-weight: lighter;
 }
-
-/* .card:focus, */
-/* .card:hover,
-.card:active {
-  border-color: black;
-} */
 
 .card h3 {
   margin: 0 0 1rem 0;
@@ -56,6 +40,7 @@ transition: .15s ease;
 
 .card p {
   margin: 0;
+  padding: .5rem;
   font-size: 1rem;
   line-height: 1.5;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
@@ -63,10 +48,17 @@ transition: .15s ease;
     sans-serif;
 }
 
+.stats {
+  padding: 1rem;
+}
+
+.card input {
+  padding: .5rem;
+}
+
 .body{
    white-space: pre-line;
 }
-
 
 .card button {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
@@ -76,6 +68,7 @@ transition: .15s ease;
   font-size: 1rem;
   border-width: .5px;
   border-radius: 5px;
+  padding: .5rem;
 }
 
 .card button:hover {
@@ -106,10 +99,25 @@ transition: .15s ease;
     width: 100%;
     flex-direction: column;
   }
+
+  .card button {
+    font-size: 1.25rem;
+  }
+
+  .stats button {
+    font-size: 1.5rem;
+  }
+
+
+  .card span {
+    font-size: 1.5rem;
+  }
+
   .card button:hover {
   background-color: transparent;
   color: black;
   transition: none;
   outline: none;
+
 }
 }

@@ -24,9 +24,9 @@ export default function Topic() {
     }, [])
 
     return (
-        <div >
+        <div>
             <Head>
-                <title>Topic</title>
+                <title>Topics</title>
             </Head>
             <Layout>
                 <br></br>

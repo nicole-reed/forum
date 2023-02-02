@@ -1,9 +1,9 @@
 import { Post } from '../../../models/post'
 import { User } from '../../../models/user'
 import { Record, String, Optional, Union, Literal } from 'runtypes'
-import connectDB from '../../../middleware/mongodb'
+import connectDB from '../../../lib/connectDB'
 import handleError from '../../../utils/handleError'
-import jwt from 'next-auth/jwt'
+import { getToken } from "next-auth/jwt"
 import AWS from 'aws-sdk'
 
 AWS.config.update({
@@ -23,7 +23,8 @@ const getPostsRunType = Record({
     })
 })
 
-const handler = async (req, res) => {
+export default async function handler(req, res) {
+    await connectDB()
     if (req.method === 'GET') {
         try {
             const validatedRequest = getPostsRunType.check(req)
@@ -32,7 +33,7 @@ const handler = async (req, res) => {
             const skip = (page - 1) * size
             let posts
 
-            const token = await jwt.getToken({ req, secret })
+            const token = await getToken({ req, secret })
             if (token && likedTopicsOnly === 'true') {
                 const userId = token.sub
                 const userDoc = await User.findOne({ _id: userId })
@@ -74,4 +75,3 @@ const handler = async (req, res) => {
     }
 }
 
-export default connectDB(handler)

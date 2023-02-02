@@ -1,5 +1,5 @@
 import AWS from 'aws-sdk'
-import jwt from 'next-auth/jwt'
+import { getToken } from "next-auth/jwt"
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 
 const secret = process.env.JWT_SECRET
@@ -23,7 +23,7 @@ const reqRunType = Record({
 const getSignedUrl = async (req, res) => {
     try {
         if (req.method === 'POST') {
-            const token = await jwt.getToken({ req, secret })
+            const token = await getToken({ req, secret })
             if (!token) {
                 return res.status(403).send('Forbidden')
             }

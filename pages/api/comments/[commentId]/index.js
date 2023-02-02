@@ -1,10 +1,10 @@
 import { Record, String, Optional, Boolean } from 'runtypes'
 import { Comment } from '../../../../models/comment'
 import { User } from '../../../../models/user'
-import connectDB from '../../../../middleware/mongodb'
+import connectDB from '../../../../lib/connectDB'
 import handleError from '../../../../utils/handleError'
 import { UnauthorizedError } from '../../../../errors/unauthorized.error'
-import jwt from 'next-auth/jwt'
+import { getToken } from "next-auth/jwt"
 import { NotFoundError } from '../../../../errors/notFound.error'
 import { ForbiddenError } from '../../../../errors/forbidden.error'
 
@@ -25,7 +25,8 @@ const updateCommentByIdRunType = Record({
     })
 })
 
-const handler = async (req, res) => {
+export default async function handler(req, res) {
+    await connectDB()
     if (req.method === 'GET') {
         try {
             const validatedRequest = getCommentByIdRunType.check(req)
@@ -45,7 +46,7 @@ const handler = async (req, res) => {
             const validatedRequest = updateCommentByIdRunType.check(req)
             const { commentId } = validatedRequest.query
             const { liked } = validatedRequest.body
-            const token = await jwt.getToken({ req, secret })
+            const token = await getToken({ req, secret })
 
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')
@@ -69,7 +70,7 @@ const handler = async (req, res) => {
         try {
             const validatedRequest = getCommentByIdRunType.check(req)
             const { commentId } = validatedRequest.query
-            const token = await jwt.getToken({ req, secret })
+            const token = await getToken({ req, secret })
 
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')
@@ -96,4 +97,3 @@ const handler = async (req, res) => {
     }
 }
 
-export default connectDB(handler)

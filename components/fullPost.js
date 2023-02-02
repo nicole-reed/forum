@@ -11,7 +11,7 @@ import CommentIcon from '../components/icons/Comment'
 import Trash from '../components/icons/Trash'
 
 const Post = ({ post: postProp }) => {
-    const [session, loading] = useSession({})
+    const { data: session } = useSession({})
     const [comments, setComments] = useState([])
     const [commentBody, setCommentBody] = useState('')
     const [showComments, setShowComments] = useState(true)

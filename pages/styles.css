@@ -344,6 +344,10 @@ img{
   .post-body{
     width: 100%;
   }
+
+  .posts-container {
+  margin-top: 2rem;
+}
   
   .uppy-Dashboard{
     width: 100%;

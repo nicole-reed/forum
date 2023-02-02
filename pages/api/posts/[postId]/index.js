@@ -1,10 +1,10 @@
 import { Record, String, Optional, Boolean } from 'runtypes'
 import { Post } from '../../../../models/post'
 import { User } from '../../../../models/user'
-import connectDB from '../../../../middleware/mongodb'
+import connectDB from '../../../../lib/connectDB'
 import handleError from '../../../../utils/handleError'
 import { NotFoundError } from '../../../../errors/notFound.error'
-import jwt from 'next-auth/jwt'
+import { getToken } from "next-auth/jwt"
 import { ForbiddenError } from '../../../../errors/forbidden.error'
 import AWS from 'aws-sdk'
 
@@ -32,7 +32,8 @@ const updatePostByIdRunType = Record({
     })
 })
 
-const handler = async (req, res) => {
+export default async function handler(req, res) {
+    await connectDB()
     if (req.method === 'GET') {
         try {
             const validatedRequest = getPostByIdRunType.check(req)
@@ -65,7 +66,7 @@ const handler = async (req, res) => {
             const validatedRequest = updatePostByIdRunType.check(req)
             const { postId } = validatedRequest.query
             const { liked } = validatedRequest.body
-            const token = await jwt.getToken({ req, secret })
+            const token = await getToken({ req, secret })
 
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')
@@ -89,7 +90,7 @@ const handler = async (req, res) => {
         try {
             const validatedRequest = getPostByIdRunType.check(req)
             const { postId } = validatedRequest.query
-            const token = await jwt.getToken({ req, secret })
+            const token = await getToken({ req, secret })
 
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')
@@ -115,5 +116,3 @@ const handler = async (req, res) => {
         res.status(400).send(`no endpoint ${req.method} /postId`)
     }
 }
-
-export default connectDB(handler)

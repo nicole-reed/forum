@@ -1,8 +1,8 @@
 import { Record, String, Optional, Boolean } from 'runtypes'
 import { Topic } from '../../../../models/topic'
 import { User } from '../../../../models/user'
-import connectDB from '../../../../middleware/mongodb'
-import jwt from 'next-auth/jwt'
+import connectDB from '../../../../lib/connectDB'
+import { getToken } from "next-auth/jwt"
 import { ForbiddenError } from '../../../../errors/forbidden.error'
 import { UnauthorizedError } from '../../../../errors/unauthorized.error'
 import handleError from '../../../../utils/handleError'
@@ -24,7 +24,8 @@ const updateTopicByTopicIdRunType = Record({
     })
 })
 
-const handler = async (req, res) => {
+export default async function handler(req, res) {
+    await connectDB()
     if (req.method === 'GET') {
         try {
             const validatedRequest = getTopicByIdRunType.check(req)
@@ -42,7 +43,7 @@ const handler = async (req, res) => {
             const validatedRequest = updateTopicByTopicIdRunType.check(req)
             const { topicId } = validatedRequest.query
             const { liked } = validatedRequest.body
-            const token = await jwt.getToken({ req, secret })
+            const token = await getToken({ req, secret })
 
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')
@@ -71,7 +72,7 @@ const handler = async (req, res) => {
         }
     } else if (req.method === 'DELETE') {
         try {
-            const token = jwt.getToken({ req, secret })
+            const token = getToken({ req, secret })
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')
             }
@@ -92,5 +93,3 @@ const handler = async (req, res) => {
         res.status(400).send(`no endpoint ${req.method} /topicId`)
     }
 }
-
-export default connectDB(handler)

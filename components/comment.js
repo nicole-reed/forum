@@ -12,7 +12,7 @@ import CommentIcon from '../components/icons/Comment'
 import Trash from '../components/icons/Trash'
 
 const Comment = ({ comment: commentProp, refreshComments }) => {
-    const [session, loading] = useSession({})
+    const { data: session } = useSession({})
     const [replies, setReplies] = useState([])
     const [comment, setComment] = useState(commentProp)
     const [replyBody, setReplyBody] = useState('')

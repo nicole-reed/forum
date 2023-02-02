@@ -9,6 +9,7 @@
     "svg": "svgr -d components/icons components/icons/svgs"
   },
   "dependencies": {
+    "@next-auth/mongodb-adapter": "^1.1.1",
     "@uppy/aws-s3": "^3.0.4",
     "@uppy/core": "^3.0.4",
     "@uppy/dashboard": "^3.2.0",
@@ -24,7 +25,7 @@
     "mongodb": "^4.13.0",
     "mongoose": "^6.9.0",
     "next": "12.2.5",
-    "next-auth": "^4.18.10",
+    "next-auth": "^4.19.1",
     "react": "^17.0.2",
     "react-device-detect": "^2.2.2",
     "react-dom": "17.0.2",

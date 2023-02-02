@@ -1,7 +1,7 @@
 import { Post } from '../../../../../models/post'
 import { User } from '../../../../../models/user'
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
-import connectDB from '../../../../../middleware/mongodb'
+import connectDB from '../../../../../lib/connectDB'
 import handleError from '../../../../../utils/handleError'
 import AWS from 'aws-sdk'
 
@@ -20,7 +20,8 @@ const getPostsRunType = Record({
     })
 })
 
-const handler = async (req, res) => {
+export default async function handler(req, res) {
+    await connectDB()
     if (req.method === 'GET') {
         try {
             const validatedRequest = getPostsRunType.check(req)
@@ -58,5 +59,3 @@ const handler = async (req, res) => {
         res.status(400).send(`no endpoint ${req.method} users/userId/posts`)
     }
 }
-
-export default connectDB(handler)

@@ -1,9 +1,9 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Topic } from '../../../models/topic'
 import handleError from '../../../utils/handleError'
-import jwt from 'next-auth/jwt'
+import { getToken } from "next-auth/jwt"
 import { UnauthorizedError } from '../../../errors/unauthorized.error'
-import connectDB from '../../../middleware/mongodb'
+import connectDB from '../../../lib/connectDB'
 import { ForbiddenError } from '../../../errors/forbidden.error'
 
 const secret = process.env.JWT_SECRET
@@ -15,12 +15,12 @@ const reqRunType = Record({
     })
 })
 
-const handler = async (req, res) => {
-
+export default async function handler(req, res) {
+    await connectDB()
     if (req.method === 'POST') {
         try {
 
-            const token = await jwt.getToken({ req, secret })
+            const token = await getToken({ req, secret })
 
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')
@@ -56,4 +56,4 @@ const handler = async (req, res) => {
     }
 }
 
-export default connectDB(handler)
+

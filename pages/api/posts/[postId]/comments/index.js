@@ -2,8 +2,8 @@ import { Record, String, Optional, Union, Literal, ValidationError } from 'runty
 import { Comment } from '../../../../../models/comment'
 import { Post } from '../../../../../models/post'
 import { User } from '../../../../../models/user'
-import jwt from 'next-auth/jwt'
-import connectDB from '../../../../../middleware/mongodb'
+import { getToken } from "next-auth/jwt"
+import connectDB from '../../../../../lib/connectDB'
 import { UnauthorizedError } from '../../../../../errors/unauthorized.error'
 import handleError from '../../../../../utils/handleError'
 
@@ -27,11 +27,11 @@ const getCommentsRunType = Record({
     })
 })
 
-const handler = async (req, res) => {
-
+export default async function handler(req, res) {
+    await connectDB()
     if (req.method === 'POST') {
         try {
-            const token = await jwt.getToken({ req, secret })
+            const token = await getToken({ req, secret })
             if (!token) {
                 throw new UnauthorizedError('Unauthorized')
             }
@@ -82,5 +82,3 @@ const handler = async (req, res) => {
         res.status(400).send(`no endpoint ${req.method} /comments`)
     }
 }
-
-export default connectDB(handler)

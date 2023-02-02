@@ -11,6 +11,7 @@ import { BrowserView, MobileView } from 'react-device-detect'
 
 export default function Home() {
   const { data: session } = useSession()
+  console.log('session', session)
   const [posts, setPosts] = useState([])
   const [showLikedTopicsOnly, setShowLikedTopicsOnly] = useState(false)
   const [pageNumber, setPageNumber] = useState(1)

@@ -17,7 +17,7 @@ export default function Nav() {
                 }
 
                 <li className='navItem'><Link href="/"><a className={router.pathname == "/" ? "active" : ""}>Home</a></Link></li>
-                {isMobile && <li className='navItem'><Link href="/topics"><a className={router.pathname == "/topics" ? "active" : ""}>Topics</a></Link></li>}
+                {isMobile && <li className='navItem'><Link className={router.pathname == "/topics" ? "active" : ""} href="/topics">Topics</Link></li>}
                 <li className='navItem'><Link href="/search"><a className={router.pathname == "/search" ? "active" : ""}>Search</a></Link></li>
             </ul>
         </nav>

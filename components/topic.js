@@ -5,7 +5,7 @@ import BlackHeart from '../components/icons/BlackHeart'
 import WhiteHeart from '../components/icons/WhiteHeart'
 
 const Topic = ({ topic: topicProp }) => {
-    const [session, loading] = useSession()
+    const { data: session } = useSession()
     const [topic, setTopic] = useState(topicProp)
     const [userHasLikedTopic, setUserHasLikedTopic] = useState(false)
 

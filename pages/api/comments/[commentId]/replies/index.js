@@ -1,7 +1,7 @@
 import { Record, String, Optional, Union, Literal, ValidationError } from 'runtypes'
 import { Comment } from '../../../../../models/comment'
 import { User } from '../../../../../models/user'
-import connectDB from '../../../../../middleware/mongodb'
+import connectDB from '../../../../../lib/connectDB'
 import handleError from '../../../../../utils/handleError'
 
 const getRepliesRunType = Record({
@@ -10,8 +10,8 @@ const getRepliesRunType = Record({
     })
 })
 
-const handler = async (req, res) => {
-
+export default async function handler(req, res) {
+    await connectDB()
     if (req.method === 'GET') {
         try {
             const validatedRequest = getRepliesRunType.check(req)
@@ -34,5 +34,3 @@ const handler = async (req, res) => {
         res.status(400).send(`no endpoint ${req.method} /replies`)
     }
 }
-
-export default connectDB(handler)

@@ -1,6 +1,6 @@
 import { Record, String } from 'runtypes'
 import { User } from '../../../../models/user'
-import connectDB from '../../../../middleware/mongodb'
+import connectDB from '../../../../lib/connectDB'
 import handleError from '../../../../utils/handleError'
 import { NotFoundError } from '../../../../errors/notFound.error'
 
@@ -11,7 +11,8 @@ const getUserByIdRunType = Record({
     })
 })
 
-const handler = async (req, res) => {
+export default async function handler(req, res) {
+    await connectDB()
     if (req.method === 'GET') {
         try {
             const validatedRequest = getUserByIdRunType.check(req)
@@ -32,5 +33,3 @@ const handler = async (req, res) => {
         res.status(400).send(`no endpoint ${req.method} /users/userId`)
     }
 }
-
-export default connectDB(handler)

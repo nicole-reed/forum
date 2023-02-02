@@ -106,22 +106,30 @@ const Post = ({ post: postProp }) => {
             <div className={postStyles.card}>
                 <div>
                     <h1>{post.title}</h1>
-                    <a href={`/users/${post.userId}`}>{post.createdBy}</a> {session && session.user.id === post.userId && <button onClick={() => deletePost()}><Trash width={12} height={12} /></button>}
+                    <a href={`/users/${post.userId}`}>{post.createdBy}</a> {session && session.user.id === post.userId && <button onClick={() => deletePost()}><Trash width={15} height={15} /></button>}
                     <h4>{moment(post.createdAt).fromNow()}</h4>
-                    <br></br>
-                    <p className={postStyles.body}>{post.body}</p>
-                    <br></br>
-                    {post.image && <img src={image}></img>}
-                    <br></br>
-                    <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
-                    <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedPost ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>
 
-                    {comments.length}<button onClick={toggleShowComments}><CommentIcon width={14} height={14} strokeWidth={2} /></button>
-                    <br></br>
+                    <p className={postStyles.body}>{post.body}</p>
+
+                    {post.image && <img src={image}></img>}
+
+
+                    <div className='post-stats'>
+                        <div className='likes'>
+                            <span>{post.likedBy ? Object.keys(post.likedBy).length : 0}</span>
+                            <button className='heart-btn' onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedPost ? <BlackHeart width={15} height={15} /> : <WhiteHeart width={15} height={15} />}</button>
+
+                        </div>
+                        <div className='comments'>
+                            <span>{comments.length}</span>
+                            <button onClick={toggleShowComments}><CommentIcon width={16} height={16} strokeWidth={2} /></button>
+
+                        </div>
+                    </div>
+
                     {session && <>
                         <form onSubmit={saveComment} >
                             <input className='comment-input' id='body' name='body' type="text" value={commentBody} onChange={onCommentBodyChange} placeholder='add a comment' required />
-                            <br></br>
                             <button type="submit"> Add Comment </button>
                         </form>
                     </>}
@@ -131,8 +139,6 @@ const Post = ({ post: postProp }) => {
                     }
                 </div>
             </div>
-            {/* {!session && <p className='sign-in-link'><a href='/api/auth/signin'>Sign in</a> to like and comment!</p>} */}
-
         </div>
 
     )

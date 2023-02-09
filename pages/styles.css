@@ -124,7 +124,9 @@ span{
   opacity: .5;
 }
 
-
+.comments {
+  margin-top: .5rem;
+}
 
 .post-title{
   margin-bottom: 5px;

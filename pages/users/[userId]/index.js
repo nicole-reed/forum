@@ -107,7 +107,9 @@ export default function PostsByUserId() {
                 {loadingError ? <NotFound /> : <h2>Posts by {user.name}</h2>}
 
                 {isLoading ? '' : <>
-                    {posts.length > 0 ? <Posts posts={posts} setPosts={setPosts} /> : <p>Choose a <a className='topics-link' href='/topics'>Topic</a> to start posting!</p>}
+                    {posts.length > 0 ? <Posts posts={posts} setPosts={setPosts} /> :
+                        <p>None, yet! Choose a <a className='topics-link' href='/topics'>Topic</a> to start posting.</p>
+                    }
 
                     <div className='pagination'>
                         {pageNumber > 1 && <button className='pag-btn' onClick={onClickBack}>Back</button>}

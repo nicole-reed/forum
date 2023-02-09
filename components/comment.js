@@ -96,11 +96,18 @@ const Comment = ({ comment: commentProp, refreshComments }) => {
                 <h4>{moment(comment.createdAt).fromNow()}</h4>
             </div>
             <p>{comment.body}</p>
-            <br />
-            <span>{comment.likedBy ? Object.keys(comment.likedBy).length : 0}</span>
-            <button onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedComment ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>
+            <div className='post-stats'>
+                <div className='likes'>
+                    <span>{comment.likedBy ? Object.keys(comment.likedBy).length : 0}</span>
+                    <button onClick={session ? onLike : () => addToast('Please Sign In to Like and Comment', { appearance: "info" })}>{userHasLikedComment ? <BlackHeart width={12} height={12} /> : <WhiteHeart width={12} height={12} />}</button>
 
-            <button onClick={toggleShowReplies}>{replies.length} replies <CommentIcon width={14} height={14} /></button>
+                </div>
+                <div className='comments'>
+                    <span>{replies.length}</span>
+                    <button onClick={toggleShowReplies}> <CommentIcon width={14} height={14} /></button>
+
+                </div>
+            </div>
             <div>
                 {session && <>
                     <form onSubmit={saveReply}>
